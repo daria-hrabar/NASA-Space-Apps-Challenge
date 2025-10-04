@@ -14,6 +14,10 @@ body, html {
     margin: 0;
     padding: 0;
     background-color: var(--background-color);
+    background-image: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIwMCIgaGVpZ2h0PSI4MDAiIHZpZXdCb3g9IjAgMCAxMjAwIDgwMCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGRlZnM+CjxyYWRpYWxHcmFkaWVudCBpZD0iZm9yZXN0R3JhZGllbnQiIGN4PSI1MCUiIGN5PSIwJSIgcj0iMTAwJSI+CjxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9IiMwMDMwMDAiLz4KPHN0b3Agb2Zmc2V0PSI0MCUiIHN0b3AtY29sb3I9IiMwMDQwMDAiLz4KPHN0b3Agb2Zmc2V0PSI3MCUiIHN0b3AtY29sb3I9IiMwMDYwMDAiLz4KPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjMDA4MDAwIi8+CjwvcmFkaWFsR3JhZGllbnQ+CjwvZGVmcz4KPHJlY3Qgd2lkdGg9IjEyMDAiIGhlaWdodD0iODAwIiBmaWxsPSJ1cmwoI2ZvcmVzdEdyYWRpZW50KSIvPgo8IS0tIFRyZWUgdHJ1bmtzIC0tPgo8cmVjdCB4PSIxMDAiIHk9IjQwMCIgd2lkdGg9IjIwIiBoZWlnaHQ9IjQwMCIgZmlsbD0iIzQwMjAwMCIvPgo8cmVjdCB4PSIzMDAiIHk9IjUwMCIgd2lkdGg9IjMwIiBoZWlnaHQ9IjMwMCIgZmlsbD0iIzYwMzAwMCIvPgo8cmVjdCB4PSI1MDAiIHk9IjM1MCIgd2lkdGg9IjI1IiBoZWlnaHQ9IjQ1MCIgZmlsbD0iIzUwMjUwMCIvPgo8cmVjdCB4PSI3MDAiIHk9IjQ1MCIgd2lkdGg9IjIwIiBoZWlnaHQ9IjM1MCIgZmlsbD0iIzQ1MjAwMCIvPgo8cmVjdCB4PSI5MDAiIHk9IjQwMCIgd2lkdGg9IjMwIiBoZWlnaHQ9IjQwMCIgZmlsbD0iIzU1MzAwMCIvPgo8cmVjdCB4PSIxMTAwIiB5PSIzNTAiIHdpZHRoPSIyNSIgaGVpZ2h0PSI0NTAiIGZpbGw9IiM0MDIwMDAiLz4KPCEtLSBUcmVlIGZvbGlhZ2UgLS0+CjxyZWN0IHg9IjkwIiB5PSIzODAiIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCIgZmlsbD0iIzAwODAwMCIvPgo8cmVjdCB4PSIyODAiIHk9IjQ4MCIgd2lkdGg9IjYwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjMDA5MDAwIi8+CjxyZWN0IHg9IjQ4MCIgeT0iMzMwIiB3aWR0aD0iNTAiIGhlaWdodD0iNTAiIGZpbGw9IiMwMDcwMDAiLz4KPHJlY3QgeD0iNjgwIiB5PSI0MzAiIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgZmlsbD0iIzAwODUwMCIvPgo8cmVjdCB4PSI4ODAiIHk9IjM4MCIgd2lkdGg9IjYwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjMDA5NTAwIi8+CjxyZWN0IHg9IjEwODAiIHk9IjMzMCIgd2lkdGg9IjUwIiBoZWlnaHQ9IjUwIiBmaWxsPSIjMDA3NTAwIi8+CjwhLS0gR3Jhc3MgYW5kIGdyb3VuZCBkZXRhaWxzIC0tPgo8cmVjdCB4PSIwIiB5PSI3MDAiIHdpZHRoPSIxMjAwIiBoZWlnaHQ9IjEwMCIgZmlsbD0iIzAwNDAwMCIvPgo8cmVjdCB4PSIwIiB5PSI3MDAiIHdpZHRoPSIxMjAwIiBoZWlnaHQ9IjUwIiBmaWxsPSIjMDA2MDAwIi8+CjxyZWN0IHg9IjAiIHk9Ijc1MCIgd2lkdGg9IjEyMDAiIGhlaWdodD0iNTAiIGZpbGw9IiMwMDgwMDAiLz4KPC9zdmc+');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
     color: var(--primary-color);
     font-family: var(--main-font); /* Using Roboto Mono */
     overflow-x: hidden;
@@ -118,6 +122,8 @@ nav a:hover {
     position: relative;
     /* FIX: Increased padding-top to push content below the fixed header */
     padding-top: 100px;
+    /* Add semi-transparent overlay for better text readability */
+    background: rgba(0, 0, 0, 0.3);
 }
 
 .title-container {
