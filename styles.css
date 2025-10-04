@@ -126,6 +126,13 @@ nav a:hover {
     background: rgba(0, 0, 0, 0.3);
 }
 
+/* Darker overlay for other sections (Case File and Verdict) */
+.container {
+    background: rgba(0, 0, 0, 0.6);
+    min-height: 100vh;
+    padding: 20px;
+}
+
 .title-container {
     position: relative;
     z-index: 3; /* Ensure text is above the blur overlay */
