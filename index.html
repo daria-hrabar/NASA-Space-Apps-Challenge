@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terra Trackers: The Verdict</title>
+    <!-- Load the pixelated accent font -->
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <!-- Load new modern/technical fonts for better matching (Orbitron for titles, Roboto Mono for body) -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&family=Roboto+Mono:wght@300;400;700&display=swap" rel="stylesheet">
+    
+    <!-- Link to external CSS file -->
+    <link rel="stylesheet" href="styles.css"> 
+</head>
+<body>
+
+    <!-- Header & Navigation -->
+    <header>
+        <div class="header-content">
+            <div class="header-line"></div>
+            <div class="nasa-logo">NASA</div>
+            <nav>
+                <a href="#" onclick="showSection('hero');">Home</a>
+                <a href="#" onclick="showSection('dashboard');">Case File</a>
+                <a href="#" onclick="showSection('verdict');">Verdict</a>
+            </nav>
+            <div class="header-line" style="margin-top: 10px;"></div>
+        </div>
+    </header>
+
+    <!-- 1. Hero Section (Landing Page) - Initially Visible -->
+    <main id="hero" class="hero">
+        <div class="title-container">
+            <h1 class="main-title">TERRA TRACKERS</h1>
+            <p class="subtitle">A DETECTIVE'S DASHBOARD - SOLVE THE PLANET'S MYSTERIES.</p>
+        </div>
+
+        <div class="planet-container">
+            <div class="planet-image"></div>
+            <div class="fade-overlay"></div>
+        </div>
+
+        <button class="explore-button" onclick="startInvestigation()">START INVESTIGATION</button>
+    </main>
+
+    <!-- 2. Case Dashboard (Interactive Content) - Initially Hidden -->
+    <div id="case-dashboard" class="container hidden">
+        <h2 class="dashboard-header">CASE FILE: THE MISSING VEGETATION | LOCATION: AMAZON BASIN</h2>
+
+        <!-- Clue Sidebar (Navigation) -->
+        <div class="data-panel clue-sidebar">
+            <div class="panel-header">CLUE TRACKERS (TERRA INSTRUMENTS)</div>
+            
+            <button class="clue-button active" id="clue-modis" onclick="loadClue('modis', this)">
+                <span class="clue-main-text">M.O. (MODIS): The Reporter</span>
+                <div class="clue-description">Long-term NDVI Decline</div>
+            </button>
+            
+            <button class="clue-button" id="clue-aster" onclick="loadClue('aster', this)">
+                <span class="clue-main-text">A.S.T. (ASTER): The Specialist</span>
+                <div class="clue-description">High-Res Before/After Scar</div>
+            </button>
+            
+            <button class="clue-button" id="clue-misr" onclick="loadClue('misr', this)">
+                <span class="clue-main-text">M.I.S.R. (MISR): The 3D Artist</span>
+                <div class="clue-description">Aerosol/Smoke Plume Tracking</div>
+            </button>
+            
+            <button class="clue-button" id="clue-mopitt" onclick="loadClue('mopitt', this)">
+                <span class="clue-main-text">M.O.P. (MOPITT): The Toxicologist</span>
+                <div class="clue-description">Carbon Monoxide Signature</div>
+            </button>
+        </div>
+
+        <!-- Main Data View (Map/Visual) -->
+        <div id="main-data-view" class="data-panel main-data-view">
+            <div class="panel-header" id="data-view-header">CLUE 1: M.O. (MODIS) - LONG-TERM NDVI DECLINE</div>
+            
+            <div class="data-placeholder">
+                <p id="data-content-placeholder">
+                    [INTERACTIVE MAP/GLOBE SIMULATION] <br> MODIS NDVI Time Series (2018-2023)
+                </p>
+            </div>
+            
+            <!-- Map Controls / Time Slider -->
+            <div class="data-control time-slider-control"> 
+                <label for="time-slider">TIME SLIDER (YEARS):</label>
+                <input type="range" id="time-slider" name="time-slider" min="0" max="100" value="50">
+                <label id="slider-value">2021</label>
+            </div>
+
+            <!-- Space under the buttons is maintained by margin-bottom: 30px -->
+            <div class="data-control control-buttons-group" style="margin-top: 25px; padding: 0 15px; justify-content: flex-start; margin-bottom: 30px;">
+                <!-- We use inline styles here for the background and shadow override -->
+                <button class="explore-button" onclick="alertMessage('Playing Time-lapse...');">PLAY ANIMATION</button>
+                <button class="explore-button" style="background: #330000; border-color: #ff5500; box-shadow: 0 0 10px rgba(255, 85, 0, 0.4); color: #ff5500;" onclick="alertMessage('Resetting Map...');">RESET VIEW</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 3. Verdict Page - Initially Hidden -->
+    <div id="verdict-page" class="container hidden">
+        <h2 class="dashboard-header" style="margin-top: 50px;">CASE CLOSED: THE VERDICT</h2>
+        <div class="data-panel" style="padding: 40px; text-align: center;">
+            <div class="panel-header" style="font-size: 1.2rem; color: #ff5500; text-shadow: 0 0 10px rgba(255, 85, 0, 0.8);">ENVIRONMENTAL IMPACT REPORT</div>
+            <p style="font-size: 1.1rem; line-height: 1.8; margin-top: 25px; max-width: 800px; margin-left: auto; margin-right: auto; opacity: 0.9;">
+                The evidence gathered by Terra instruments (MODIS, ASTER, MISR, MOPITT) confirms a significant loss of critical forest canopy due to human activity and fire. <br><br>
+                **Human Consequence:** The aerosol plume tracked by MISR indicates immediate air quality degradation impacting over 500,000 residents in surrounding communities. <br>
+                **Ecological Consequence:** The long-term NDVI decline (MODIS) suggests permanent soil and biodiversity damage, threatening the region's ability to act as a carbon sink.
+            </p>
+            <button class="explore-button" style="position: static; margin-top: 40px; padding: 15px 40px;" onclick="showSection('hero')">NEW CASE FILE</button>
+        </div>
+    </div>
+
+
+    <!-- Link to external JavaScript file -->
+    <script src="script.js"></script>
+</body>
+</html>
