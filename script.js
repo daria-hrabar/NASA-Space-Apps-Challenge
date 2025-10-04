@@ -35,6 +35,9 @@ let dataContentPlaceholder;
 let sliderValueDisplay;
 let clueButtons;
 
+// Audio variables
+let forestAmbientSound;
+
 
 // Initial setup to ensure only the hero is shown and to assign all DOM variables safely
 document.addEventListener('DOMContentLoaded', () => {
@@ -61,12 +64,35 @@ document.addEventListener('DOMContentLoaded', () => {
     if (timeSlider) {
         timeSlider.addEventListener('input', updateSliderValue);
     }
+    
+    // Initialize forest ambient sound
+    initializeForestSound();
 });
+
+// ---------------- Audio Functions ----------------
+function initializeForestSound() {
+    // Create audio element for forest ambient sound
+    forestAmbientSound = new Audio('data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBz2BzvLZiTYIG2m98OScTgwOUarm7blmGgU7k9n1unEiBS13yO/eizEIHWq+8+OWT');
+    forestAmbientSound.loop = true;
+    forestAmbientSound.volume = 0.3; // Set to 30% volume for ambient effect
+    
+    // Start playing the forest sound when the page loads
+    forestAmbientSound.play().catch(error => {
+        console.log('Audio autoplay prevented by browser:', error);
+        // Audio will start when user interacts with the page
+    });
+}
 
 // ---------------- Section Switching ----------------
 function startInvestigation() {
     // Use smooth scrolling to the top of the body/page content
     window.scrollTo({ top: 0, behavior: 'smooth' }); 
+    
+    // Stop the forest ambient sound
+    if (forestAmbientSound) {
+        forestAmbientSound.pause();
+        forestAmbientSound.currentTime = 0;
+    }
     
     // Change background to investigation mode (forest fire)
     document.body.style.backgroundImage = "url('fire-background.png')";
@@ -92,6 +118,12 @@ function showSection(sectionId) {
         heroSection.classList.remove('hidden');
         // Reset background to forest when returning to home
         document.body.style.backgroundImage = "url('forest-background.png')";
+        // Restart forest ambient sound when returning to home
+        if (forestAmbientSound) {
+            forestAmbientSound.play().catch(error => {
+                console.log('Audio autoplay prevented:', error);
+            });
+        }
     } else if (sectionId === 'dashboard') {
         dashboardSection.classList.remove('hidden');
         // Ensure the MODIS clue is loaded and active when entering the dashboard
