@@ -72,7 +72,7 @@ document.addEventListener('DOMContentLoaded', () => {
 // ---------------- Audio Functions ----------------
 function initializeForestSound() {
     // Create audio element for forest ambient sound
-    forestAmbientSound = new Audio('data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBz2BzvLZiTYIG2m98OScTgwOUarm7blmGgU7k9n1unEiBS13yO/eizEIHWq+8+OWT');
+    forestAmbientSound = new Audio('forest-ambient.mp3');
     forestAmbientSound.loop = true;
     forestAmbientSound.volume = 0.3; // Set to 30% volume for ambient effect
     
