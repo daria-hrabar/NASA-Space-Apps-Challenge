@@ -71,6 +71,47 @@ header {
     border-bottom: 1px solid rgba(57, 255, 20, 0.1);
 }
 
+/* Volume Control */
+.volume-control {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-left: 20px;
+}
+
+.volume-control label {
+    color: var(--secondary-color);
+    font-size: 0.8rem;
+    font-family: var(--pixel-font);
+}
+
+.volume-control input[type="range"] {
+    width: 80px;
+    height: 4px;
+    background: rgba(57, 255, 20, 0.3);
+    outline: none;
+    border-radius: 2px;
+    -webkit-appearance: none;
+}
+
+.volume-control input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 12px;
+    height: 12px;
+    background: var(--secondary-color);
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.volume-control input[type="range"]::-moz-range-thumb {
+    width: 12px;
+    height: 12px;
+    background: var(--secondary-color);
+    border-radius: 50%;
+    cursor: pointer;
+    border: none;
+}
+
 .header-content {
     max-width: 1200px;
     margin: 0 auto;

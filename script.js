@@ -83,6 +83,12 @@ function initializeForestSound() {
     });
 }
 
+function setVolume(volume) {
+    if (forestAmbientSound) {
+        forestAmbientSound.volume = parseFloat(volume);
+    }
+}
+
 // ---------------- Section Switching ----------------
 function startInvestigation() {
     // Use smooth scrolling to the top of the body/page content
