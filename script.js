@@ -163,6 +163,11 @@ function startAudioOnInteraction() {
 function setVolume(volume) {
     currentVolume = parseFloat(volume);
     
+    // If user moves slider, unmute automatically
+    if (currentVolume > 0) {
+        isMuted = false;
+    }
+    
     if (forestAmbientSound && !isMuted) {
         forestAmbientSound.volume = currentVolume;
     }
@@ -175,6 +180,7 @@ function setVolume(volume) {
 }
 
 function toggleMute() {
+    console.log('Toggle mute clicked, current state:', isMuted);
     isMuted = !isMuted;
     
     if (isMuted) {
@@ -195,12 +201,23 @@ function toggleMute() {
         }
     }
     
+    // Update the volume slider to reflect mute state
+    const volumeSlider = document.getElementById('volume-slider');
+    if (volumeSlider) {
+        if (isMuted) {
+            volumeSlider.value = 0;
+        } else {
+            volumeSlider.value = currentVolume;
+        }
+    }
+    
     updateVolumeIcon();
 }
 
 function updateVolumeIcon() {
     const volumeIcon = document.getElementById('volume-icon');
     if (volumeIcon) {
+        console.log('Updating volume icon - isMuted:', isMuted, 'currentVolume:', currentVolume);
         if (isMuted || currentVolume === 0) {
             volumeIcon.textContent = '🔇';
             volumeIcon.title = 'Unmute';
@@ -214,6 +231,8 @@ function updateVolumeIcon() {
             volumeIcon.textContent = '🔊';
             volumeIcon.title = 'High Volume';
         }
+    } else {
+        console.log('Volume icon element not found!');
     }
 }
 
