@@ -1825,8 +1825,8 @@ nav a:hover {
     
     .astronaut-modal-content {
         padding: 15px;
-        max-width: 95%;
-        width: 95%;
+        max-width: 100%;
+        width: 100%;
         max-height: 85%;
         display: flex;
         flex-direction: column;
@@ -1837,6 +1837,8 @@ nav a:hover {
         border-radius: 15px;
         border: 2px solid var(--secondary-color);
         overflow-y: auto;
+        box-sizing: border-box;
+        overflow-x: hidden;
     }
     
     .astronaut-avatar {
@@ -2519,6 +2521,8 @@ nav a:hover {
     animation: slideUp 0.4s ease-out;
     margin-bottom: 0;
     transition: all 0.3s ease;
+    box-sizing: border-box;
+    overflow-x: hidden;
 }
 
 /* Collapsed state */
