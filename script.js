@@ -1123,36 +1123,54 @@ function showAstronautModal(scenario) {
     if (viewDataBtn) viewDataBtn.classList.add('hidden');
     if (backToDialogueBtn) backToDialogueBtn.classList.add('hidden');
     
-    // Smart positioning for data examination scenarios
-    const dataExaminationStates = ['modis_analysis', 'aster_analysis', 'misr_analysis'];
-    if (dataExaminationStates.includes(currentGameState)) {
-        // Position popup to not block data
-        astronautModal.style.position = 'fixed';
-        astronautModal.style.top = '20px';
-        astronautModal.style.right = '20px';
-        astronautModal.style.bottom = 'auto';
-        astronautModal.style.left = 'auto';
-        astronautModal.style.width = isMobile ? '90%' : '400px';
-        astronautModal.style.maxWidth = isMobile ? '90%' : '400px';
-        astronautModal.style.background = 'rgba(0, 0, 0, 0.1)';
-        astronautModal.style.backdropFilter = 'none';
+        // Mobile-specific positioning
+        if (isMobile) {
+            // On mobile, always use full-screen modal
+            astronautModal.style.position = 'fixed';
+            astronautModal.style.top = '0';
+            astronautModal.style.left = '0';
+            astronautModal.style.right = '0';
+            astronautModal.style.bottom = '0';
+            astronautModal.style.width = '100%';
+            astronautModal.style.height = '100%';
+            astronautModal.style.maxWidth = 'none';
+            astronautModal.style.background = 'rgba(0, 0, 0, 0.95)';
+            astronautModal.style.backdropFilter = 'blur(10px)';
+        } else {
+            // Desktop positioning for data examination scenarios
+            const dataExaminationStates = ['modis_analysis', 'aster_analysis', 'misr_analysis'];
+            if (dataExaminationStates.includes(currentGameState)) {
+                // Position popup to not block data
+                astronautModal.style.position = 'fixed';
+                astronautModal.style.top = '20px';
+                astronautModal.style.right = '20px';
+                astronautModal.style.bottom = 'auto';
+                astronautModal.style.left = 'auto';
+                astronautModal.style.width = '400px';
+                astronautModal.style.maxWidth = '400px';
+                astronautModal.style.background = 'rgba(0, 0, 0, 0.1)';
+                astronautModal.style.backdropFilter = 'none';
+            } else {
+                // Reset to default positioning
+                astronautModal.style.position = '';
+                astronautModal.style.top = '';
+                astronautModal.style.right = '';
+                astronautModal.style.bottom = '';
+                astronautModal.style.left = '';
+                astronautModal.style.width = '';
+                astronautModal.style.maxWidth = '';
+                astronautModal.style.background = '';
+                astronautModal.style.backdropFilter = '';
+            }
+        }
         
         // Auto-switch to relevant clue if needed (but no auto-scroll)
-        setTimeout(() => {
-            autoSwitchToRelevantClue(currentGameState);
-        }, 300);
-    } else {
-        // Reset to default positioning
-        astronautModal.style.position = '';
-        astronautModal.style.top = '';
-        astronautModal.style.right = '';
-        astronautModal.style.bottom = '';
-        astronautModal.style.left = '';
-        astronautModal.style.width = '';
-        astronautModal.style.maxWidth = '';
-        astronautModal.style.background = '';
-        astronautModal.style.backdropFilter = '';
-    }
+        const dataExaminationStates = ['modis_analysis', 'aster_analysis', 'misr_analysis'];
+        if (dataExaminationStates.includes(currentGameState)) {
+            setTimeout(() => {
+                autoSwitchToRelevantClue(currentGameState);
+            }, 300);
+        }
     
     if (choicesElement) {
         choicesElement.innerHTML = '';
@@ -1205,11 +1223,41 @@ function toggleAstronautModal() {
         astronautModal.classList.remove('collapsed');
         if (collapseBtn) collapseBtn.textContent = '−';
         if (floatingBtn) floatingBtn.classList.add('hidden');
+        
+        // Reset mobile positioning
+        if (isMobile) {
+            astronautModal.style.position = 'fixed';
+            astronautModal.style.top = '0';
+            astronautModal.style.left = '0';
+            astronautModal.style.right = '0';
+            astronautModal.style.bottom = '0';
+            astronautModal.style.width = '100%';
+            astronautModal.style.height = '100%';
+            astronautModal.style.borderRadius = '0';
+            astronautModal.style.background = 'rgba(0, 0, 0, 0.95)';
+            astronautModal.style.display = 'flex';
+        }
     } else {
         // Collapse
         astronautModal.classList.add('collapsed');
         if (collapseBtn) collapseBtn.textContent = '+';
         if (floatingBtn) floatingBtn.classList.remove('hidden');
+        
+        // On mobile, make it a small floating button
+        if (isMobile) {
+            astronautModal.style.position = 'fixed';
+            astronautModal.style.top = 'auto';
+            astronautModal.style.left = 'auto';
+            astronautModal.style.right = '20px';
+            astronautModal.style.bottom = '20px';
+            astronautModal.style.width = '60px';
+            astronautModal.style.height = '60px';
+            astronautModal.style.borderRadius = '50%';
+            astronautModal.style.background = 'var(--secondary-color)';
+            astronautModal.style.display = 'flex';
+            astronautModal.style.alignItems = 'center';
+            astronautModal.style.justifyContent = 'center';
+        }
     }
 }
 
