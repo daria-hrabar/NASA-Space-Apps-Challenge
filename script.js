@@ -108,6 +108,7 @@ let clueButtons;
 
 // Audio variables
 let forestAmbientSound;
+let investigationSound;
 
 
 // Initial setup to ensure only the hero is shown and to assign all DOM variables safely
@@ -146,14 +147,41 @@ function initializeForestSound() {
     // Start playing the forest sound when the page loads
     forestAmbientSound.play().catch(error => {
         console.log('Audio autoplay prevented by browser:', error);
-        // Audio will start when user interacts with the page
+        // Add click event to start audio on first user interaction
+        document.addEventListener('click', startAudioOnInteraction, { once: true });
+        document.addEventListener('keydown', startAudioOnInteraction, { once: true });
     });
+}
+
+function startAudioOnInteraction() {
+    if (forestAmbientSound) {
+        forestAmbientSound.play().catch(error => {
+            console.log('Audio still prevented:', error);
+        });
+    }
 }
 
 function setVolume(volume) {
     if (forestAmbientSound) {
         forestAmbientSound.volume = parseFloat(volume);
     }
+    if (investigationSound) {
+        investigationSound.volume = parseFloat(volume);
+    }
+}
+
+function startInvestigationSound() {
+    // Create investigation sound if it doesn't exist
+    if (!investigationSound) {
+        investigationSound = new Audio('investigation-ambient.mp3');
+        investigationSound.loop = true;
+        investigationSound.volume = 0.3; // Set to 30% volume for ambient effect
+    }
+    
+    // Start playing the investigation sound
+    investigationSound.play().catch(error => {
+        console.log('Investigation audio autoplay prevented:', error);
+    });
 }
 
 // ---------------- Section Switching ----------------
@@ -166,6 +194,9 @@ function startInvestigation() {
         forestAmbientSound.pause();
         forestAmbientSound.currentTime = 0;
     }
+    
+    // Start investigation sound
+    startInvestigationSound();
     
     // Change background to investigation mode (forest fire)
     document.body.style.backgroundImage = "url('fire-background.png')";
@@ -191,6 +222,11 @@ function showSection(sectionId) {
         heroSection.classList.remove('hidden');
         // Reset background to forest when returning to home
         document.body.style.backgroundImage = "url('forest-background.png')";
+        // Stop investigation sound
+        if (investigationSound) {
+            investigationSound.pause();
+            investigationSound.currentTime = 0;
+        }
         // Restart forest ambient sound when returning to home
         if (forestAmbientSound) {
             forestAmbientSound.play().catch(error => {
