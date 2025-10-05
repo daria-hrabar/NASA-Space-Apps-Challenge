@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,11 +8,14 @@
     <!-- Load the pixelated accent font -->
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     <!-- Load new modern/technical fonts for better matching (Orbitron for titles, Roboto Mono for body) -->
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&family=Roboto+Mono:wght@300;400;700&display=swap" rel="stylesheet">
-    
+    <link
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&family=Roboto+Mono:wght@300;400;700&display=swap"
+        rel="stylesheet">
+
     <!-- Link to external CSS file -->
-    <link rel="stylesheet" href="styles.css"> 
+    <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
 
     <!-- Header & Navigation -->
@@ -27,7 +31,8 @@
             <!-- Volume Control -->
             <div class="volume-control">
                 <label for="volume-slider">🔊</label>
-                <input type="range" id="volume-slider" min="0" max="1" step="0.1" value="0.3" onchange="setVolume(this.value)">
+                <input type="range" id="volume-slider" min="0" max="1" step="0.1" value="0.3"
+                    onchange="setVolume(this.value)">
             </div>
             <div class="header-line header-line-bottom"></div>
         </div>
@@ -55,22 +60,22 @@
         <!-- Clue Sidebar (Navigation) -->
         <div class="data-panel clue-sidebar">
             <div class="panel-header">CLUE TRACKERS (TERRA INSTRUMENTS)</div>
-            
+
             <button class="clue-button active" id="clue-modis" onclick="loadClue('modis', this)">
                 <span class="clue-main-text">M.O. (MODIS): The Reporter</span>
                 <div class="clue-description">Long-term NDVI Decline</div>
             </button>
-            
+
             <button class="clue-button" id="clue-aster" onclick="loadClue('aster', this)">
                 <span class="clue-main-text">A.S.T. (ASTER): The Specialist</span>
                 <div class="clue-description">High-Res Before/After Scar</div>
             </button>
-            
+
             <button class="clue-button" id="clue-misr" onclick="loadClue('misr', this)">
                 <span class="clue-main-text">M.I.S.R. (MISR): The 3D Artist</span>
                 <div class="clue-description">Aerosol/Smoke Plume Tracking</div>
             </button>
-            
+
             <button class="clue-button" id="clue-mopitt" onclick="loadClue('mopitt', this)">
                 <span class="clue-main-text">M.O.P. (MOPITT): The Toxicologist</span>
                 <div class="clue-description">Carbon Monoxide Signature</div>
@@ -80,38 +85,91 @@
         <!-- Main Data View (Map/Visual) -->
         <div id="main-data-view" class="data-panel main-data-view">
             <div class="panel-header" id="data-view-header">CLUE 1: M.O. (MODIS) - LONG-TERM NDVI DECLINE</div>
-            
-            <div class="data-placeholder">
-                <p id="data-content-placeholder">
-                    [INTERACTIVE MAP/GLOBE SIMULATION] <br> MODIS NDVI Time Series (2018-2023)
-                </p>
+
+            <!-- Data Content Placeholder for other clues -->
+            <div id="data-content-placeholder" class="data-placeholder">
+                <p>Select a clue to view data</p>
             </div>
             
-            <!-- Map Controls / Time Slider -->
-            <div class="data-control time-slider-control"> 
-                <label for="time-slider">TIME SLIDER (YEARS):</label>
-                <input type="range" id="time-slider" name="time-slider" min="0" max="100" value="50">
-                <label id="slider-value">2021</label>
+            <!-- MODIS Visualization Content -->
+            <div id="modis-visualization" class="hidden">
+                <div class="loading-spinner">Loading MODIS NDVI data...</div>
+
+                <!-- MODIS Satellite Imagery Section -->
+                <div id="modis-imagery" class="modis-imagery-container hidden">
+                    <h3 class="imagery-title">MODIS Satellite Imagery - Amazon Basin</h3>
+                    <div id="satellite-image" class="satellite-image">
+                        <div class="image-placeholder">Loading satellite imagery...</div>
+                    </div>
+                    <div class="imagery-legend">
+                        <div class="legend-item">
+                            <div class="legend-color healthy"></div>
+                            <span>Healthy Forest</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color degraded"></div>
+                            <span>Degraded Forest</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color deforested"></div>
+                            <span>Deforested Area</span>
+                        </div>
+                    </div>
+
+                    <!-- MODIS Time Slider -->
+                    <div class="modis-time-slider">
+                        <label for="modis-time-slider">TIME SLIDER (YEARS):</label>
+                        <input type="range" id="modis-time-slider" name="modis-time-slider" min="0" max="100"
+                            value="0">
+                        <label id="modis-slider-value">2018</label>
+                    </div>
+
+                <!-- Space under the buttons is maintained by margin-bottom: 30px -->
+                <div class="data-control control-buttons-group">
+                    <button class="explore-button" onclick="playNDVIAnimation();">PLAY ANIMATION</button>
+                    <button class="explore-button reset-button" onclick="resetMODISView();">RESET</button>
+                </div>
+
+                </div>
+
+                <!-- NDVI Chart Section -->
+                <div id="ndvi-chart" class="hidden"></div>
+
+                <!-- NDVI Explanation Section -->
+                <div id="ndvi-explanation" class="ndvi-explanation hidden">
+                    <h3 class="explanation-title">About NDVI (Normalized Difference Vegetation Index)</h3>
+                    <div class="explanation-content">
+                        <p><strong>What is NDVI?</strong> NDVI measures the health and density of vegetation by
+                            analyzing the difference between near-infrared and red light reflected by plants.</p>
+                        <p><strong>How to read the values:</strong></p>
+                        <ul>
+                            <li><span class="ndvi-value high">0.5 - 1.0:</span> Dense, healthy vegetation (forests,
+                                crops)</li>
+                            <li><span class="ndvi-value medium">0.2 - 0.5:</span> Sparse vegetation (grasslands,
+                                degraded areas)</li>
+                            <li><span class="ndvi-value low">0.0 - 0.2:</span> Bare soil, water, or urban areas</li>
+                        </ul>
+                        <p><strong>Why it matters:</strong> NDVI helps scientists track deforestation, monitor crop
+                            health, and assess environmental changes over time.</p>
+                    </div>
+                </div>
             </div>
 
-            <!-- Space under the buttons is maintained by margin-bottom: 30px -->
-            <div class="data-control control-buttons-group">
-                <button class="explore-button" onclick="playNDVIAnimation();">PLAY ANIMATION</button>
-                <button class="explore-button reset-button" onclick="alertMessage('Resetting Map...');">RESET VIEW</button>
-                <button class="explore-button debug-button" onclick="debugMODIS();">DEBUG MODIS</button>
-            </div>
         </div>
     </div>
-    
+
     <!-- 3. Verdict Page - Initially Hidden -->
     <div id="verdict-page" class="container hidden">
         <h2 class="dashboard-header verdict-header">CASE CLOSED: THE VERDICT</h2>
         <div class="data-panel verdict-panel">
             <div class="panel-header verdict-panel-header">ENVIRONMENTAL IMPACT REPORT</div>
             <p class="verdict-content">
-                The evidence gathered by Terra instruments (MODIS, ASTER, MISR, MOPITT) confirms a significant loss of critical forest canopy due to human activity and fire. <br><br>
-                **Human Consequence:** The aerosol plume tracked by MISR indicates immediate air quality degradation impacting over 500,000 residents in surrounding communities. <br>
-                **Ecological Consequence:** The long-term NDVI decline (MODIS) suggests permanent soil and biodiversity damage, threatening the region's ability to act as a carbon sink.
+                The evidence gathered by Terra instruments (MODIS, ASTER, MISR, MOPITT) confirms a significant loss of
+                critical forest canopy due to human activity and fire. <br><br>
+                **Human Consequence:** The aerosol plume tracked by MISR indicates immediate air quality degradation
+                impacting over 500,000 residents in surrounding communities. <br>
+                **Ecological Consequence:** The long-term NDVI decline (MODIS) suggests permanent soil and biodiversity
+                damage, threatening the region's ability to act as a carbon sink.
             </p>
             <button class="explore-button verdict-button" onclick="showSection('hero')">NEW CASE FILE</button>
         </div>
@@ -121,4 +179,5 @@
     <!-- Link to external JavaScript file -->
     <script src="script.js"></script>
 </body>
+
 </html>

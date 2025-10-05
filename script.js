@@ -73,63 +73,7 @@ const MODIS_IMAGERY_DATA = {
 const clueData = {
     'modis': {
         header: "CLUE 1: M.O. (MODIS) - LONG-TERM NDVI DECLINE",
-        content: `<div id="modis-visualization">
-                    <div class="loading-spinner">Loading MODIS NDVI data...</div>
-                    
-                    <!-- MODIS Satellite Imagery Section -->
-                    <div id="modis-imagery" class="modis-imagery-container hidden">
-                        <h3 class="imagery-title">MODIS Satellite Imagery - Amazon Basin</h3>
-                        <div class="imagery-display">
-                            <div id="satellite-image" class="satellite-image">
-                                <div class="image-placeholder">Loading satellite imagery...</div>
-                            </div>
-                            <div class="imagery-controls">
-                                <div class="year-display">
-                                    <span id="current-year">2021</span>
-                                </div>
-                                <div class="imagery-legend">
-                                    <div class="legend-item">
-                                        <div class="legend-color healthy"></div>
-                                        <span>Healthy Forest</span>
-                                    </div>
-                                    <div class="legend-item">
-                                        <div class="legend-color degraded"></div>
-                                        <span>Degraded Forest</span>
-                                    </div>
-                                    <div class="legend-item">
-                                        <div class="legend-color deforested"></div>
-                                        <span>Deforested Area</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- MODIS Time Slider -->
-                        <div class="modis-time-slider">
-                            <label for="modis-time-slider">TIME SLIDER (YEARS):</label>
-                            <input type="range" id="modis-time-slider" name="modis-time-slider" min="0" max="100" value="50">
-                            <label id="modis-slider-value">2021</label>
-                        </div>
-                    </div>
-                    
-                    <!-- NDVI Chart Section -->
-                    <div id="ndvi-chart" class="hidden"></div>
-                    
-                    <!-- NDVI Explanation Section -->
-                    <div id="ndvi-explanation" class="ndvi-explanation hidden">
-                        <h3 class="explanation-title">About NDVI (Normalized Difference Vegetation Index)</h3>
-                        <div class="explanation-content">
-                            <p><strong>What is NDVI?</strong> NDVI measures the health and density of vegetation by analyzing the difference between near-infrared and red light reflected by plants.</p>
-                            <p><strong>How to read the values:</strong></p>
-                            <ul>
-                                <li><span class="ndvi-value high">0.5 - 1.0:</span> Dense, healthy vegetation (forests, crops)</li>
-                                <li><span class="ndvi-value medium">0.2 - 0.5:</span> Sparse vegetation (grasslands, degraded areas)</li>
-                                <li><span class="ndvi-value low">0.0 - 0.2:</span> Bare soil, water, or urban areas</li>
-                            </ul>
-                            <p><strong>Why it matters:</strong> NDVI helps scientists track deforestation, monitor crop health, and assess environmental changes over time.</p>
-                        </div>
-                    </div>
-                  </div>`,
+        content: "", // Content is now in HTML
         year: '2021',
         showControls: true
     },
@@ -159,7 +103,7 @@ let dashboardSection;
 let verdictSection;
 let mainDataViewHeader;
 let dataContentPlaceholder;
-let sliderValueDisplay;
+// sliderValueDisplay removed - using modis-slider-value instead
 let clueButtons;
 
 // Audio variables
@@ -175,7 +119,7 @@ document.addEventListener('DOMContentLoaded', () => {
     mainDataViewHeader = document.getElementById('data-view-header');
     dataContentPlaceholder = document.getElementById('data-content-placeholder');
     clueButtons = document.querySelectorAll('.clue-button');
-    sliderValueDisplay = document.getElementById('slider-value');
+    // sliderValueDisplay removed - using modis-slider-value instead
     
     // Initial section visibility setup
     if (heroSection && dashboardSection && verdictSection) {
@@ -186,11 +130,7 @@ document.addEventListener('DOMContentLoaded', () => {
         console.error("Critical: Initial sections (hero, dashboard, verdict) not found.");
     }
     
-    // Attach event listener to the slider (guaranteed to exist now)
-    const timeSlider = document.getElementById('time-slider');
-    if (timeSlider) {
-        timeSlider.addEventListener('input', updateSliderValue);
-    }
+    // Note: Time slider is now handled by MODIS-specific slider
     
     // Initialize forest ambient sound
     initializeForestSound();
@@ -359,7 +299,7 @@ function createNDVIChart(ndviData) {
             <div class="chart-wrapper">
                 ${chartData.map((data, index) => {
                     const height = Math.max(20, (data.avgNDVI + 1) * 50); // Scale NDVI to height
-                    const colorClass = data.avgNDVI > 0.5 ? 'healthy' : data.avgNDVI > 0.3 ? 'moderate' : 'poor';
+                    const colorClass = data.avgNDVI > 0.6 ? 'healthy' : data.avgNDVI > 0.4 ? 'moderate' : 'poor';
                     return `
                         <div class="chart-bar ${colorClass}" data-height="${height}" 
                              title="Year: ${data.year}, NDVI: ${data.avgNDVI.toFixed(3)}">
@@ -393,42 +333,10 @@ function createMODISImagery() {
     const imageryContainer = document.getElementById('modis-imagery');
     if (!imageryContainer) return;
     
-    // Create the satellite imagery visualization
-    const imageryHTML = `
-        <div class="modis-imagery-container">
-            <h3 class="imagery-title">MODIS Satellite Imagery - Amazon Basin</h3>
-            <div class="imagery-display">
-                <div id="satellite-image" class="satellite-image">
-                    <div class="image-placeholder">Loading satellite imagery...</div>
-                </div>
-                <div class="imagery-controls">
-                    <div class="year-display">
-                        <span id="current-year">2021</span>
-                    </div>
-                    <div class="imagery-legend">
-                        <div class="legend-item">
-                            <div class="legend-color healthy"></div>
-                            <span>Healthy Forest</span>
-                        </div>
-                        <div class="legend-item">
-                            <div class="legend-color degraded"></div>
-                            <span>Degraded Forest</span>
-                        </div>
-                        <div class="legend-item">
-                            <div class="legend-color deforested"></div>
-                            <span>Deforested Area</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    `;
-    
-    imageryContainer.innerHTML = imageryHTML;
     imageryContainer.classList.remove('hidden');
     
-    // Initialize with 2021 data
-    updateMODISImagery(2021);
+    // Initialize with 2018 data
+    updateMODISImagery(2018);
     
     // Attach event listener to the MODIS time slider
     const modisTimeSlider = document.getElementById('modis-time-slider');
@@ -439,15 +347,17 @@ function createMODISImagery() {
 
 function updateMODISImagery(year) {
     const satelliteImage = document.getElementById('satellite-image');
-    const currentYearDisplay = document.getElementById('current-year');
+    const modisSliderValue = document.getElementById('modis-slider-value');
     
-    if (!satelliteImage || !currentYearDisplay) return;
+    if (!satelliteImage) return;
     
     const yearData = MODIS_IMAGERY_DATA[year];
     if (!yearData) return;
     
     // Update year display
-    currentYearDisplay.textContent = year;
+    if (modisSliderValue) {
+        modisSliderValue.textContent = year;
+    }
     
     // Create visual representation of deforestation
     const imageryHTML = `
@@ -505,10 +415,17 @@ async function loadMODISVisualization() {
                 loadingSpinner.style.display = 'none';
             }
             
-            // Create visualizations
-            createMODISImagery();
-            createNDVIChart(ndviData);
-            createNDVIExplanation();
+            // Show visualizations (content is now in HTML)
+            if (imageryContainer) {
+                imageryContainer.classList.remove('hidden');
+                createMODISImagery();
+            }
+            if (chartContainer) {
+                createNDVIChart(ndviData);
+            }
+            if (explanationContainer) {
+                explanationContainer.classList.remove('hidden');
+            }
             
             // Show success message
             alertMessage(`MODIS Data Loaded: ${ndviData.length} data points from ${MODIS_CONFIG.location.name}`);
@@ -558,7 +475,7 @@ function createDemoVisualization() {
                 <div class="chart-wrapper">
                     ${demoData.map((data, index) => {
                         const height = Math.max(20, data.avgNDVI * 100);
-                        const colorClass = data.avgNDVI > 0.5 ? 'healthy' : data.avgNDVI > 0.3 ? 'moderate' : 'poor';
+                        const colorClass = data.avgNDVI > 0.6 ? 'healthy' : data.avgNDVI > 0.4 ? 'moderate' : 'poor';
                         return `
                             <div class="chart-bar ${colorClass}" data-height="${height}" 
                                  title="Year: ${data.year}, NDVI: ${data.avgNDVI.toFixed(3)}">
@@ -621,7 +538,31 @@ function loadClue(clueKey, clickedButton) {
     // 2. Load the content from clueData
     const data = clueData[clueKey];
     mainDataViewHeader.innerHTML = data.header;
-    dataContentPlaceholder.innerHTML = data.content;
+    
+    // For MODIS, don't replace content since it's now in HTML
+    if (clueKey !== 'modis') {
+        // Hide MODIS visualization and show data placeholder
+        const modisVisualization = document.getElementById('modis-visualization');
+        if (modisVisualization) {
+            modisVisualization.classList.add('hidden');
+        }
+        if (dataContentPlaceholder) {
+            dataContentPlaceholder.classList.remove('hidden');
+            dataContentPlaceholder.innerHTML = data.content;
+        }
+    } else {
+        // Hide data placeholder and show MODIS visualization
+        if (dataContentPlaceholder) {
+            dataContentPlaceholder.classList.add('hidden');
+        }
+        const modisVisualization = document.getElementById('modis-visualization');
+        if (modisVisualization) {
+            modisVisualization.classList.remove('hidden');
+        }
+        
+        // Initialize MODIS visualization when MODIS clue is selected
+        loadMODISVisualization();
+    }
 
     // 3. Update the slider display based on the clue type
     if (timeSliderControl && buttonGroupControl) {
@@ -630,9 +571,7 @@ function loadClue(clueKey, clickedButton) {
             buttonGroupControl.style.display = 'flex';
             
             // Only update slider value if controls are shown and display variable exists
-            if (data.year !== 'N/A' && sliderValueDisplay) {
-                sliderValueDisplay.textContent = data.year;
-            }
+            // Year display handled by MODIS-specific slider
 
         } else {
             // Hide controls for static visuals (ASTER, MISR)
@@ -657,204 +596,50 @@ function loadClue(clueKey, clickedButton) {
 
 // ---------------- NDVI Animation Functions ----------------
 function playNDVIAnimation() {
-    const chartBars = document.querySelectorAll('.chart-bar');
-    if (chartBars.length === 0) {
-        alertMessage('No NDVI data available for animation');
+    const satelliteImage = document.getElementById('satellite-image');
+    if (!satelliteImage) {
+        alertMessage('No MODIS imagery available for animation');
         return;
     }
     
-    alertMessage('Playing NDVI Time-lapse Animation...');
+    alertMessage('Playing MODIS Time-lapse Animation...');
     
-    // Reset all bars to initial state
-    chartBars.forEach(bar => {
-        bar.style.opacity = '0.3';
-        bar.style.transform = 'scale(0.8)';
-    });
-    
-    // Animate through each year
+    const years = [2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025];
     let currentIndex = 0;
+    
     const animationInterval = setInterval(() => {
-        // Reset previous bar
-        if (currentIndex > 0) {
-            chartBars[currentIndex - 1].style.opacity = '0.7';
-            chartBars[currentIndex - 1].style.transform = 'scale(1)';
-        }
-        
-        // Highlight current bar
-        if (currentIndex < chartBars.length) {
-            chartBars[currentIndex].style.opacity = '1';
-            chartBars[currentIndex].style.transform = 'scale(1.1)';
-            chartBars[currentIndex].style.boxShadow = '0 0 20px rgba(57, 255, 20, 0.8)';
+        if (currentIndex < years.length) {
+            const year = years[currentIndex];
+            updateMODISImagery(year);
             
-            // Update year display if slider exists
-            const slider = document.getElementById('time-slider');
-            const sliderValue = document.getElementById('slider-value');
-            if (slider && sliderValue) {
-                const year = 2018 + currentIndex;
-                slider.value = (currentIndex / (chartBars.length - 1)) * 100;
-                sliderValue.textContent = year;
+            // Update MODIS time slider
+            const modisSlider = document.getElementById('modis-time-slider');
+            if (modisSlider) {
+                const sliderValue = (currentIndex / (years.length - 1)) * 100;
+                modisSlider.value = sliderValue;
             }
             
             currentIndex++;
         } else {
             // Animation complete
             clearInterval(animationInterval);
-            chartBars.forEach(bar => {
-                bar.style.opacity = '1';
-                bar.style.transform = 'scale(1)';
-                bar.style.boxShadow = '';
-            });
-            alertMessage('Animation Complete - NDVI Decline Pattern Revealed');
+            alertMessage('Animation Complete - Deforestation Pattern Revealed');
         }
-    }, 800);
+    }, 1000);
 }
 
-// ---------------- Debug Functions ----------------
-function debugMODIS() {
-    const debugContainer = document.getElementById('modis-visualization');
-    if (!debugContainer) {
-        alertMessage('Debug: MODIS visualization container not found');
-        return;
+function resetMODISView() {
+    alertMessage('Resetting MODIS view to 2018...');
+    updateMODISImagery(2018);
+    
+    // Reset MODIS time slider
+    const modisSlider = document.getElementById('modis-time-slider');
+    if (modisSlider) {
+        modisSlider.value = 0; // 2018 corresponds to 0
     }
-    
-    // Create debug panel
-    const debugHTML = `
-        <div id="debug-panel" class="debug-panel">
-            <h3 class="debug-title">🔧 MODIS DEBUG PANEL</h3>
-            
-            <div id="debug-results" class="debug-results">
-                <p>Testing MODIS integration...</p>
-            </div>
-            
-            <div class="debug-buttons">
-                <button onclick="testMODISAPI()" class="debug-btn debug-btn-api">TEST API</button>
-                <button onclick="testDemoData()" class="debug-btn debug-btn-demo">TEST DEMO</button>
-                <button onclick="closeDebugPanel()" class="debug-btn debug-btn-close">CLOSE</button>
-            </div>
-        </div>
-    `;
-    
-    debugContainer.innerHTML = debugHTML;
-    alertMessage('Debug panel opened - check MODIS visualization area');
-}
-
-function closeDebugPanel() {
-    // Reload the original MODIS visualization
-    loadMODISVisualization();
-    alertMessage('Debug panel closed');
-}
-
-function logDebugResult(message, type = 'info') {
-    const resultsDiv = document.getElementById('debug-results');
-    if (!resultsDiv) return;
-    
-    const timestamp = new Date().toLocaleTimeString();
-    const color = type === 'error' ? '#ff4444' : type === 'success' ? '#44ff44' : '#39ff14';
-    
-    const resultDiv = document.createElement('div');
-    resultDiv.className = 'debug-log-entry';
-    resultDiv.style.borderLeftColor = color;
-    resultDiv.innerHTML = `<strong>${timestamp}:</strong> ${message}`;
-    resultsDiv.appendChild(resultDiv);
-}
-
-async function testMODISAPI() {
-    logDebugResult('Testing MODIS API connection...', 'info');
-    
-    const { latitude, longitude } = MODIS_CONFIG.location;
-    const { kmAboveBelow, kmLeftRight } = MODIS_CONFIG.area;
-    const apiUrl = `${MODIS_CONFIG.baseUrl}/${MODIS_CONFIG.product}/subset?latitude=${latitude}&longitude=${longitude}&startDate=A2023001&endDate=A2023365&kmAboveBelow=${kmAboveBelow}&kmLeftRight=${kmLeftRight}`;
-    
-    try {
-        logDebugResult(`API URL: ${apiUrl}`, 'info');
-        
-        const response = await fetch(apiUrl, {
-            method: 'GET',
-            mode: 'cors',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            }
-        });
-        
-        if (response.ok) {
-            const data = await response.json();
-            logDebugResult(`✅ API Success! Data received: ${JSON.stringify(data).substring(0, 100)}...`, 'success');
-        } else {
-            logDebugResult(`❌ API Error: HTTP ${response.status}`, 'error');
-        }
-    } catch (error) {
-        logDebugResult(`❌ CORS/Network Error: ${error.message}`, 'error');
-        logDebugResult('This is expected - MODIS API has CORS restrictions', 'info');
-    }
-}
-
-function testDemoData() {
-    logDebugResult('Testing demo data creation...', 'info');
-    
-    const demoData = [
-        { year: 2018, avgNDVI: 0.75 },
-        { year: 2019, avgNDVI: 0.72 },
-        { year: 2020, avgNDVI: 0.68 },
-        { year: 2021, avgNDVI: 0.61 },
-        { year: 2022, avgNDVI: 0.45 },
-        { year: 2023, avgNDVI: 0.38 }
-    ];
-    
-    logDebugResult(`✅ Demo data created: ${demoData.length} data points`, 'success');
-    logDebugResult(`Data: ${JSON.stringify(demoData)}`, 'info');
-    
-    // Test chart creation
-    createTestChart(demoData);
-}
-
-function createTestChart(demoData) {
-    const debugContainer = document.getElementById('debug-results');
-    if (!debugContainer) return;
-    
-    const testChart = document.createElement('div');
-    testChart.className = 'debug-test-chart';
-    
-    demoData.forEach((data, index) => {
-        const bar = document.createElement('div');
-        const height = Math.max(20, data.avgNDVI * 100);
-        const color = data.avgNDVI > 0.5 ? '#00ff00' : data.avgNDVI > 0.3 ? '#ffff00' : '#ff0000';
-        
-        bar.className = 'debug-chart-bar';
-        bar.style.height = `${height}px`;
-        bar.style.background = color;
-        
-        // Add year label
-        const label = document.createElement('div');
-        label.className = 'debug-chart-label';
-        label.textContent = data.year;
-        bar.appendChild(label);
-        
-        testChart.appendChild(bar);
-    });
-    
-    debugContainer.appendChild(testChart);
-    logDebugResult('✅ Test chart created successfully!', 'success');
 }
 
 // ---------------- UI Control Functions ----------------
-function updateSliderValue(event) {
-    // Map slider position (0-100) to years (2018-2025)
-    const value = event.target.value;
-    const startYear = 2018;
-    const endYear = 2025;
-    const currentYear = startYear + Math.round((value / 100) * (endYear - startYear));
-    
-    if (sliderValueDisplay) {
-        sliderValueDisplay.textContent = currentYear;
-    }
-    
-    // Update MODIS imagery if it exists
-    if (document.getElementById('satellite-image')) {
-        updateMODISImagery(currentYear);
-    }
-}
-
 function updateMODISSliderValue(event) {
     // Map slider position (0-100) to years (2018-2025)
     const value = event.target.value;

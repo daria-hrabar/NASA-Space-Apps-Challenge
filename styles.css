@@ -376,8 +376,7 @@ nav a:hover {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-top: 15px;
-    padding: 0 15px;
+    padding: 0px;
 }
 
 .data-control input[type="range"] {
@@ -409,10 +408,8 @@ nav a:hover {
 }
 
 .control-buttons-group {
-    margin-top: 25px;
-    padding: 0 15px;
     justify-content: flex-start;
-    margin-bottom: 30px;
+    padding: 0px;
 }
 
 .control-buttons-group .explore-button {
@@ -430,12 +427,6 @@ nav a:hover {
     color: #ff5500 !important;
 }
 
-.debug-button {
-    background: #003300 !important;
-    border-color: #39ff14 !important;
-    box-shadow: 0 0 10px rgba(57, 255, 20, 0.4) !important;
-    color: #39ff14 !important;
-}
 
 /* ---------------- Mobile Responsiveness ---------------- */
 @media (max-width: 768px) {
@@ -461,108 +452,15 @@ nav a:hover {
     }
 }
 
-/* ---------------- Debug Panel Styles ---------------- */
-.debug-panel {
-    background: rgba(0, 0, 0, 0.8);
-    border: 2px solid #39ff14;
-    border-radius: 8px;
-    padding: 20px;
-    margin: 20px 0;
-    font-family: var(--main-font);
-    font-size: 0.8rem;
-}
 
-.debug-title {
-    color: #39ff14;
-    margin-bottom: 15px;
-}
-
-.debug-results {
-    margin: 15px 0;
-}
-
-.debug-buttons {
-    display: flex;
-    gap: 10px;
-    margin-top: 15px;
-}
-
-.debug-btn {
-    border: none;
-    padding: 8px 15px;
-    border-radius: 4px;
-    cursor: pointer;
-    font-family: var(--pixel-font);
-    font-size: 0.7rem;
-    transition: all 0.3s ease;
-}
-
-.debug-btn-api {
-    background: #39ff14;
-    color: #000;
-}
-
-.debug-btn-api:hover {
-    background: #2dd12d;
-    box-shadow: 0 0 10px rgba(57, 255, 20, 0.6);
-}
-
-.debug-btn-demo {
-    background: #ffaa00;
-    color: #000;
-}
-
-.debug-btn-demo:hover {
-    background: #ffbb33;
-    box-shadow: 0 0 10px rgba(255, 170, 0, 0.6);
-}
-
-.debug-btn-close {
-    background: #ff4444;
-    color: #fff;
-}
-
-.debug-btn-close:hover {
-    background: #ff6666;
-    box-shadow: 0 0 10px rgba(255, 68, 68, 0.6);
-}
-
-.debug-log-entry {
-    margin: 5px 0;
-    padding: 5px 10px;
-    background: rgba(0, 0, 0, 0.5);
-    border-left: 3px solid #39ff14;
-    font-size: 0.75rem;
-}
-
-.debug-test-chart {
-    width: 100%;
-    height: 150px;
-    background: #111;
-    border: 1px solid #39ff14;
-    display: flex;
-    align-items: end;
-    justify-content: space-around;
-    padding: 10px;
-    margin: 10px 0;
-    border-radius: 4px;
-}
-
-.debug-chart-bar {
-    width: 25px;
-    margin: 0 3px;
-    border-radius: 4px 4px 0 0;
-    position: relative;
-}
-
-.debug-chart-label {
-    position: absolute;
-    bottom: -20px;
-    left: 50%;
-    transform: translateX(-50%);
-    font-size: 0.6rem;
-    color: #39ff14;
-    white-space: nowrap;
+/* ---------------- Loading Spinner Styles ---------------- */
+.loading-spinner {
+    text-align: center;
+    padding: 40px;
+    color: #00ff88;
+    font-size: 1.1rem;
+    font-weight: 500;
+    text-shadow: 0 0 10px rgba(0, 255, 136, 0.5);
 }
 
 /* ---------------- MODIS Satellite Imagery Styles ---------------- */
@@ -634,7 +532,7 @@ nav a:hover {
 .imagery-display {
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 10px;
 }
 
 .satellite-image {
@@ -824,28 +722,34 @@ nav a:hover {
 
 /* ---------------- Chart Bar Color Classes ---------------- */
 .chart-bar.healthy {
-    background: #00ff00;
+    background: linear-gradient(to top, #00ff00, #00cc00);
+    box-shadow: 0 0 8px rgba(0, 255, 0, 0.4);
 }
 
 .chart-bar.moderate {
-    background: #ffff00;
+    background: linear-gradient(to top, #ffaa00, #ff8800);
+    box-shadow: 0 0 8px rgba(255, 170, 0, 0.4);
 }
 
 .chart-bar.poor {
-    background: #ff0000;
+    background: linear-gradient(to top, #ff4444, #cc0000);
+    box-shadow: 0 0 8px rgba(255, 68, 68, 0.4);
 }
 
 /* ---------------- Chart Legend Color Classes ---------------- */
 .legend-healthy {
     color: #00ff00;
+    text-shadow: 0 0 5px rgba(0, 255, 0, 0.5);
 }
 
 .legend-moderate {
-    color: #ffff00;
+    color: #ffaa00;
+    text-shadow: 0 0 5px rgba(255, 170, 0, 0.5);
 }
 
 .legend-poor {
-    color: #ff0000;
+    color: #ff4444;
+    text-shadow: 0 0 5px rgba(255, 68, 68, 0.5);
 }
 
 /* ---------------- Demo Notice Styles ---------------- */
@@ -896,9 +800,9 @@ nav a:hover {
     display: flex;
     align-items: end;
     justify-content: space-around;
-    height: 200px;
+    height: 120px;
     margin: 20px 0;
-    padding: 10px;
+    padding: 5px 10px;
     background: rgba(0, 0, 0, 0.5);
     border-radius: 4px;
     border: 1px dashed var(--border-color);
