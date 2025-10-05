@@ -1818,6 +1818,9 @@ nav a:hover {
         max-width: none !important;
         background: rgba(0, 0, 0, 0.95) !important;
         backdrop-filter: blur(10px) !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
     }
     
     .astronaut-modal-content {
@@ -1975,23 +1978,9 @@ nav a:hover {
         border-radius: 6px;
     }
     
-    /* Collapsed Modal - Mobile */
+    /* Collapsed Modal - Mobile - Hidden */
     .astronaut-modal.collapsed {
-        position: fixed !important;
-        top: auto !important;
-        left: auto !important;
-        right: 15px !important;
-        bottom: 100px !important; /* Above progress bar */
-        width: 70px !important;
-        height: 70px !important;
-        background: #ff4444 !important;
-        border-radius: 50% !important;
-        display: flex !important;
-        align-items: center !important;
-        justify-content: center !important;
-        backdrop-filter: none !important;
-        border: 4px solid white !important;
-        box-shadow: 0 6px 25px rgba(255, 68, 68, 0.7) !important;
+        display: none !important;
     }
     
     .astronaut-modal.collapsed .astronaut-modal-content {

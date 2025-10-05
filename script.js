@@ -1243,23 +1243,9 @@ function toggleAstronautModal() {
         if (collapseBtn) collapseBtn.textContent = '+';
         if (floatingBtn) floatingBtn.classList.remove('hidden');
         
-        // On mobile, make it a small floating button
+        // On mobile, hide the modal completely when collapsed
         if (isMobile) {
-            astronautModal.style.position = 'fixed';
-            astronautModal.style.top = 'auto';
-            astronautModal.style.left = 'auto';
-            astronautModal.style.right = '15px';
-            astronautModal.style.bottom = '100px'; // Above progress bar
-            astronautModal.style.width = '70px';
-            astronautModal.style.height = '70px';
-            astronautModal.style.borderRadius = '50%';
-            astronautModal.style.background = '#ff4444';
-            astronautModal.style.display = 'flex';
-            astronautModal.style.alignItems = 'center';
-            astronautModal.style.justifyContent = 'center';
-            astronautModal.style.border = '4px solid white';
-            astronautModal.style.boxShadow = '0 6px 25px rgba(255, 68, 68, 0.7)';
-            astronautModal.style.backdropFilter = 'none';
+            astronautModal.style.display = 'none';
         }
     }
 }
