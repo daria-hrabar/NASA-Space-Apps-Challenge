@@ -1675,7 +1675,7 @@ nav a:hover {
     
     /* Hero Section */
     .hero {
-        padding: 20px 15px;
+        padding: 40px 15px 20px 15px; /* Extra top padding for mobile */
         text-align: center;
     }
     
@@ -1739,20 +1739,23 @@ nav a:hover {
         grid-template-columns: 1fr;
         grid-template-rows: auto auto 1fr;
         gap: 20px;
-        padding-top: 120px; /* More space for header */
+        padding-top: 140px; /* Even more space for header */
+        padding-bottom: 80px; /* Space for bottom progress bar */
     }
     
-    /* Game Progress Bar - Mobile Positioning */
+    /* Game Progress Bar - Mobile Positioning at Bottom */
     .game-progress {
         position: fixed;
-        top: 70px; /* Below header, above content */
+        bottom: 20px;
         left: 10px;
         right: 10px;
-        z-index: 50; /* Lower than header */
-        background: rgba(0, 0, 0, 0.8);
+        z-index: 50;
+        background: rgba(0, 0, 0, 0.9);
         border-radius: 10px;
-        padding: 8px;
+        padding: 10px;
         font-size: 0.8rem;
+        border: 2px solid var(--secondary-color);
+        box-shadow: 0 4px 15px rgba(57, 255, 20, 0.3);
     }
     
     /* Clue sidebar for mobile */
@@ -1965,7 +1968,7 @@ nav a:hover {
         top: auto !important;
         left: auto !important;
         right: 15px !important;
-        bottom: 15px !important;
+        bottom: 100px !important; /* Above progress bar */
         width: 70px !important;
         height: 70px !important;
         background: #ff4444 !important;
@@ -2275,7 +2278,8 @@ nav a:hover {
 /* Responsive Team Page */
 @media (max-width: 768px) {
     #team-page {
-        padding-top: 100px; /* Reduced padding for mobile */
+        padding-top: 140px; /* More padding to prevent header overlap */
+        padding-bottom: 80px; /* Space for bottom progress bar */
     }
     
     .team-grid {

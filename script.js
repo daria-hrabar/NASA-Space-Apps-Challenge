@@ -1249,7 +1249,7 @@ function toggleAstronautModal() {
             astronautModal.style.top = 'auto';
             astronautModal.style.left = 'auto';
             astronautModal.style.right = '15px';
-            astronautModal.style.bottom = '15px';
+            astronautModal.style.bottom = '100px'; // Above progress bar
             astronautModal.style.width = '70px';
             astronautModal.style.height = '70px';
             astronautModal.style.borderRadius = '50%';
