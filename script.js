@@ -543,31 +543,42 @@ async function fetchMODISData(year) {
     const startDate = `A${year}001`;
     const endDate = `A${year}365`;
     
-    const apiUrl = `${MODIS_CONFIG.baseUrl}/${MODIS_CONFIG.product}/subset?latitude=${latitude}&longitude=${longitude}&startDate=${startDate}&endDate=${endDate}&kmAboveBelow=${kmAboveBelow}&kmLeftRight=${kmLeftRight}`;
+    // Try multiple API endpoints and CORS proxy solutions
+    const apiEndpoints = [
+        // Direct API (likely to fail due to CORS)
+        `${MODIS_CONFIG.baseUrl}/${MODIS_CONFIG.product}/subset?latitude=${latitude}&longitude=${longitude}&startDate=${startDate}&endDate=${endDate}&kmAboveBelow=${kmAboveBelow}&kmLeftRight=${kmLeftRight}`,
+        // CORS proxy alternatives
+        `https://api.allorigins.win/raw?url=${encodeURIComponent(`${MODIS_CONFIG.baseUrl}/${MODIS_CONFIG.product}/subset?latitude=${latitude}&longitude=${longitude}&startDate=${startDate}&endDate=${endDate}&kmAboveBelow=${kmAboveBelow}&kmLeftRight=${kmLeftRight}`)}`,
+        `https://cors-anywhere.herokuapp.com/${MODIS_CONFIG.baseUrl}/${MODIS_CONFIG.product}/subset?latitude=${latitude}&longitude=${longitude}&startDate=${startDate}&endDate=${endDate}&kmAboveBelow=${kmAboveBelow}&kmLeftRight=${kmLeftRight}`
+    ];
     
-    try {
-        console.log(`Fetching MODIS data for ${year}...`);
-        
-        // Add CORS mode and headers to handle cross-origin requests
-        const response = await fetch(apiUrl, {
-            method: 'GET',
-            mode: 'cors',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
+    for (let i = 0; i < apiEndpoints.length; i++) {
+        try {
+            console.log(`Trying MODIS API endpoint ${i + 1}/${apiEndpoints.length} for ${year}...`);
+            
+            const response = await fetch(apiEndpoints[i], {
+                method: 'GET',
+                mode: 'cors',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                }
+            });
+            
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
             }
-        });
-        
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
+            
+            const data = await response.json();
+            console.log(`Successfully fetched MODIS data from endpoint ${i + 1}`);
+            return data;
+        } catch (error) {
+            console.warn(`MODIS API endpoint ${i + 1} failed:`, error.message);
+            if (i === apiEndpoints.length - 1) {
+                console.error('All MODIS API endpoints failed, likely due to CORS restrictions');
+                return null;
+            }
         }
-        
-        const data = await response.json();
-        return data;
-    } catch (error) {
-        console.error('MODIS API Error (likely CORS):', error);
-        // Return null to trigger fallback to demo data
-        return null;
     }
 }
 
@@ -576,9 +587,10 @@ async function processNDVIData() {
     const ndviData = [];
     
     // Try to fetch data for first year to check if API is accessible
+    console.log('Attempting to connect to NASA MODIS API...');
     const testData = await fetchMODISData(2018);
     if (!testData) {
-        console.log('MODIS API not accessible, using demo data');
+        console.log('NASA MODIS API not accessible due to CORS restrictions. This is normal for browser-based applications.');
         return []; // Return empty array to trigger demo data
     }
     
@@ -770,8 +782,8 @@ async function loadMODISVisualization() {
             loadingSpinner.style.display = 'none';
         }
         
-        // Show error message
-        alertMessage('MODIS API not accessible (CORS restriction). Using demo data...');
+        // Show informative message about using demo data
+        alertMessage('Using NASA MODIS demo data for demonstration purposes. Real-time data requires server-side implementation.');
         
         // Fallback to demo data
         createDemoVisualization();
