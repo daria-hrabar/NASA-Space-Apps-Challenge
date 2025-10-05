@@ -2452,15 +2452,15 @@ nav a:hover {
 }
 
 .explanation-content .color.healthy {
-    color: #00ff00;
+    color: #ba1c3d;
 }
 
 .explanation-content .color.degraded {
-    color: #ffaa00;
+    color: #5a6f83;
 }
 
 .explanation-content .color.deforested {
-    color: #ff6666;
+    color: #91a691;
 }
 
 /* Responsive adjustments for ASTER slider */
