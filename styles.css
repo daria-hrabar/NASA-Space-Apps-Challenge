@@ -659,15 +659,15 @@ nav a:hover {
 }
 
 .legend-color.healthy {
-    background: #00ff00;
+    background: #ba1c3d;
 }
 
 .legend-color.degraded {
-    background: #ffff00;
+    background: #5a6f83;
 }
 
 .legend-color.deforested {
-    background: #ff6600;
+    background: #91a691;
 }
 
 .imagery-info {
