@@ -29,7 +29,7 @@
                 <label for="volume-slider">🔊</label>
                 <input type="range" id="volume-slider" min="0" max="1" step="0.1" value="0.3" onchange="setVolume(this.value)">
             </div>
-            <div class="header-line" style="margin-top: 10px;"></div>
+            <div class="header-line header-line-bottom"></div>
         </div>
     </header>
 
@@ -95,25 +95,25 @@
             </div>
 
             <!-- Space under the buttons is maintained by margin-bottom: 30px -->
-            <div class="data-control control-buttons-group" style="margin-top: 25px; padding: 0 15px; justify-content: flex-start; margin-bottom: 30px;">
-                <!-- We use inline styles here for the background and shadow override -->
-                <button class="explore-button" onclick="alertMessage('Playing Time-lapse...');">PLAY ANIMATION</button>
-                <button class="explore-button" style="background: #330000; border-color: #ff5500; box-shadow: 0 0 10px rgba(255, 85, 0, 0.4); color: #ff5500;" onclick="alertMessage('Resetting Map...');">RESET VIEW</button>
+            <div class="data-control control-buttons-group">
+                <button class="explore-button" onclick="playNDVIAnimation();">PLAY ANIMATION</button>
+                <button class="explore-button reset-button" onclick="alertMessage('Resetting Map...');">RESET VIEW</button>
+                <button class="explore-button debug-button" onclick="debugMODIS();">DEBUG MODIS</button>
             </div>
         </div>
     </div>
     
     <!-- 3. Verdict Page - Initially Hidden -->
     <div id="verdict-page" class="container hidden">
-        <h2 class="dashboard-header" style="margin-top: 50px;">CASE CLOSED: THE VERDICT</h2>
-        <div class="data-panel" style="padding: 40px; text-align: center;">
-            <div class="panel-header" style="font-size: 1.2rem; color: #ff5500; text-shadow: 0 0 10px rgba(255, 85, 0, 0.8);">ENVIRONMENTAL IMPACT REPORT</div>
-            <p style="font-size: 1.1rem; line-height: 1.8; margin-top: 25px; max-width: 800px; margin-left: auto; margin-right: auto; opacity: 0.9;">
+        <h2 class="dashboard-header verdict-header">CASE CLOSED: THE VERDICT</h2>
+        <div class="data-panel verdict-panel">
+            <div class="panel-header verdict-panel-header">ENVIRONMENTAL IMPACT REPORT</div>
+            <p class="verdict-content">
                 The evidence gathered by Terra instruments (MODIS, ASTER, MISR, MOPITT) confirms a significant loss of critical forest canopy due to human activity and fire. <br><br>
                 **Human Consequence:** The aerosol plume tracked by MISR indicates immediate air quality degradation impacting over 500,000 residents in surrounding communities. <br>
                 **Ecological Consequence:** The long-term NDVI decline (MODIS) suggests permanent soil and biodiversity damage, threatening the region's ability to act as a carbon sink.
             </p>
-            <button class="explore-button" style="position: static; margin-top: 40px; padding: 15px 40px;" onclick="showSection('hero')">NEW CASE FILE</button>
+            <button class="explore-button verdict-button" onclick="showSection('hero')">NEW CASE FILE</button>
         </div>
     </div>
 
