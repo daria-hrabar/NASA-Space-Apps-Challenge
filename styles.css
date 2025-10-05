@@ -309,7 +309,7 @@ nav a:hover {
 #case-dashboard {
     min-height: 100vh;
     /* FIX: Increased padding-top to ensure the title is not covered by the fixed header */
-    padding-top: 140px; 
+    padding-top: 200px; 
     display: grid;
     grid-template-columns: 1fr 3fr;
     grid-template-rows: auto 1fr;
@@ -668,6 +668,18 @@ nav a:hover {
 
 .legend-color.deforested {
     background: #91a691;
+}
+
+.legend-color.healthy-modis {
+    background: rgba(57, 255, 20, 0.8);
+}
+
+.legend-color.degraded-modis {
+    background: #ffff44;
+}
+
+.legend-color.deforested-modis {
+    background: #ff8800;
 }
 
 .imagery-info {
