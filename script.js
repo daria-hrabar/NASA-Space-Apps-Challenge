@@ -1248,17 +1248,17 @@ function toggleAstronautModal() {
             astronautModal.style.position = 'fixed';
             astronautModal.style.top = 'auto';
             astronautModal.style.left = 'auto';
-            astronautModal.style.right = '20px';
-            astronautModal.style.bottom = '20px';
-            astronautModal.style.width = '60px';
-            astronautModal.style.height = '60px';
+            astronautModal.style.right = '15px';
+            astronautModal.style.bottom = '15px';
+            astronautModal.style.width = '70px';
+            astronautModal.style.height = '70px';
             astronautModal.style.borderRadius = '50%';
-            astronautModal.style.background = 'rgba(57, 255, 20, 0.9)';
+            astronautModal.style.background = '#ff4444';
             astronautModal.style.display = 'flex';
             astronautModal.style.alignItems = 'center';
             astronautModal.style.justifyContent = 'center';
-            astronautModal.style.border = '3px solid white';
-            astronautModal.style.boxShadow = '0 4px 20px rgba(57, 255, 20, 0.5)';
+            astronautModal.style.border = '4px solid white';
+            astronautModal.style.boxShadow = '0 6px 25px rgba(255, 68, 68, 0.7)';
             astronautModal.style.backdropFilter = 'none';
         }
     }
