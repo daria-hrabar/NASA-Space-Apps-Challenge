@@ -293,6 +293,23 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Initialize volume icon
     updateVolumeIcon();
+
+    // Ensure astronaut modal starts hidden and with no residual styles
+    if (astronautModal) {
+        astronautModal.classList.add('hidden');
+        astronautModal.style.position = '';
+        astronautModal.style.top = '';
+        astronautModal.style.right = '';
+        astronautModal.style.bottom = '';
+        astronautModal.style.left = '';
+        astronautModal.style.width = '';
+        astronautModal.style.height = '';
+        astronautModal.style.maxWidth = '';
+        astronautModal.style.background = '';
+        astronautModal.style.backdropFilter = '';
+        astronautModal.style.display = '';
+        astronautModal.style.borderRadius = '';
+    }
 });
 
 // ---------------- Audio Functions ----------------
@@ -1135,7 +1152,7 @@ function showAstronautModal(scenario) {
             astronautModal.style.height = '100%';
             astronautModal.style.maxWidth = 'none';
             astronautModal.style.background = 'rgba(0, 0, 0, 0.95)';
-            astronautModal.style.backdropFilter = 'blur(10px)';
+            astronautModal.style.backdropFilter = 'none';
         } else {
             // Desktop positioning for data examination scenarios
             const dataExaminationStates = ['modis_analysis', 'aster_analysis', 'misr_analysis'];
@@ -1209,6 +1226,20 @@ function showAstronautModal(scenario) {
 function hideAstronautModal() {
     if (astronautModal) {
         astronautModal.classList.add('hidden');
+        // Clear inline styles so no blur/overlay persists
+        astronautModal.classList.remove('fullscreen-intro');
+        astronautModal.style.position = '';
+        astronautModal.style.top = '';
+        astronautModal.style.right = '';
+        astronautModal.style.bottom = '';
+        astronautModal.style.left = '';
+        astronautModal.style.width = '';
+        astronautModal.style.height = '';
+        astronautModal.style.maxWidth = '';
+        astronautModal.style.background = '';
+        astronautModal.style.backdropFilter = '';
+        astronautModal.style.display = '';
+        astronautModal.style.borderRadius = '';
     }
 }
 
@@ -1246,6 +1277,8 @@ function toggleAstronautModal() {
         // On mobile, hide the modal completely when collapsed
         if (isMobile) {
             astronautModal.style.display = 'none';
+            astronautModal.style.backdropFilter = '';
+            astronautModal.style.background = '';
         }
     }
 }
