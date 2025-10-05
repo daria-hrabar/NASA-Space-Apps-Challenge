@@ -282,24 +282,28 @@ function showSection(sectionId) {
         }
     } else if (sectionId === 'dashboard') {
         dashboardSection.classList.remove('hidden');
-        // Keep forest sound playing, start investigation sound
-        if (forestAmbientSound && forestAmbientSound.paused) {
-            forestAmbientSound.play().catch(error => {
-                console.log('Audio autoplay prevented:', error);
-            });
+        // Stop forest sound when going to Case File
+        if (forestAmbientSound) {
+            forestAmbientSound.pause();
+            forestAmbientSound.currentTime = 0;
         }
-        startInvestigationSound();
+        // Start investigation sound if not already playing
+        if (!investigationSound || investigationSound.paused) {
+            startInvestigationSound();
+        }
         // Ensure the MODIS clue is loaded and active when entering the dashboard
         loadClue('modis', document.getElementById('clue-modis')); 
     } else if (sectionId === 'verdict') {
         verdictSection.classList.remove('hidden');
-        // Keep forest sound playing, start investigation sound
-        if (forestAmbientSound && forestAmbientSound.paused) {
-            forestAmbientSound.play().catch(error => {
-                console.log('Audio autoplay prevented:', error);
-            });
+        // Stop forest sound when going to Verdict
+        if (forestAmbientSound) {
+            forestAmbientSound.pause();
+            forestAmbientSound.currentTime = 0;
         }
-        startInvestigationSound();
+        // Start investigation sound if not already playing
+        if (!investigationSound || investigationSound.paused) {
+            startInvestigationSound();
+        }
     }
 }
 
