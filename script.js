@@ -116,8 +116,8 @@ let gameProgressElement;
 
 // Game Decision Data
 const gameScenarios = {
-    intro: {
-        message: "Welcome, Earth Detective! I'm Commander Alex. We've detected unusual activity in the Amazon Basin. Ready to investigate?",
+            intro: {
+                message: "Welcome, Earth Detective! I'm Commander Terra. We've detected unusual activity in the Amazon Basin. Ready to investigate?",
         choices: [
             { text: "Yes, let's investigate!", correct: true, nextState: 'clue_selection' },
             { text: "I need more information first", correct: false, feedback: "I understand your caution, but time is critical in environmental investigations. The evidence we need is time-sensitive and could disappear. Let's start with what we have and build from there." }
