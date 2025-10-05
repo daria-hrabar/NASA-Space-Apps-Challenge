@@ -294,10 +294,14 @@ document.addEventListener('DOMContentLoaded', () => {
     // Initialize volume icon
     updateVolumeIcon();
 
-    // Auto-open first popup on mobile
+    // Auto-open first popup on mobile with a quick loading overlay
     if (isMobile && astronautModal) {
+        showMobileInitOverlay();
         currentGameState = 'intro';
-        showAstronautModal(gameScenarios.intro);
+        setTimeout(() => {
+            showAstronautModal(gameScenarios.intro);
+            hideMobileInitOverlay();
+        }, 300);
     }
 });
 
@@ -1230,6 +1234,38 @@ function hideAstronautModal() {
         astronautModal.style.display = '';
         astronautModal.style.borderRadius = '';
     }
+}
+
+// Lightweight mobile init overlay to indicate loading
+function showMobileInitOverlay() {
+    if (!isMobile) return;
+    const existing = document.getElementById('mobile-init-overlay');
+    if (existing) return;
+    const overlay = document.createElement('div');
+    overlay.id = 'mobile-init-overlay';
+    overlay.style.cssText = `
+        position: fixed;
+        inset: 0;
+        width: 100vw;
+        height: 100vh;
+        background: rgba(0,0,0,0.95);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 2000;
+        color: var(--secondary-color);
+        font-family: var(--pixel-font);
+        text-align: center;
+    `;
+    overlay.innerHTML = `<div style="display:flex;flex-direction:column;gap:12px;align-items:center;">
+        <div class="loading-spinner">Preparing Commander Terra...</div>
+    </div>`;
+    document.body.appendChild(overlay);
+}
+
+function hideMobileInitOverlay() {
+    const overlay = document.getElementById('mobile-init-overlay');
+    if (overlay) overlay.remove();
 }
 
 function toggleAstronautModal() {
