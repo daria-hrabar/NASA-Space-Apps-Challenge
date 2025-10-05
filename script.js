@@ -89,12 +89,6 @@ const clueData = {
         year: 'N/A',
         showControls: false
     },
-    'mopitt': {
-        header: "CLUE 4: M.O.P. (MOPITT): The Toxicologist - CARBON MONOXIDE SIGNATURE",
-        content: "[DATA VISUALIZATION] <br> MOPITT CO Emissions Over Region",
-        year: '2023',
-        showControls: true
-    }
 };
 
 // DOM Element Variables (Declared globally, assigned in DOMContentLoaded)
@@ -109,6 +103,8 @@ let clueButtons;
 // Audio variables
 let forestAmbientSound;
 let investigationSound;
+let isMuted = false;
+let currentVolume = 0.3;
 
 
 // Initial setup to ensure only the hero is shown and to assign all DOM variables safely
@@ -135,6 +131,9 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Initialize forest ambient sound
     initializeForestSound();
+    
+    // Initialize volume icon
+    updateVolumeIcon();
 });
 
 // ---------------- Audio Functions ----------------
@@ -142,9 +141,9 @@ function initializeForestSound() {
     // Create audio element for forest ambient sound
     forestAmbientSound = new Audio('forest-ambient.mp3');
     forestAmbientSound.loop = true;
-    forestAmbientSound.volume = 0.3; // Set to 30% volume for ambient effect
+    forestAmbientSound.volume = currentVolume;
     
-    // Start playing the forest sound when the page loads
+    // Start playing the forest sound automatically when the page loads
     forestAmbientSound.play().catch(error => {
         console.log('Audio autoplay prevented by browser:', error);
         // Add click event to start audio on first user interaction
@@ -162,11 +161,59 @@ function startAudioOnInteraction() {
 }
 
 function setVolume(volume) {
-    if (forestAmbientSound) {
-        forestAmbientSound.volume = parseFloat(volume);
+    currentVolume = parseFloat(volume);
+    
+    if (forestAmbientSound && !isMuted) {
+        forestAmbientSound.volume = currentVolume;
     }
-    if (investigationSound) {
-        investigationSound.volume = parseFloat(volume);
+    if (investigationSound && !isMuted) {
+        investigationSound.volume = currentVolume;
+    }
+    
+    // Update volume icon based on current volume level
+    updateVolumeIcon();
+}
+
+function toggleMute() {
+    isMuted = !isMuted;
+    
+    if (isMuted) {
+        // Mute all sounds
+        if (forestAmbientSound) {
+            forestAmbientSound.volume = 0;
+        }
+        if (investigationSound) {
+            investigationSound.volume = 0;
+        }
+    } else {
+        // Unmute with current volume
+        if (forestAmbientSound) {
+            forestAmbientSound.volume = currentVolume;
+        }
+        if (investigationSound) {
+            investigationSound.volume = currentVolume;
+        }
+    }
+    
+    updateVolumeIcon();
+}
+
+function updateVolumeIcon() {
+    const volumeIcon = document.getElementById('volume-icon');
+    if (volumeIcon) {
+        if (isMuted || currentVolume === 0) {
+            volumeIcon.textContent = '🔇';
+            volumeIcon.title = 'Unmute';
+        } else if (currentVolume <= 0.3) {
+            volumeIcon.textContent = '🔈';
+            volumeIcon.title = 'Low Volume';
+        } else if (currentVolume <= 0.7) {
+            volumeIcon.textContent = '🔉';
+            volumeIcon.title = 'Medium Volume';
+        } else {
+            volumeIcon.textContent = '🔊';
+            volumeIcon.title = 'High Volume';
+        }
     }
 }
 
@@ -222,23 +269,37 @@ function showSection(sectionId) {
         heroSection.classList.remove('hidden');
         // Reset background to forest when returning to home
         document.body.style.backgroundImage = "url('forest-background.png')";
-        // Stop investigation sound
+        // Stop investigation sound but keep forest sound playing
         if (investigationSound) {
             investigationSound.pause();
             investigationSound.currentTime = 0;
         }
-        // Restart forest ambient sound when returning to home
-        if (forestAmbientSound) {
+        // Ensure forest ambient sound continues playing
+        if (forestAmbientSound && forestAmbientSound.paused) {
             forestAmbientSound.play().catch(error => {
                 console.log('Audio autoplay prevented:', error);
             });
         }
     } else if (sectionId === 'dashboard') {
         dashboardSection.classList.remove('hidden');
+        // Keep forest sound playing, start investigation sound
+        if (forestAmbientSound && forestAmbientSound.paused) {
+            forestAmbientSound.play().catch(error => {
+                console.log('Audio autoplay prevented:', error);
+            });
+        }
+        startInvestigationSound();
         // Ensure the MODIS clue is loaded and active when entering the dashboard
         loadClue('modis', document.getElementById('clue-modis')); 
     } else if (sectionId === 'verdict') {
         verdictSection.classList.remove('hidden');
+        // Keep forest sound playing, start investigation sound
+        if (forestAmbientSound && forestAmbientSound.paused) {
+            forestAmbientSound.play().catch(error => {
+                console.log('Audio autoplay prevented:', error);
+            });
+        }
+        startInvestigationSound();
     }
 }
 
