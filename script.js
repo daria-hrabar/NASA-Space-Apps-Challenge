@@ -635,6 +635,118 @@ function createDemoVisualization() {
     }
 }
 
+// ---------------- Helper Functions ----------------
+function hideAllVisualizations() {
+    // Hide all visualization containers
+    const modisVisualization = document.getElementById('modis-visualization');
+    const asterVisualization = document.getElementById('aster-visualization');
+    const dataContentPlaceholder = document.getElementById('data-content-placeholder');
+    
+    if (modisVisualization) modisVisualization.classList.add('hidden');
+    if (asterVisualization) asterVisualization.classList.add('hidden');
+    if (dataContentPlaceholder) dataContentPlaceholder.classList.add('hidden');
+}
+
+// ---------------- ASTER Functions ----------------
+function loadASTERVisualization() {
+    const loadingSpinner = document.querySelector('#aster-visualization .loading-spinner');
+    const imageryContainer = document.getElementById('aster-imagery');
+    const explanationContainer = document.getElementById('aster-explanation');
+    
+    if (loadingSpinner) {
+        loadingSpinner.style.display = 'block';
+    }
+    
+    // Simulate loading delay
+    setTimeout(() => {
+        if (loadingSpinner) {
+            loadingSpinner.style.display = 'none';
+        }
+        
+        if (imageryContainer) {
+            imageryContainer.classList.remove('hidden');
+            initializeASTERSlider();
+        }
+        
+        if (explanationContainer) {
+            explanationContainer.classList.remove('hidden');
+        }
+        
+        alertMessage('ASTER True Color Imagery Loaded');
+    }, 1500);
+}
+
+function initializeASTERSlider() {
+    const sliderHandle = document.getElementById('slider-handle');
+    const beforeImage = document.getElementById('before-image');
+    const afterImage = document.getElementById('after-image');
+    const imageSlider = document.querySelector('.image-slider');
+    
+    if (!sliderHandle || !beforeImage || !afterImage || !imageSlider) return;
+    
+    let isDragging = false;
+    
+    // Mouse events
+    sliderHandle.addEventListener('mousedown', (e) => {
+        isDragging = true;
+        e.preventDefault();
+    });
+    
+    document.addEventListener('mousemove', (e) => {
+        if (!isDragging) return;
+        
+        const rect = imageSlider.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const percentage = Math.max(0, Math.min(100, (x / rect.width) * 100));
+        
+        updateASTERSlider(percentage);
+    });
+    
+    document.addEventListener('mouseup', () => {
+        isDragging = false;
+    });
+    
+    // Touch events for mobile
+    sliderHandle.addEventListener('touchstart', (e) => {
+        isDragging = true;
+        e.preventDefault();
+    });
+    
+    document.addEventListener('touchmove', (e) => {
+        if (!isDragging) return;
+        
+        const rect = imageSlider.getBoundingClientRect();
+        const x = e.touches[0].clientX - rect.left;
+        const percentage = Math.max(0, Math.min(100, (x / rect.width) * 100));
+        
+        updateASTERSlider(percentage);
+    });
+    
+    document.addEventListener('touchend', () => {
+        isDragging = false;
+    });
+}
+
+function updateASTERSlider(percentage) {
+    const sliderHandle = document.getElementById('slider-handle');
+    const beforeImage = document.getElementById('before-image');
+    const afterImage = document.getElementById('after-image');
+    
+    if (!sliderHandle || !beforeImage || !afterImage) return;
+    
+    // Update slider position
+    sliderHandle.style.left = `${percentage}%`;
+    
+    // Update image clipping
+    beforeImage.style.clipPath = `inset(0 ${100 - percentage}% 0 0)`;
+    afterImage.style.clipPath = `inset(0 0 0 ${percentage}%)`;
+}
+
+function resetASTERView() {
+    alertMessage('Resetting ASTER view...');
+    updateASTERSlider(50); // Reset to middle position
+}
+
 // ---------------- Clue Loading ----------------
 function loadClue(clueKey, clickedButton) {
     // Use specific, stable class names for reliable selection of controls.
@@ -661,29 +773,30 @@ function loadClue(clueKey, clickedButton) {
     const data = clueData[clueKey];
     mainDataViewHeader.innerHTML = data.header;
     
-    // For MODIS, don't replace content since it's now in HTML
-    if (clueKey !== 'modis') {
-        // Hide MODIS visualization and show data placeholder
-        const modisVisualization = document.getElementById('modis-visualization');
-        if (modisVisualization) {
-            modisVisualization.classList.add('hidden');
-        }
-        if (dataContentPlaceholder) {
-            dataContentPlaceholder.classList.remove('hidden');
-            dataContentPlaceholder.innerHTML = data.content;
-        }
-    } else {
-        // Hide data placeholder and show MODIS visualization
-        if (dataContentPlaceholder) {
-            dataContentPlaceholder.classList.add('hidden');
-        }
+    // Handle different clue types
+    if (clueKey === 'modis') {
+        // Hide other visualizations and show MODIS
+        hideAllVisualizations();
         const modisVisualization = document.getElementById('modis-visualization');
         if (modisVisualization) {
             modisVisualization.classList.remove('hidden');
         }
-        
-        // Initialize MODIS visualization when MODIS clue is selected
         loadMODISVisualization();
+    } else if (clueKey === 'aster') {
+        // Hide other visualizations and show ASTER
+        hideAllVisualizations();
+        const asterVisualization = document.getElementById('aster-visualization');
+        if (asterVisualization) {
+            asterVisualization.classList.remove('hidden');
+        }
+        loadASTERVisualization();
+    } else {
+        // For other clues (MISR), show data placeholder
+        hideAllVisualizations();
+        if (dataContentPlaceholder) {
+            dataContentPlaceholder.classList.remove('hidden');
+            dataContentPlaceholder.innerHTML = data.content;
+        }
     }
 
     // 3. Update the slider display based on the clue type

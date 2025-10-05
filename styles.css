@@ -992,3 +992,161 @@ nav a:hover {
 /* Keyframes for the custom alert message */
 @keyframes fadein { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 @keyframes fadeout { from { opacity: 1; } to { opacity: 0; } }
+
+/* ---------------- ASTER Image Slider Styles ---------------- */
+.aster-imagery-container {
+    margin-top: 20px;
+}
+
+.imagery-title {
+    font-family: var(--title-font);
+    font-size: 1.1rem;
+    color: var(--secondary-color);
+    text-align: center;
+    margin-bottom: 20px;
+    text-shadow: 0 0 8px rgba(57, 255, 20, 0.6);
+}
+
+.image-slider-container {
+    position: relative;
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto 20px;
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 0 20px rgba(57, 255, 20, 0.3);
+}
+
+.image-slider {
+    position: relative;
+    width: 100%;
+    height: 400px;
+    cursor: grab;
+}
+
+.image-slider:active {
+    cursor: grabbing;
+}
+
+.slider-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+}
+
+#before-image {
+    z-index: 1;
+    clip-path: inset(0 50% 0 0);
+}
+
+#after-image {
+    z-index: 2;
+    clip-path: inset(0 0 0 50%);
+}
+
+.slider-handle {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 4px;
+    height: 100%;
+    background: var(--secondary-color);
+    z-index: 10;
+    cursor: ew-resize;
+    box-shadow: 0 0 10px rgba(57, 255, 20, 0.8);
+    transition: box-shadow 0.2s ease;
+}
+
+.slider-handle:hover {
+    box-shadow: 0 0 15px rgba(57, 255, 20, 1);
+}
+
+.slider-handle::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 20px;
+    height: 20px;
+    background: var(--secondary-color);
+    border: 2px solid var(--background-color);
+    border-radius: 50%;
+    box-shadow: 0 0 8px rgba(57, 255, 20, 0.6);
+}
+
+.aster-explanation {
+    margin-top: 30px;
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+}
+
+.explanation-title {
+    font-family: var(--title-font);
+    font-size: 1rem;
+    color: var(--secondary-color);
+    margin-bottom: 15px;
+    text-shadow: 0 0 6px rgba(57, 255, 20, 0.6);
+}
+
+.explanation-content {
+    font-family: var(--main-font);
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.explanation-content p {
+    margin-bottom: 15px;
+}
+
+.explanation-content ul {
+    margin: 15px 0;
+    padding-left: 20px;
+}
+
+.explanation-content li {
+    margin-bottom: 8px;
+}
+
+.explanation-content .color {
+    font-weight: bold;
+    text-shadow: 0 0 4px currentColor;
+}
+
+.explanation-content .color.healthy {
+    color: #00ff00;
+}
+
+.explanation-content .color.degraded {
+    color: #ffaa00;
+}
+
+.explanation-content .color.deforested {
+    color: #ff6666;
+}
+
+/* Responsive adjustments for ASTER slider */
+@media (max-width: 768px) {
+    .image-slider {
+        height: 250px;
+    }
+    
+    .imagery-title {
+        font-size: 1rem;
+    }
+    
+    .explanation-content {
+        font-size: 0.8rem;
+    }
+}

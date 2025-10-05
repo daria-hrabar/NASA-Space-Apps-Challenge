@@ -86,6 +86,59 @@
             <div id="data-content-placeholder" class="data-placeholder">
                 <p>Select a clue to view data</p>
             </div>
+
+            <!-- ASTER Visualization Content -->
+            <div id="aster-visualization" class="hidden">
+                <div class="loading-spinner">Loading ASTER True Color Imagery...</div>
+
+                <div id="aster-imagery" class="aster-imagery-container hidden">
+                    <h3 class="imagery-title">ASTER True Color Imagery - Amazon Basin</h3>
+                    <div class="image-slider-container">
+                        <div class="image-slider">
+                            <img id="before-image" src="images/aster_before.jpg" alt="Before Image (2020)" class="slider-image">
+                            <img id="after-image" src="images/aster_after.jpg" alt="After Image (2023)" class="slider-image">
+                            <div id="slider-handle" class="slider-handle"></div>
+                        </div>
+                    </div>
+                    <div class="imagery-legend">
+                        <div class="legend-item">
+                            <div class="legend-color healthy"></div>
+                            <span>Healthy Forest</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color degraded"></div>
+                            <span>Degraded Forest</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color deforested"></div>
+                            <span>Deforested Area</span>
+                        </div>
+                    </div>
+
+                    <!-- Space under the buttons is maintained by margin-bottom: 30px -->
+                    <div class="data-control control-buttons-group">
+                        <button class="explore-button reset-button" onclick="resetASTERView();">RESET</button>
+                    </div>
+
+                </div>
+
+                <!-- ASTER Explanation Section -->
+                <div id="aster-explanation" class="aster-explanation hidden">
+                    <h3 class="explanation-title">About ASTER True Color Imagery</h3>
+                    <div class="explanation-content">
+                        <p><strong>What is ASTER?</strong> The Advanced Spaceborne Thermal Emission and Reflection Radiometer
+                            (ASTER) captures high-resolution images in visible and infrared wavelengths, providing detailed
+                            views of Earth's surface.</p>
+                        <p><strong>How to interpret the imagery:</strong></p>
+                        <ul>
+                            <li><span class="color healthy">Green areas:</span> Indicate healthy, dense vegetation.</li>
+                            <li><span class="color degraded">Brownish areas:</span> Suggest degraded vegetation or sparse plant cover.</li>
+                            <li><span class="color deforested">Gray/white areas:</span> Represent bare soil, urban areas, or deforested land.</li>
+                        </ul>
+                        <p><strong>Why it matters:</strong> ASTER imagery helps scientists monitor land use changes, assess environmental impacts, and track deforestation over time.</p>
+                    </div>
+                </div>
+            </div>
             
             <!-- MODIS Visualization Content -->
             <div id="modis-visualization" class="hidden">
