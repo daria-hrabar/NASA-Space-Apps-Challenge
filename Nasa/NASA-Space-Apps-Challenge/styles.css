@@ -2047,8 +2047,17 @@ nav a:hover {
         font-size: 0.85rem;
     }
     
+    .astronaut-modal {
+        overflow: hidden; /* Prevent any horizontal bleed */
+    }
     .astronaut-modal-content {
         padding: 12px;
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box; /* Include borders in width */
+        overflow-x: hidden; /* Avoid right cut-off */
+        max-height: calc(100vh - 20px); /* Fit within viewport height */
+        overflow-y: auto; /* Scroll inside modal */
     }
     
     .dialogue-text {
