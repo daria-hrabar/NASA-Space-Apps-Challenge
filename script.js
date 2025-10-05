@@ -1044,6 +1044,49 @@ function loadClue(clueKey, clickedButton) {
     
 }
 
+// --------- Simulated MISR Plume Animation ---------
+const canvas = document.getElementById('plumeCanvas');
+const ctx = canvas.getContext('2d');
+
+let frame = 0;
+let plumeFrames = [];
+
+fetch('assets/MISR_plume.json')
+  .then(response => response.json())
+  .then(data => {
+    plumeFrames = data.map(plume => ({
+      x: plume.x,
+      y: plume.y,
+      height: plume.height,
+      color: getColor(plume.height)
+    }));
+    function getColor(height) {
+  if (height > 1500) return 'red';
+  if (height > 1000) return 'orange';
+  return 'yellow';
+}
+
+    animatePlume(); // Start animation after data loads
+  });
+
+function drawPlume(frameData) {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = frameData.color;
+  ctx.beginPath();
+  ctx.moveTo(frameData.x, frameData.y);
+  ctx.lineTo(frameData.x, frameData.y - frameData.height);
+  ctx.lineWidth = 10;
+  ctx.stroke();
+}
+
+function animatePlume() {
+  drawPlume(plumeFrames[frame]);
+  frame = (frame + 1) % plumeFrames.length;
+  setTimeout(animatePlume, 1000); // 1 frame per second
+}
+
+animatePlume();
+
 // ---------------- NDVI Animation Functions ----------------
 function playNDVIAnimation() {
     const satelliteImage = document.getElementById('satellite-image');
