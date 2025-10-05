@@ -206,8 +206,18 @@ function initializeForestSound() {
     // Start playing the forest sound when the page loads
     forestAmbientSound.play().catch(error => {
         console.log('Audio autoplay prevented by browser:', error);
-        // Audio will start when user interacts with the page
+        // Add click event to start audio on first user interaction
+        document.addEventListener('click', startAudioOnInteraction, { once: true });
+        document.addEventListener('keydown', startAudioOnInteraction, { once: true });
     });
+}
+
+function startAudioOnInteraction() {
+    if (forestAmbientSound) {
+        forestAmbientSound.play().catch(error => {
+            console.log('Audio still prevented:', error);
+        });
+    }
 }
 
 function setVolume(volume) {
