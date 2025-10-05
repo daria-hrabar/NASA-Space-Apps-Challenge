@@ -301,8 +301,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // Ensure astronaut modal starts hidden and with no residual styles
     if (astronautModal) {
         const msgEl = document.getElementById('astronaut-message');
-        if (msgEl && !msgEl.textContent) {
-            msgEl.textContent = 'Loading…';
+        if (msgEl) {
+            msgEl.textContent = '';
         }
         astronautModal.classList.add('hidden');
         astronautModal.style.position = '';
