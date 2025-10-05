@@ -33,6 +33,7 @@ body, html {
     max-width: 1200px;
     margin: 0 auto;
     padding: 20px;
+    padding-top: 120px; /* Account for fixed header on desktop */
 }
 
 .data-panel {
@@ -141,13 +142,24 @@ header {
     text-align: center;
 }
 
-.nasa-logo {
+.project-title {
     font-family: var(--pixel-font);
-    font-size: 1.5rem;
-    letter-spacing: 5px;
+    font-size: 1.2rem;
+    letter-spacing: 3px;
     text-transform: uppercase;
+    color: var(--secondary-color);
+    text-shadow: 0 0 10px rgba(57, 255, 20, 0.8);
+    margin: 0 0 5px 0;
+    line-height: 1.2;
+}
+
+.nasa-subtitle {
+    font-family: var(--main-font);
+    font-size: 0.7rem;
     color: var(--primary-color);
-    margin-bottom: 10px;
+    opacity: 0.8;
+    margin: 0 0 10px 0;
+    letter-spacing: 1px;
 }
 
 .header-line {
@@ -189,7 +201,7 @@ nav a:hover {
     text-align: center;
     position: relative;
     /* FIX: Increased padding-top to push content below the fixed header */
-    padding-top: 100px;
+    padding-top: 120px;
     /* Add semi-transparent overlay for better text readability */
     background: rgba(0, 0, 0, 0.3);
 }
@@ -452,7 +464,8 @@ nav a:hover {
 
 /* ---------------- Mobile Responsiveness ---------------- */
 @media (max-width: 768px) {
-    .nasa-logo { font-size: 1rem; }
+    .project-title { font-size: 1rem; }
+    .nasa-subtitle { font-size: 0.6rem; }
     .header-content { padding: 0 10px; }
 
     #case-dashboard {
@@ -2101,6 +2114,11 @@ nav a:hover {
 
 /* ---------------- Team Page Styles ---------------- */
 #team-page {
+    padding-top: 120px; /* Account for fixed header */
+}
+
+/* Mission completion sections - desktop padding */
+.mission-completion {
     padding-top: 120px; /* Account for fixed header */
 }
 
