@@ -134,8 +134,7 @@ const gameScenarios = {
         showProgress: true
     },
     modis_analysis: {
-        message: "Perfect! Let me show you the MODIS data. This chart shows NDVI values declining from 0.75 in 2018 to 0.28 in 2025. The red line shows the clear downward trend. What does this data indicate about forest health?",
-        dataDisplay: "modis",
+        message: "Perfect! Let me show you the MODIS data. Click on the MODIS clue above to examine the interactive visualization with animations and detailed analysis. What does this data indicate about forest health?",
         choices: [
             { text: "The forest is recovering", correct: false, feedback: "I can see why you might think that! However, if you look closely at the NDVI values, they're actually decreasing over time. In NDVI data, higher values indicate healthier, denser vegetation. The declining trend suggests the opposite of recovery - it shows vegetation loss." },
             { text: "The forest is losing vegetation", correct: true, nextState: 'aster_choice' },
@@ -152,8 +151,7 @@ const gameScenarios = {
         showProgress: true
     },
     aster_analysis: {
-        message: "Here's the ASTER imagery comparison. The left image shows healthy forest in 2020, the right shows the same area in 2023. Notice the geometric clearing patterns and systematic deforestation. What damage pattern do you observe?",
-        dataDisplay: "aster",
+        message: "Now examine the ASTER imagery above - click on the ASTER clue to see the interactive before/after comparison with the image slider. Look at the geometric clearing patterns and systematic deforestation. What damage pattern do you observe?",
         choices: [
             { text: "Natural forest fires", correct: false, feedback: "That's a good observation about fire patterns! However, if you examine the imagery more closely, you'll notice the clearing patterns are very geometric and systematic - this suggests human activity rather than natural fire spread, which typically follows more organic, irregular boundaries." },
             { text: "Systematic deforestation", correct: true, nextState: 'misr_choice' },
@@ -170,8 +168,7 @@ const gameScenarios = {
         showProgress: true
     },
     misr_analysis: {
-        message: "Here's the MISR aerosol data. You can see massive smoke plumes extending hundreds of kilometers from the deforestation sites. The red areas show high aerosol concentrations affecting air quality across the region. What does this tell us about environmental impact?",
-        dataDisplay: "misr",
+        message: "Now examine the MISR data above - click on the MISR clue to see the interactive aerosol visualization. Look at the smoke plume patterns and their extent to understand the environmental impact. What does this tell us about the consequences?",
         choices: [
             { text: "No significant impact", correct: false, feedback: "I can understand why the scale might not be immediately obvious! But the MISR data actually shows massive aerosol plumes that extend far beyond the immediate deforestation area. These plumes represent significant air quality degradation that affects thousands of people in surrounding communities." },
             { text: "Major air quality impact on communities", correct: true, nextState: 'verdict_choice' },
@@ -189,11 +186,22 @@ const gameScenarios = {
         showProgress: true
     },
     mission_complete: {
-        message: "🎉 Outstanding work, Detective! You've successfully identified human-caused deforestation in the Amazon Basin. Your investigation revealed systematic destruction of forest ecosystems and its impact on air quality for over 500,000 people. Mission accomplished!",
+        message: "🎉 Outstanding work, Detective! You've successfully identified human-caused deforestation in the Amazon Basin. Your investigation revealed systematic destruction of forest ecosystems and its impact on air quality for over 500,000 people. Let me explain what this verdict means and why it's so critical for our planet.",
+        dataDisplay: "verdict",
         choices: [
+            { text: "Learn About Solutions", correct: true, nextState: 'solutions' },
             { text: "View Mission Summary", correct: true, nextState: 'mission_summary' }
         ],
         showProgress: true
+    },
+    solutions: {
+        message: "The good news is that we can take action! There are proven solutions to combat deforestation and protect our planet's future.",
+        dataDisplay: "solutions",
+        choices: [
+            { text: "View Mission Summary", correct: true, nextState: 'mission_summary' },
+            { text: "Start New Investigation", correct: true, nextState: 'intro' }
+        ],
+        showProgress: false
     },
     mission_summary: {
         message: "Excellent detective work! You've successfully completed your environmental investigation. However, the findings reveal a critical environmental crisis that demands immediate attention.",
@@ -232,6 +240,26 @@ const gameScenarios = {
     }
 };
 
+
+// Mobile detection and optimization
+const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+
+// Mobile-specific optimizations
+if (isMobile || isTouchDevice) {
+    // Prevent zoom on double tap
+    let lastTouchEnd = 0;
+    document.addEventListener('touchend', function (event) {
+        const now = (new Date()).getTime();
+        if (now - lastTouchEnd <= 300) {
+            event.preventDefault();
+        }
+        lastTouchEnd = now;
+    }, false);
+    
+    // Optimize touch interactions
+    document.addEventListener('touchstart', function() {}, true);
+}
 
 // Initial setup to ensure only the hero is shown and to assign all DOM variables safely
 document.addEventListener('DOMContentLoaded', () => {
@@ -919,7 +947,7 @@ function loadClue(clueKey, clickedButton) {
         hideAllVisualizations();
         if (dataContentPlaceholder) {
             dataContentPlaceholder.classList.remove('hidden');
-            dataContentPlaceholder.innerHTML = data.content;
+    dataContentPlaceholder.innerHTML = data.content;
         }
     }
 
@@ -1086,28 +1114,44 @@ function showAstronautModal(scenario) {
         messageElement.textContent = scenario.message;
     }
     
-    // Handle data display
+    // Hide data display area since we want users to interact with original visualizations
     const dataDisplayArea = document.getElementById('data-display-area');
     const viewDataBtn = document.getElementById('view-data-btn');
     const backToDialogueBtn = document.getElementById('back-to-dialogue-btn');
     
-    if (scenario.dataDisplay) {
-        // Show specific data visualization
-        hideAllDataVisualizations();
-        const specificData = document.getElementById(scenario.dataDisplay + '-data-display');
-        if (specificData) {
-            specificData.classList.remove('hidden');
-        }
-        dataDisplayArea.classList.remove('hidden');
+    if (dataDisplayArea) dataDisplayArea.classList.add('hidden');
+    if (viewDataBtn) viewDataBtn.classList.add('hidden');
+    if (backToDialogueBtn) backToDialogueBtn.classList.add('hidden');
+    
+    // Smart positioning for data examination scenarios
+    const dataExaminationStates = ['modis_analysis', 'aster_analysis', 'misr_analysis'];
+    if (dataExaminationStates.includes(currentGameState)) {
+        // Position popup to not block data
+        astronautModal.style.position = 'fixed';
+        astronautModal.style.top = '20px';
+        astronautModal.style.right = '20px';
+        astronautModal.style.bottom = 'auto';
+        astronautModal.style.left = 'auto';
+        astronautModal.style.width = isMobile ? '90%' : '400px';
+        astronautModal.style.maxWidth = isMobile ? '90%' : '400px';
+        astronautModal.style.background = 'rgba(0, 0, 0, 0.1)';
+        astronautModal.style.backdropFilter = 'none';
         
-        // Show data navigation buttons
-        if (viewDataBtn) viewDataBtn.classList.remove('hidden');
-        if (backToDialogueBtn) backToDialogueBtn.classList.add('hidden');
+        // Auto-switch to relevant clue if needed (but no auto-scroll)
+        setTimeout(() => {
+            autoSwitchToRelevantClue(currentGameState);
+        }, 300);
     } else {
-        // Hide data display
-        dataDisplayArea.classList.add('hidden');
-        if (viewDataBtn) viewDataBtn.classList.add('hidden');
-        if (backToDialogueBtn) backToDialogueBtn.classList.add('hidden');
+        // Reset to default positioning
+        astronautModal.style.position = '';
+        astronautModal.style.top = '';
+        astronautModal.style.right = '';
+        astronautModal.style.bottom = '';
+        astronautModal.style.left = '';
+        astronautModal.style.width = '';
+        astronautModal.style.maxWidth = '';
+        astronautModal.style.background = '';
+        astronautModal.style.backdropFilter = '';
     }
     
     if (choicesElement) {
@@ -1217,6 +1261,53 @@ function hideDataPanel() {
     }
     if (backToDialogueBtn) {
         backToDialogueBtn.classList.add('hidden');
+    }
+}
+
+// Function to auto-switch to relevant clue without scrolling
+function autoSwitchToRelevantClue(gameState) {
+    let targetClue = null;
+    
+    switch (gameState) {
+        case 'modis_analysis':
+            // Look for MODIS clue button
+            targetClue = document.querySelector('[onclick*="loadClue"][onclick*="modis"]');
+            break;
+        case 'aster_analysis':
+            // Look for ASTER clue button
+            targetClue = document.querySelector('[onclick*="loadClue"][onclick*="aster"]');
+            break;
+        case 'misr_analysis':
+            // Look for MISR clue button
+            targetClue = document.querySelector('[onclick*="loadClue"][onclick*="misr"]');
+            break;
+    }
+    
+    if (targetClue) {
+        // Check if the data is already loaded by looking for the data elements
+        let dataAlreadyLoaded = false;
+        
+        switch (gameState) {
+            case 'modis_analysis':
+                dataAlreadyLoaded = document.getElementById('ndvi-chart') && 
+                                  !document.getElementById('ndvi-chart').classList.contains('hidden');
+                break;
+            case 'aster_analysis':
+                dataAlreadyLoaded = document.querySelector('.aster-slider') && 
+                                  !document.querySelector('.aster-slider').classList.contains('hidden');
+                break;
+            case 'misr_analysis':
+                dataAlreadyLoaded = document.querySelector('.misr-visualization') && 
+                                  !document.querySelector('.misr-visualization').classList.contains('hidden');
+                break;
+        }
+        
+        // Only auto-click if the data isn't already loaded
+        if (!dataAlreadyLoaded) {
+            setTimeout(() => {
+                targetClue.click();
+            }, 500);
+        }
     }
 }
 

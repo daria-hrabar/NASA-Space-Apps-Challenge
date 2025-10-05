@@ -1481,9 +1481,514 @@ nav a:hover {
     font-size: 0.8rem;
 }
 
+/* Verdict Explanation Styles */
+.verdict-explanation {
+    background: rgba(0, 0, 0, 0.5);
+    padding: 20px;
+    border-radius: 10px;
+    border: 2px solid var(--secondary-color);
+}
+
+.verdict-impact, .verdict-evidence, .verdict-urgency {
+    margin-bottom: 25px;
+    padding: 15px;
+    background: rgba(57, 255, 20, 0.05);
+    border-radius: 8px;
+    border-left: 4px solid var(--secondary-color);
+}
+
+.verdict-impact h5, .verdict-evidence h5, .verdict-urgency h5 {
+    color: var(--secondary-color);
+    margin-bottom: 10px;
+    font-size: 1.1rem;
+}
+
+.verdict-impact ul {
+    margin: 10px 0;
+    padding-left: 20px;
+}
+
+.verdict-impact li {
+    margin: 8px 0;
+    color: #ccc;
+    line-height: 1.5;
+}
+
+.evidence-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.evidence-item {
+    background: rgba(0, 0, 0, 0.3);
+    padding: 12px;
+    border-radius: 6px;
+    border: 1px solid rgba(57, 255, 20, 0.3);
+}
+
+.evidence-item strong {
+    color: var(--secondary-color);
+    display: block;
+    margin-bottom: 5px;
+}
+
+.urgency-stats {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid var(--secondary-color);
+}
+
+.urgency-stat {
+    text-align: center;
+}
+
+.urgency-stat .stat-number {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #ff4444;
+    text-shadow: 0 0 10px rgba(255, 68, 68, 0.8);
+}
+
+.urgency-stat .stat-label {
+    font-size: 0.8rem;
+    color: #ff6666;
+    margin-top: 5px;
+}
+
+/* Solutions Styles */
+.solutions-info {
+    background: rgba(0, 0, 0, 0.5);
+    padding: 20px;
+    border-radius: 10px;
+    border: 2px solid var(--secondary-color);
+}
+
+.solution-category {
+    margin-bottom: 25px;
+}
+
+.solution-category h5 {
+    color: var(--secondary-color);
+    margin-bottom: 15px;
+    font-size: 1.1rem;
+}
+
+.solution-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.solution-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 15px;
+    background: rgba(57, 255, 20, 0.05);
+    border-radius: 8px;
+    border: 1px solid rgba(57, 255, 20, 0.2);
+    transition: all 0.3s ease;
+}
+
+.solution-item:hover {
+    background: rgba(57, 255, 20, 0.1);
+    transform: translateY(-2px);
+}
+
+.solution-icon {
+    font-size: 1.5rem;
+    min-width: 30px;
+    text-align: center;
+}
+
+.solution-content strong {
+    color: var(--secondary-color);
+    display: block;
+    margin-bottom: 5px;
+}
+
+.solution-content span {
+    color: #ccc;
+    font-size: 0.9rem;
+    line-height: 1.4;
+}
+
+.action-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.action-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 6px;
+    border-left: 3px solid var(--secondary-color);
+}
+
+.action-item strong {
+    color: var(--secondary-color);
+}
+
+/* ---------------- Mobile Responsive Design ---------------- */
+@media (max-width: 768px) {
+    /* Header and Navigation */
+    .header {
+        padding: 10px 15px;
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .header h1 {
+        font-size: 1.2rem;
+        text-align: center;
+    }
+    
+    nav {
+        flex-direction: column;
+        gap: 8px;
+    }
+    
+    nav a {
+        padding: 8px 12px;
+        font-size: 0.9rem;
+    }
+    
+    /* Volume Control */
+    .volume-control {
+        flex-direction: column;
+        gap: 5px;
+        align-items: center;
+    }
+    
+    .volume-slider {
+        width: 100px;
+    }
+    
+    /* Hero Section */
+    .hero {
+        padding: 20px 15px;
+        text-align: center;
+    }
+    
+    .hero h1 {
+        font-size: 1.8rem;
+        margin-bottom: 15px;
+    }
+    
+    .hero p {
+        font-size: 1rem;
+        margin-bottom: 20px;
+    }
+    
+    .explore-button {
+        padding: 12px 20px;
+        font-size: 1rem;
+    }
+    
+    /* Dashboard */
+    .dashboard-header {
+        font-size: 1.5rem;
+        margin: 20px 0;
+    }
+    
+    
+    .clue-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+        margin: 20px 0;
+    }
+    
+    .clue-button {
+        padding: 15px;
+        font-size: 0.9rem;
+    }
+    
+    /* Data Visualizations */
+    .data-panel {
+        margin: 15px;
+        padding: 15px;
+    }
+    
+    .data-panel h3 {
+        font-size: 1.2rem;
+    }
+    
+    /* MODIS Chart */
+    .chart-bars {
+        gap: 3px;
+        height: 80px;
+    }
+    
+    .chart-bar {
+        min-width: 25px;
+        font-size: 0.7rem;
+    }
+    
+    .bar-label {
+        font-size: 0.6rem;
+        bottom: -15px;
+    }
+    
+    /* ASTER Slider */
+    .aster-slider {
+        height: 200px;
+    }
+    
+    .slider-handle {
+        width: 30px;
+        height: 30px;
+    }
+    
+    /* Astronaut Modal */
+    .astronaut-modal {
+        padding: 10px;
+    }
+    
+    .astronaut-modal-content {
+        padding: 15px;
+        max-width: 95%;
+        width: 95%;
+    }
+    
+    .astronaut-avatar {
+        width: 60px;
+        height: 60px;
+    }
+    
+    .dialogue-text {
+        font-size: 0.9rem;
+        line-height: 1.4;
+    }
+    
+    .choice-button {
+        padding: 10px 15px;
+        font-size: 0.9rem;
+        margin: 5px;
+    }
+    
+    /* Smart positioning for mobile */
+    .astronaut-modal[style*="position: fixed"] {
+        top: 10px !important;
+        right: 10px !important;
+        left: 10px !important;
+        width: auto !important;
+        max-width: none !important;
+    }
+    
+    /* Team Grid */
+    .team-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+        margin: 15px 0;
+    }
+    
+    .team-member {
+        padding: 12px;
+        flex-direction: column;
+        text-align: center;
+        gap: 10px;
+    }
+    
+    .member-photo {
+        width: 50px;
+        height: 50px;
+    }
+    
+    .member-name {
+        font-size: 0.9rem;
+    }
+    
+    .member-role {
+        font-size: 0.7rem;
+    }
+    
+    .member-bio {
+        font-size: 0.75rem;
+        line-height: 1.3;
+    }
+    
+    /* Credits */
+    .credits-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+    
+    .credit-category {
+        padding: 12px;
+    }
+    
+    /* Mission Summary */
+    .summary-stats {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .stat-item {
+        padding: 10px;
+        background: rgba(57, 255, 20, 0.1);
+        border-radius: 8px;
+    }
+    
+    .stat-number {
+        font-size: 1.5rem;
+    }
+    
+    /* Solutions */
+    .solution-grid {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+    
+    .solution-item {
+        flex-direction: column;
+        text-align: center;
+        gap: 8px;
+    }
+    
+    .solution-icon {
+        font-size: 1.2rem;
+    }
+    
+    .solution-content {
+        font-size: 0.85rem;
+    }
+    
+    /* Evidence Grid */
+    .evidence-grid {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+    
+    .evidence-item {
+        padding: 10px;
+        font-size: 0.85rem;
+    }
+    
+    /* Urgency Stats */
+    .urgency-stats {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .urgency-stat {
+        padding: 8px;
+        background: rgba(255, 68, 68, 0.1);
+        border-radius: 6px;
+    }
+    
+    /* Floating Astronaut Button */
+    .floating-astronaut-btn {
+        bottom: 10px;
+        left: 10px;
+        right: 10px;
+        padding: 8px 12px;
+        font-size: 0.8rem;
+    }
+    
+    .floating-avatar {
+        width: 30px;
+        height: 30px;
+    }
+    
+    /* Data Navigation */
+    .data-navigation {
+        flex-direction: column;
+        gap: 8px;
+    }
+    
+    .view-data-btn, .back-to-dialogue-btn {
+        padding: 6px 12px;
+        font-size: 0.8rem;
+    }
+}
+
+/* Extra small devices (phones in portrait) */
+@media (max-width: 480px) {
+    .hero h1 {
+        font-size: 1.5rem;
+    }
+    
+    .dashboard-header {
+        font-size: 1.3rem;
+    }
+    
+    .clue-button {
+        padding: 12px;
+        font-size: 0.85rem;
+    }
+    
+    .astronaut-modal-content {
+        padding: 12px;
+    }
+    
+    .dialogue-text {
+        font-size: 0.85rem;
+    }
+    
+    .choice-button {
+        padding: 8px 12px;
+        font-size: 0.85rem;
+    }
+    
+    .chart-bars {
+        height: 60px;
+    }
+    
+    .chart-bar {
+        min-width: 20px;
+        font-size: 0.6rem;
+    }
+    
+    .aster-slider {
+        height: 150px;
+    }
+}
+
+/* Landscape orientation for phones */
+@media (max-width: 768px) and (orientation: landscape) {
+    .hero {
+        padding: 15px;
+    }
+    
+    .hero h1 {
+        font-size: 1.5rem;
+    }
+    
+    .astronaut-modal[style*="position: fixed"] {
+        top: 5px !important;
+        right: 5px !important;
+        left: 5px !important;
+    }
+    
+    .astronaut-modal-content {
+        padding: 10px;
+    }
+    
+    .chart-bars {
+        height: 60px;
+    }
+    
+    .aster-slider {
+        height: 120px;
+    }
+}
+
 /* ---------------- Team Page Styles ---------------- */
+#team-page {
+    padding-top: 120px; /* Account for fixed header */
+}
+
 .team-header {
-    margin-top: 50px;
+    margin-top: 20px;
     text-align: center;
     color: var(--secondary-color);
     text-shadow: 0 0 15px rgba(57, 255, 20, 0.8);
@@ -1655,6 +2160,10 @@ nav a:hover {
 
 /* Responsive Team Page */
 @media (max-width: 768px) {
+    #team-page {
+        padding-top: 100px; /* Reduced padding for mobile */
+    }
+    
     .team-grid {
         grid-template-columns: 1fr;
         gap: 20px;
@@ -1865,10 +2374,10 @@ nav a:hover {
     top: 0;
     bottom: 0;
     height: 100%;
-    background: rgba(0, 0, 0, 0.9);
+    background: rgba(0, 0, 0, 0.3);
     align-items: center;
     justify-content: center;
-    backdrop-filter: blur(5px);
+    backdrop-filter: none;
     padding: 0;
 }
 
