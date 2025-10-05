@@ -1253,10 +1253,13 @@ function toggleAstronautModal() {
             astronautModal.style.width = '60px';
             astronautModal.style.height = '60px';
             astronautModal.style.borderRadius = '50%';
-            astronautModal.style.background = 'var(--secondary-color)';
+            astronautModal.style.background = 'rgba(57, 255, 20, 0.9)';
             astronautModal.style.display = 'flex';
             astronautModal.style.alignItems = 'center';
             astronautModal.style.justifyContent = 'center';
+            astronautModal.style.border = '3px solid white';
+            astronautModal.style.boxShadow = '0 4px 20px rgba(57, 255, 20, 0.5)';
+            astronautModal.style.backdropFilter = 'none';
         }
     }
 }
