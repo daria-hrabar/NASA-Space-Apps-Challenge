@@ -294,14 +294,12 @@ document.addEventListener('DOMContentLoaded', () => {
     // Initialize volume icon
     updateVolumeIcon();
 
-    // Auto-open first popup on mobile with a quick loading overlay
+    // Mobile: brief loading overlay, keep user on home (no auto-opening modal)
     if (isMobile && astronautModal) {
         showMobileInitOverlay();
-        currentGameState = 'intro';
         setTimeout(() => {
-            showAstronautModal(gameScenarios.intro);
             hideMobileInitOverlay();
-        }, 300);
+        }, 400);
     }
 });
 
