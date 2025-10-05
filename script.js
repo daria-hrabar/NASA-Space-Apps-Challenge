@@ -255,10 +255,11 @@ function startInvestigation() {
     // Use smooth scrolling to the top of the body/page content
     window.scrollTo({ top: 0, behavior: 'smooth' }); 
     
-    // Stop the forest ambient sound
+    // Stop the forest ambient sound completely
     if (forestAmbientSound) {
         forestAmbientSound.pause();
         forestAmbientSound.currentTime = 0;
+        console.log('Forest sound stopped in startInvestigation');
     }
     
     // Start investigation sound
@@ -305,6 +306,7 @@ function showSection(sectionId) {
         if (forestAmbientSound) {
             forestAmbientSound.pause();
             forestAmbientSound.currentTime = 0;
+            console.log('Forest sound stopped in dashboard section');
         }
         // Start investigation sound if not already playing
         if (!investigationSound || investigationSound.paused) {
