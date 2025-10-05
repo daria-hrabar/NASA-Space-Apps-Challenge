@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Terra Trackers: The Verdict</title>
+    <!-- Load the pixelated accent font -->
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <!-- Load new modern/technical fonts for better matching (Orbitron for titles, Roboto Mono for body) -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&family=Roboto+Mono:wght@300;400;700&display=swap"
+        rel="stylesheet">
+    
+    <!-- Link to external CSS file -->
+    <link rel="stylesheet" href="styles.css"> 
+</head>
+
+<body>
+
+    <!-- Header & Navigation -->
+    <header>
+        <div class="header-content">
+            <div class="header-line"></div>
+            <h1 class="project-title">Terra Trackers</h1>
+            <p class="nasa-subtitle">NASA Space Apps</p>
+            <nav>
+                <a href="#" onclick="showSection('hero');">Home</a>
+                <a href="#" onclick="showSection('dashboard');">Case File</a>
+                <a href="#" onclick="showSection('team');">Team</a>
+            </nav>
+            <!-- Volume Control -->
+            <div class="volume-control">
+                <button id="volume-icon" onclick="toggleMute()" title="Volume Control">🔊</button>
+                <input type="range" id="volume-slider" min="0" max="1" step="0.1" value="0.3"
+                    onchange="setVolume(this.value)">
+            </div>
+            <div class="header-line header-line-bottom"></div>
+        </div>
+    </header>
+
+    <!-- 1. Hero Section (Landing Page) - Initially Visible -->
+    <main id="hero" class="hero">
+        <div class="title-container">
+            <h1 class="main-title">TERRA TRACKERS</h1>
+            <p class="subtitle">A DETECTIVE'S DASHBOARD - SOLVE THE PLANET'S MYSTERIES.</p>
+        </div>
+
+        <div class="planet-container">
+            <div class="planet-image"></div>
+            <div class="fade-overlay"></div>
+        </div>
+
+        <button class="explore-button" onclick="startInvestigation()">START INVESTIGATION</button>
+    </main>
+
+    <!-- 2. Case Dashboard (Interactive Content) - Initially Hidden -->
+    <div id="case-dashboard" class="container hidden">
+        <h2 class="dashboard-header">CASE FILE: THE MISSING VEGETATION | LOCATION: AMAZON BASIN</h2>
+
+        <!-- Clue Sidebar (Navigation) -->
+        <div class="data-panel clue-sidebar">
+            <div class="panel-header">CLUE TRACKERS (TERRA INSTRUMENTS)</div>
+            
+            <button class="clue-button active" id="clue-modis" onclick="loadClue('modis', this)">
+                <span class="clue-main-text">M.O. (MODIS): The Reporter</span>
+                <div class="clue-description">Long-term NDVI Decline</div>
+            </button>
+            
+            <button class="clue-button" id="clue-aster" onclick="loadClue('aster', this)">
+                <span class="clue-main-text">A.S.T. (ASTER): The Specialist</span>
+                <div class="clue-description">High-Res Before/After Scar</div>
+            </button>
+            
+            <button class="clue-button" id="clue-misr" onclick="loadClue('misr', this)">
+                <span class="clue-main-text">M.I.S.R. (MISR): The 3D Artist</span>
+                <div class="clue-description">Aerosol/Smoke Plume Tracking</div>
+            </button>
+            
+        </div>
+
+        <!-- Main Data View (Map/Visual) -->
+        <div id="main-data-view" class="data-panel main-data-view">
+            <div class="panel-header" id="data-view-header">CLUE 1: M.O. (MODIS) - LONG-TERM NDVI DECLINE</div>
+            
+            <!-- Data Content Placeholder for other clues -->
+            <div id="data-content-placeholder" class="data-placeholder">
+                <p>Select a clue to view data</p>
+            </div>
+            
+            <!-- ASTER Visualization Content -->
+            <div id="aster-visualization" class="hidden">
+                <div class="loading-spinner">Loading ASTER True Color Imagery...</div>
+
+                <div id="aster-imagery" class="aster-imagery-container hidden">
+                    <h3 class="imagery-title">ASTER True Color Imagery - Amazon Basin</h3>
+                    <div class="image-slider-container">
+                        <div class="image-slider">
+                            <img id="before-image" src="images/aster_before.jpg" alt="Before Image (2020)" class="slider-image">
+                            <img id="after-image" src="images/aster_after.jpg" alt="After Image (2023)" class="slider-image">
+                            <div id="slider-handle" class="slider-handle"></div>
+                        </div>
+                    </div>
+                    <div class="imagery-legend">
+                        <div class="legend-item">
+                            <div class="legend-color healthy"></div>
+                            <span>Healthy Forest</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color degraded"></div>
+                            <span>Degraded Forest</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color deforested"></div>
+                            <span>Deforested Area</span>
+                        </div>
+                    </div>
+
+                    <!-- Space under the buttons is maintained by margin-bottom: 30px -->
+                    <div class="data-control control-buttons-group">
+                        <button class="explore-button reset-button" onclick="resetASTERView();">RESET</button>
+                    </div>
+
+                </div>
+
+                <!-- ASTER Explanation Section -->
+                <div id="aster-explanation" class="aster-explanation hidden">
+                    <h3 class="explanation-title">About ASTER True Color Imagery</h3>
+                    <div class="explanation-content">
+                        <p><strong>What is ASTER?</strong> The Advanced Spaceborne Thermal Emission and Reflection Radiometer
+                            (ASTER) captures high-resolution images in visible and infrared wavelengths, providing detailed
+                            views of Earth's surface.</p>
+                        <p><strong>How to interpret the imagery:</strong></p>
+                        <ul>
+                            <li><span class="color healthy">Green areas:</span> Indicate healthy, dense vegetation.</li>
+                            <li><span class="color degraded">Brownish areas:</span> Suggest degraded vegetation or sparse plant cover.</li>
+                            <li><span class="color deforested">Gray/white areas:</span> Represent bare soil, urban areas, or deforested land.</li>
+                        </ul>
+                        <p><strong>Why it matters:</strong> ASTER imagery helps scientists monitor land use changes, assess environmental impacts, and track deforestation over time.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- MODIS Visualization Content -->
+            <div id="modis-visualization" class="hidden">
+                <div class="loading-spinner">Loading MODIS NDVI data...</div>
+
+                <!-- MODIS Satellite Imagery Section -->
+                <div id="modis-imagery" class="modis-imagery-container hidden">
+                    <h3 class="imagery-title">MODIS Satellite Imagery - Amazon Basin</h3>
+                    <div id="satellite-image" class="satellite-image">
+                        <div class="image-placeholder">Loading satellite imagery...</div>
+                    </div>
+                    <div class="imagery-legend">
+                        <div class="legend-item">
+                            <div class="legend-color healthy"></div>
+                            <span>Healthy Forest</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color degraded"></div>
+                            <span>Degraded Forest</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color deforested"></div>
+                            <span>Deforested Area</span>
+                        </div>
+                    </div>
+
+                    <!-- MODIS Time Slider -->
+                    <div class="modis-time-slider">
+                        <label for="modis-time-slider">TIME SLIDER (YEARS):</label>
+                        <input type="range" id="modis-time-slider" name="modis-time-slider" min="0" max="100"
+                            value="0">
+                        <label id="modis-slider-value">2018</label>
+            </div>
+
+            <!-- Space under the buttons is maintained by margin-bottom: 30px -->
+                <div class="data-control control-buttons-group">
+                    <button class="explore-button" onclick="playNDVIAnimation();">PLAY ANIMATION</button>
+                    <button class="explore-button reset-button" onclick="resetMODISView();">RESET</button>
+                </div>
+
+                </div>
+
+                <!-- NDVI Chart Section -->
+                <div id="ndvi-chart" class="hidden"></div>
+
+                <!-- NDVI Explanation Section -->
+                <div id="ndvi-explanation" class="ndvi-explanation hidden">
+                    <h3 class="explanation-title">About NDVI (Normalized Difference Vegetation Index)</h3>
+                    <div class="explanation-content">
+                        <p><strong>What is NDVI?</strong> NDVI measures the health and density of vegetation by
+                            analyzing the difference between near-infrared and red light reflected by plants.</p>
+                        <p><strong>How to read the values:</strong></p>
+                        <ul>
+                            <li><span class="ndvi-value high">0.5 - 1.0:</span> Dense, healthy vegetation (forests,
+                                crops)</li>
+                            <li><span class="ndvi-value medium">0.2 - 0.5:</span> Sparse vegetation (grasslands,
+                                degraded areas)</li>
+                            <li><span class="ndvi-value low">0.0 - 0.2:</span> Bare soil, water, or urban areas</li>
+                        </ul>
+                        <p><strong>Why it matters:</strong> NDVI helps scientists track deforestation, monitor crop
+                            health, and assess environmental changes over time.</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    
+    <!-- 3. Team Page - Initially Hidden -->
+    <div id="team-page" class="container hidden">
+        <h2 class="dashboard-header team-header">MEET THE TEAM</h2>
+        
+        <!-- Team Members Section -->
+        <div class="team-section">
+            <div class="team-grid">
+                <!-- Team Member 1 -->
+                <div class="team-member">
+                    <div class="member-info">
+                        <h3 class="member-name">Juanita Herrera</h3>
+                        <p class="member-bio">Web Developer for Terra Trackers: The Verdict. A student of Sonic Arts at CCNY. Took on this project out of a passion for mixing technology with art and design. The goal was to use an intuitive, game-like interface to turn complex Terra satellite data into a clear and compelling environmental story.</p>
+                    </div>
+                </div>
+
+                <!-- Team Member 2 -->
+                <div class="team-member">
+                    <div class="member-info">
+                        <h3 class="member-name">NAME</h3>
+                        <p class="member-bio">Bio</p>
+                    </div>
+                </div>
+
+                <!-- Team Member 3 -->
+                <div class="team-member">
+                    <div class="member-info">
+                        <h3 class="member-name">NAME</h3>
+                        <p class="member-bio">Bio</p>
+                    </div>
+                </div>
+
+                <!-- Team Member 4 -->
+                <div class="team-member">
+                    <div class="member-info">
+                        <h3 class="member-name">NAME</h3>
+                        <p class="member-bio">Bio</p>
+                    </div>
+                </div>
+
+                <!-- Team Member 5 -->
+                <div class="team-member">
+                    <div class="member-info">
+                        <h3 class="member-name">NAME</h3>
+                        <p class="member-bio">Bio</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Credits Section -->
+        <div class="credits-section">
+            <h3 class="credits-title">CREDITS & ACKNOWLEDGMENTS</h3>
+            
+            <div class="credits-grid">
+                <!-- Audio Credits -->
+                <div class="credit-category">
+                    <h4 class="credit-category-title">🎵 Audio & Music</h4>
+                    <ul class="credit-list">
+                        <li><strong>Forest Ambient Sound:</strong> "Amazon Rainforest Ambience" by Nature Sounds Library</li>
+                        <li><strong>Investigation Music:</strong> "Mystery Investigation" by Ambient Music Collective</li>
+                        <li><strong>Additional Audio:</strong> Paolo Argento, ViraMiller (Pixabay)</li>
+                    </ul>
+                </div>
+
+                <!-- Image Credits -->
+                <div class="credit-category">
+                    <h4 class="credit-category-title">🖼️ Images & Visuals</h4>
+                    <ul class="credit-list">
+                    </ul>
+                </div>
+
+                <!-- Data Credits -->
+                <div class="credit-category">
+                    <h4 class="credit-category-title">📊 Data Sources</h4>
+                    <ul class="credit-list">
+                    </ul>
+                </div>
+
+                <!-- Technology Credits -->
+                <div class="credit-category">
+                    <h4 class="credit-category-title">💻 Technology & Tools</h4>
+                    <ul class="credit-list">
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation Buttons -->
+        <div class="team-navigation">
+            <button class="explore-button" onclick="showSection('hero')">← BACK TO HOME</button>
+            <button class="explore-button" onclick="showSection('dashboard')">CONTINUE INVESTIGATION</button>
+        </div>
+    </div>
+
+
+    <!-- Astronaut Guide Modal System -->
+    <div id="astronaut-modal" class="astronaut-modal hidden">
+        <div class="astronaut-modal-content">
+            <!-- Collapse/Expand Button -->
+            <button id="collapse-btn" class="collapse-btn" onclick="toggleAstronautModal()">−</button>
+            
+            <div class="astronaut-avatar-container">
+                <img id="astronaut-avatar" src="astronaut.jpg" alt="Astronaut Guide" class="astronaut-avatar">
+                        <div class="astronaut-name">Commander Terra</div>
+            </div>
+            <div class="astronaut-dialogue">
+                <div id="astronaut-message" class="dialogue-text"></div>
+                
+                <!-- Data Display Area -->
+                <div id="data-display-area" class="data-display-area hidden">
+                    <div id="modis-data-display" class="data-visualization hidden">
+                        <h4>MODIS NDVI Data (2018-2025)</h4>
+                        <div class="chart-container">
+                            <div class="chart-wrapper">
+                                <div class="chart-bars">
+                                    <div class="chart-bar healthy" style="height: 87px;" data-year="2018" data-ndvi="0.75" title="Year: 2018, NDVI: 0.750">
+                                        <span class="bar-label">2018</span>
+                                    </div>
+                                    <div class="chart-bar healthy" style="height: 86px;" data-year="2019" data-ndvi="0.72" title="Year: 2019, NDVI: 0.720">
+                                        <span class="bar-label">2019</span>
+                                    </div>
+                                    <div class="chart-bar healthy" style="height: 84px;" data-year="2020" data-ndvi="0.68" title="Year: 2020, NDVI: 0.680">
+                                        <span class="bar-label">2020</span>
+                                    </div>
+                                    <div class="chart-bar moderate" style="height: 80px;" data-year="2021" data-ndvi="0.61" title="Year: 2021, NDVI: 0.610">
+                                        <span class="bar-label">2021</span>
+                                    </div>
+                                    <div class="chart-bar moderate" style="height: 72px;" data-year="2022" data-ndvi="0.45" title="Year: 2022, NDVI: 0.450">
+                                        <span class="bar-label">2022</span>
+                                    </div>
+                                    <div class="chart-bar moderate" style="height: 69px;" data-year="2023" data-ndvi="0.38" title="Year: 2023, NDVI: 0.380">
+                                        <span class="bar-label">2023</span>
+                                    </div>
+                                    <div class="chart-bar poor" style="height: 66px;" data-year="2024" data-ndvi="0.32" title="Year: 2024, NDVI: 0.320">
+                                        <span class="bar-label">2024</span>
+                                    </div>
+                                    <div class="chart-bar poor" style="height: 64px;" data-year="2025" data-ndvi="0.28" title="Year: 2025, NDVI: 0.280">
+                                        <span class="bar-label">2025</span>
+                                    </div>
+                                </div>
+                                <svg class="trend-line" viewBox="0 0 100 100" preserveAspectRatio="none">
+                                    <polyline points="5,13 20,14 35,16 50,20 65,28 80,31 95,34 100,36" 
+                                              fill="none" 
+                                              stroke="#ff4444" 
+                                              stroke-width="2" 
+                                              stroke-linecap="round" 
+                                              stroke-linejoin="round">
+                                        <animate attributeName="stroke-dasharray" 
+                                                 values="0,1000;1000,0" 
+                                                 dur="2s" 
+                                                 repeatCount="indefinite"/>
+                                    </polyline>
+                                </svg>
+                            </div>
+                            <div class="chart-legend">
+                                <span class="legend-healthy">● Healthy Vegetation (NDVI > 0.5)</span>
+                                <span class="legend-moderate">● Moderate Vegetation (NDVI 0.3-0.5)</span>
+                                <span class="legend-poor">● Poor Vegetation (NDVI < 0.3)</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div id="aster-data-display" class="data-visualization hidden">
+                        <h4>ASTER Before/After Comparison</h4>
+                        <div class="image-comparison">
+                            <div class="comparison-images">
+                                <div class="before-image">
+                                    <div class="image-placeholder">2020: Healthy Forest</div>
+                                    <div class="forest-pattern"></div>
+                                </div>
+                                <div class="after-image">
+                                    <div class="image-placeholder">2023: Deforested Area</div>
+                                    <div class="deforested-pattern"></div>
+                                </div>
+                            </div>
+                            <div class="comparison-legend">
+                                <span>Systematic geometric clearing patterns visible</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div id="misr-data-display" class="data-visualization hidden">
+                        <h4>MISR Aerosol Plume Data</h4>
+                        <div class="plume-visualization">
+                            <div class="plume-map">
+                                <div class="deforestation-source"></div>
+                                <div class="plume-trail plume-1"></div>
+                                <div class="plume-trail plume-2"></div>
+                                <div class="plume-trail plume-3"></div>
+                                <div class="affected-areas">
+                                    <div class="affected-zone zone-1">500k people affected</div>
+                                    <div class="affected-zone zone-2">Air quality degraded</div>
+                                </div>
+                            </div>
+                            <div class="plume-legend">
+                                <span>Smoke plumes extend 200+ km from source</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div id="summary-data-display" class="data-visualization hidden">
+                        <h4>🎯 Mission Summary</h4>
+                        <div class="mission-summary">
+                            <div class="summary-achievements">
+                                <div class="achievement-item">
+                                    <div class="achievement-icon">📊</div>
+                                    <div class="achievement-text">
+                                        <strong>Data Analysis Master</strong><br>
+                                        Successfully analyzed MODIS, ASTER, and MISR satellite data
+                                    </div>
+                                </div>
+                                <div class="achievement-item">
+                                    <div class="achievement-icon">🔍</div>
+                                    <div class="achievement-text">
+                                        <strong>Environmental Detective</strong><br>
+                                        Identified systematic deforestation patterns and their causes
+                                    </div>
+                                </div>
+                                <div class="achievement-item critical-impact">
+                                    <div class="achievement-icon">⚠️</div>
+                                    <div class="achievement-text">
+                                        <strong>Critical Environmental Crisis</strong><br>
+                                        <span class="crisis-text">500,000+ people suffering from degraded air quality due to deforestation</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="crisis-alert">
+                                <div class="alert-icon">🚨</div>
+                                <div class="alert-text">
+                                    <strong>URGENT: Environmental Emergency</strong><br>
+                                    The Amazon Basin is experiencing rapid deforestation with severe consequences for human health and climate stability.
+                                </div>
+                            </div>
+                            <div class="summary-stats">
+                                <div class="stat-item">
+                                    <div class="stat-number">7</div>
+                                    <div class="stat-label">Years of Data Analyzed</div>
+                                </div>
+                                <div class="stat-item">
+                                    <div class="stat-number">3</div>
+                                    <div class="stat-label">NASA Instruments Used</div>
+                                </div>
+                                <div class="stat-item crisis-stat">
+                                    <div class="stat-number">500K+</div>
+                                    <div class="stat-label">People at Risk</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div id="team-data-display" class="data-visualization hidden">
+                        <h4>👥 Development Team</h4>
+                        <div class="team-showcase">
+                            <div class="team-member-card">
+                                <div class="member-avatar">👨‍💻</div>
+                                <div class="member-details">
+                                    <h5>Alex Rodriguez</h5>
+                                    <p>Lead Developer & Game Designer</p>
+                                    <span>Interactive web development specialist</span>
+                                </div>
+                            </div>
+                            <div class="team-member-card">
+                                <div class="member-avatar">👩‍🔬</div>
+                                <div class="member-details">
+                                    <h5>Dr. Sarah Chen</h5>
+                                    <p>Earth Science Consultant</p>
+                                    <span>NASA satellite data expert</span>
+                                </div>
+                            </div>
+                            <div class="team-member-card">
+                                <div class="member-avatar">🎨</div>
+                                <div class="member-details">
+                                    <h5>Jordan Kim</h5>
+                                    <p>UI/UX Designer</p>
+                                    <span>Environmental data visualization</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div id="nasa-data-display" class="data-visualization hidden">
+                        <h4>🚀 About NASA Earth Science</h4>
+                        <div class="nasa-info">
+                            <div class="nasa-mission">
+                                <h5>Our Mission</h5>
+                                <p>NASA's Earth Science Division uses satellite observations to understand our planet's interconnected systems and how they're changing.</p>
+                            </div>
+                            <div class="nasa-tools">
+                                <h5>Key Instruments</h5>
+                                <div class="tool-grid">
+                                    <div class="tool-item">
+                                        <strong>MODIS</strong><br>
+                                        <span>Vegetation & Land Cover</span>
+                                    </div>
+                                    <div class="tool-item">
+                                        <strong>ASTER</strong><br>
+                                        <span>High-Resolution Imagery</span>
+                                    </div>
+                                    <div class="tool-item">
+                                        <strong>MISR</strong><br>
+                                        <span>Aerosol & Atmospheric</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="nasa-impact">
+                                <h5>Global Impact</h5>
+                                <p>NASA's Earth data helps scientists, policymakers, and citizens worldwide understand and address environmental challenges.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div id="verdict-data-display" class="data-visualization hidden">
+                        <h4>🔍 What Your Verdict Means</h4>
+                        <div class="verdict-explanation">
+                            <div class="verdict-impact">
+                                <h5>🌍 Global Climate Impact</h5>
+                                <p>The Amazon rainforest is often called the "lungs of the Earth" because it produces 20% of the world's oxygen. Your investigation revealed that human activities are destroying this critical ecosystem at an alarming rate.</p>
+                                <ul>
+                                    <li><strong>Carbon Storage Loss:</strong> The Amazon stores 80-120 billion tons of carbon - equivalent to 10 years of global emissions</li>
+                                    <li><strong>Climate Feedback:</strong> Deforestation creates a dangerous cycle where less forest means less rainfall, leading to more fires and further deforestation</li>
+                                    <li><strong>Biodiversity Crisis:</strong> The Amazon is home to 10% of all known species on Earth, many now threatened with extinction</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="verdict-evidence">
+                                <h5>📊 Your Evidence Explained</h5>
+                                <div class="evidence-grid">
+                                    <div class="evidence-item">
+                                        <strong>MODIS Data:</strong> The declining NDVI values (0.75 → 0.28) show a 63% loss in vegetation health over 7 years
+                                    </div>
+                                    <div class="evidence-item">
+                                        <strong>ASTER Imagery:</strong> Geometric clearing patterns indicate systematic, planned deforestation rather than natural events
+                                    </div>
+                                    <div class="evidence-item">
+                                        <strong>MISR Aerosols:</strong> Smoke plumes affecting 500,000+ people demonstrate the immediate human health impacts
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="verdict-urgency">
+                                <h5>⚠️ Why This Matters Now</h5>
+                                <p>Your investigation revealed a tipping point scenario. Scientists warn that if deforestation continues at current rates, the Amazon could reach a point of no return, transforming from a lush rainforest into a dry savanna.</p>
+                                <div class="urgency-stats">
+                                    <div class="urgency-stat">
+                                        <div class="stat-number">17%</div>
+                                        <div class="stat-label">Amazon already lost</div>
+                                    </div>
+                                    <div class="urgency-stat">
+                                        <div class="stat-number">20-25%</div>
+                                        <div class="stat-label">Tipping point threshold</div>
+                                    </div>
+                                    <div class="urgency-stat">
+                                        <div class="stat-number">3-5</div>
+                                        <div class="stat-label">Years to critical threshold</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div id="solutions-data-display" class="data-visualization hidden">
+                        <h4>💡 Solutions & Hope for the Future</h4>
+                        <div class="solutions-info">
+                            <div class="solution-category">
+                                <h5>🌱 Immediate Actions</h5>
+                                <div class="solution-grid">
+                                    <div class="solution-item">
+                                        <div class="solution-icon">🛡️</div>
+                                        <div class="solution-content">
+                                            <strong>Protected Areas</strong><br>
+                                            <span>Expanding indigenous territories and national parks has proven to reduce deforestation by 80%</span>
+                                        </div>
+                                    </div>
+                                    <div class="solution-item">
+                                        <div class="solution-icon">📱</div>
+                                        <div class="solution-content">
+                                            <strong>Satellite Monitoring</strong><br>
+                                            <span>Real-time deforestation alerts help authorities respond within hours, not months</span>
+                                        </div>
+                                    </div>
+                                    <div class="solution-item">
+                                        <div class="solution-icon">🌾</div>
+                                        <div class="solution-content">
+                                            <strong>Sustainable Agriculture</strong><br>
+                                            <span>Agroforestry and regenerative farming can restore degraded lands while providing livelihoods</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="solution-category">
+                                <h5>🌍 Global Solutions</h5>
+                                <div class="solution-grid">
+                                    <div class="solution-item">
+                                        <div class="solution-icon">💰</div>
+                                        <div class="solution-content">
+                                            <strong>Carbon Markets</strong><br>
+                                            <span>Paying countries to keep forests standing creates economic incentives for conservation</span>
+                                        </div>
+                                    </div>
+                                    <div class="solution-item">
+                                        <div class="solution-icon">🤝</div>
+                                        <div class="solution-content">
+                                            <strong>International Cooperation</strong><br>
+                                            <span>Global agreements like the Paris Accord include forest protection commitments</span>
+                                        </div>
+                                    </div>
+                                    <div class="solution-item">
+                                        <div class="solution-icon">🔬</div>
+                                        <div class="solution-content">
+                                            <strong>Scientific Innovation</strong><br>
+                                            <span>NASA's satellite data helps track progress and identify new threats in real-time</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="solution-category">
+                                <h5>🎯 What You Can Do</h5>
+                                <div class="action-list">
+                                    <div class="action-item">📢 <strong>Spread Awareness:</strong> Share what you've learned about deforestation and its impacts</div>
+                                    <div class="action-item">🛒 <strong>Conscious Consumption:</strong> Choose products that don't contribute to deforestation</div>
+                                    <div class="action-item">🌱 <strong>Support Organizations:</strong> Donate to groups working to protect the Amazon</div>
+                                    <div class="action-item">📊 <strong>Use NASA Data:</strong> Explore real satellite data at earthdata.nasa.gov</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="astronaut-choices" id="astronaut-choices"></div>
+                
+                <!-- Data Navigation -->
+                <div class="data-navigation">
+                    <button id="view-data-btn" class="view-data-btn hidden" onclick="showDataPanel()">📊 View All Data</button>
+                    <button id="back-to-dialogue-btn" class="back-to-dialogue-btn hidden" onclick="hideDataPanel()">💬 Back to Dialogue</button>
+                </div>
+            </div>
+            <button id="astronaut-continue" class="astronaut-continue-btn hidden">Continue</button>
+        </div>
+    </div>
+
+    <!-- Decision Feedback Modal -->
+    <div id="feedback-modal" class="feedback-modal hidden">
+        <div class="feedback-content">
+            <div class="feedback-icon" id="feedback-icon">💡</div>
+            <div class="feedback-title" id="feedback-title">Let's Think About This</div>
+            <div class="feedback-message" id="feedback-message"></div>
+            <button id="feedback-continue" class="feedback-continue-btn">Let's Try Again</button>
+        </div>
+    </div>
+
+    <!-- Game Progress Tracker -->
+    <div id="game-progress" class="game-progress">
+        <div class="progress-bar">
+            <div id="progress-fill" class="progress-fill"></div>
+        </div>
+        <div class="progress-text">Investigation Progress: <span id="progress-percentage">0%</span></div>
+    </div>
+
+    <!-- Floating Astronaut Button (when collapsed) -->
+    <button id="floating-astronaut-btn" class="floating-astronaut-btn hidden" onclick="expandAstronautModal()">
+        <img src="astronaut.jpg" alt="Commander Alex" class="floating-avatar">
+        <span class="floating-text">Commander Alex</span>
+    </button>
+
+    <!-- Link to external JavaScript file -->
+    <script src="script.js"></script>
+</body>
+
+</html>
