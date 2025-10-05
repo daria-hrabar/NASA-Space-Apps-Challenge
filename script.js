@@ -294,6 +294,10 @@ document.addEventListener('DOMContentLoaded', () => {
     // Initialize volume icon
     updateVolumeIcon();
 
+    // Show a brief centered loading text, then remove automatically
+    showInitialLoadingOverlay();
+    setTimeout(hideInitialLoadingOverlay, 600);
+
     // Ensure astronaut modal starts hidden and with no residual styles
     if (astronautModal) {
         const msgEl = document.getElementById('astronaut-message');
@@ -315,6 +319,37 @@ document.addEventListener('DOMContentLoaded', () => {
         astronautModal.style.borderRadius = '';
     }
 });
+
+// Simple centered loading overlay (not a dialog)
+function showInitialLoadingOverlay() {
+    if (document.getElementById('initial-loading-overlay')) return;
+    const overlay = document.createElement('div');
+    overlay.id = 'initial-loading-overlay';
+    overlay.style.cssText = `
+        position: fixed;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(0,0,0,0.85);
+        z-index: 2000;
+    `;
+    const text = document.createElement('div');
+    text.textContent = 'Loading…';
+    text.style.cssText = `
+        color: var(--secondary-color);
+        font-family: var(--pixel-font);
+        font-size: 0.9rem;
+        text-shadow: 0 0 10px rgba(57,255,20,0.8);
+    `;
+    overlay.appendChild(text);
+    document.body.appendChild(overlay);
+}
+
+function hideInitialLoadingOverlay() {
+    const overlay = document.getElementById('initial-loading-overlay');
+    if (overlay) overlay.remove();
+}
 
 // ---------------- Audio Functions ----------------
 function initializeForestSound() {
