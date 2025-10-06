@@ -310,13 +310,32 @@ class MobileTerraTracker {
                 content.innerHTML = `
                     <div class="clue-content">
                         <div class="aster-comparison">
-                            <h3>ASTER True Color Imagery (2020 vs 2023)</h3>
-                            <div class="comparison-slider">
-                                <div class="before-after">
-                                    <div class="before">2020 - Dense Forest</div>
-                                    <div class="after">2023 - Deforestation</div>
+                            <h3>ASTER True Color Imagery - Amazon Basin</h3>
+                            <div class="satellite-images">
+                                <div class="image-container">
+                                    <h4>2020 - Before Deforestation</h4>
+                                    <img src="matogrosso_ast_2001213_lrg.jpg" alt="ASTER 2020" class="satellite-image">
+                                    <p class="image-caption">Dense forest coverage</p>
                                 </div>
-                                <p class="comparison-note">Systematic clearing patterns visible</p>
+                                <div class="image-container">
+                                    <h4>2023 - After Deforestation</h4>
+                                    <img src="matogrosso_ast_2006227_lrg.jpg" alt="ASTER 2023" class="satellite-image">
+                                    <p class="image-caption">Systematic clearing patterns</p>
+                                </div>
+                            </div>
+                            <div class="imagery-legend">
+                                <div class="legend-item">
+                                    <div class="legend-color healthy"></div>
+                                    <span>Healthy Forest</span>
+                                </div>
+                                <div class="legend-item">
+                                    <div class="legend-color degraded"></div>
+                                    <span>Degraded Forest</span>
+                                </div>
+                                <div class="legend-item">
+                                    <div class="legend-color deforested"></div>
+                                    <span>Deforested Area</span>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -327,13 +346,28 @@ class MobileTerraTracker {
                 content.innerHTML = `
                     <div class="clue-content">
                         <div class="misr-animation">
-                            <h3>MISR Smoke Plume 3-Day Movement</h3>
-                            <div class="plume-visualization">
-                                <div class="plume-particle"></div>
-                                <div class="plume-particle"></div>
-                                <div class="plume-particle"></div>
+                            <h3>MISR Aerosol Data - Amazon Basin</h3>
+                            <div class="satellite-images">
+                                <div class="image-container">
+                                    <h4>Landsat 7 - 2001</h4>
+                                    <img src="yurimaguas_ls7_2001181_lrg.jpg" alt="Landsat 2001" class="satellite-image">
+                                    <p class="image-caption">Historical baseline</p>
+                                </div>
+                                <div class="image-container">
+                                    <h4>Landsat 8 - 2019</h4>
+                                    <img src="yurimaguas_oli_2019191_lrg.jpg" alt="Landsat 2019" class="satellite-image">
+                                    <p class="image-caption">Recent aerosol impact</p>
+                                </div>
                             </div>
-                            <p class="plume-note">Aerosol plumes affecting 500,000+ people</p>
+                            <div class="plume-visualization">
+                                <h4>Smoke Plume Movement</h4>
+                                <div class="plume-particles">
+                                    <div class="plume-particle"></div>
+                                    <div class="plume-particle"></div>
+                                    <div class="plume-particle"></div>
+                                </div>
+                                <p class="plume-note">Aerosol plumes affecting 500,000+ people</p>
+                            </div>
                         </div>
                     </div>
                 `;
