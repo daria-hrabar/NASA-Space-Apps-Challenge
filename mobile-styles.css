@@ -505,8 +505,9 @@ body {
 /* Team Section */
 .team-content {
     text-align: center;
-    max-width: 400px;
+    max-width: 500px;
     margin: 0 auto;
+    padding: 0 10px;
 }
 
 .team-content h2 {
@@ -516,15 +517,81 @@ body {
     text-shadow: 0 0 10px var(--secondary-color);
 }
 
-.team-info {
+/* Team Members */
+.team-members {
     margin-bottom: 30px;
 }
 
-.team-info p {
-    font-size: 1rem;
-    line-height: 1.6;
-    margin-bottom: 15px;
+.team-member {
+    background: rgba(0, 0, 0, 0.7);
+    border: 2px solid var(--border-color);
+    border-radius: 15px;
+    padding: 20px;
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.member-name {
+    font-size: 1.2rem;
+    color: var(--secondary-color);
+    margin-bottom: 10px;
+    text-shadow: 0 0 10px var(--secondary-color);
+}
+
+.member-bio {
+    font-size: 0.9rem;
+    line-height: 1.5;
     color: var(--text-color);
+}
+
+/* Credits Section */
+.credits-section {
+    margin-bottom: 30px;
+}
+
+.credits-title {
+    font-size: 1.3rem;
+    color: var(--secondary-color);
+    margin-bottom: 20px;
+    text-shadow: 0 0 10px var(--secondary-color);
+}
+
+.credit-category {
+    background: rgba(0, 0, 0, 0.7);
+    border: 2px solid var(--border-color);
+    border-radius: 15px;
+    padding: 15px;
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+.credit-category-title {
+    font-size: 1rem;
+    color: var(--secondary-color);
+    margin-bottom: 10px;
+    text-shadow: 0 0 10px var(--secondary-color);
+}
+
+.credit-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.credit-list li {
+    font-size: 0.85rem;
+    line-height: 1.4;
+    color: var(--text-color);
+    margin-bottom: 8px;
+    padding-left: 10px;
+    position: relative;
+}
+
+.credit-list li:before {
+    content: "•";
+    color: var(--secondary-color);
+    position: absolute;
+    left: 0;
 }
 
 .team-actions {
