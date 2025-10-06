@@ -945,6 +945,7 @@ function createDemoVisualization() {
 function hideAllVisualizations() {
     // Hide all visualization containers
     const modisVisualization = document.getElementById('modis-visualization');
+    const modisDataDisplay = document.getElementById('modis-data-display');
     const asterVisualization = document.getElementById('aster-visualization');
     const misrVisualization = document.getElementById('misr-visualization');
     const dataContentPlaceholder = document.getElementById('data-content-placeholder');
@@ -953,6 +954,10 @@ function hideAllVisualizations() {
     if (modisVisualization) {
         modisVisualization.classList.add('hidden');
         modisVisualization.style.display = 'none';
+    }
+    if (modisDataDisplay) {
+        modisDataDisplay.classList.add('hidden');
+        modisDataDisplay.style.display = 'none';
     }
     if (asterVisualization) {
         asterVisualization.classList.add('hidden');
@@ -1485,10 +1490,10 @@ function loadClue(clueKey, clickedButton) {
     if (clueKey === 'modis') {
         // Hide other visualizations and show MODIS
         hideAllVisualizations();
-        const modisVisualization = document.getElementById('modis-visualization');
-        if (modisVisualization) {
-            modisVisualization.classList.remove('hidden');
-            modisVisualization.style.display = 'block';
+        const modisDataDisplay = document.getElementById('modis-data-display');
+        if (modisDataDisplay) {
+            modisDataDisplay.classList.remove('hidden');
+            modisDataDisplay.style.display = 'block';
         }
         loadMODISVisualization();
     } else if (clueKey === 'aster') {
