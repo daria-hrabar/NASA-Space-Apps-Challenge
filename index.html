@@ -150,6 +150,175 @@
                 </div>
             </div>
 
+            <!-- MISR Visualization Content -->
+            <div id="misr-visualization" class="hidden">
+                <div class="loading-spinner">Loading MISR Aerosol Data...</div>
+
+                <div id="misr-imagery" class="misr-imagery-container hidden">
+                    <h3 class="imagery-title">MISR Aerosol Plume Tracking - Amazon Basin</h3>
+                    
+                    <div class="time-display">
+                        <span id="current-day">Day 1</span>
+                        <span id="current-date">2024-01-15</span>
+                    </div>
+
+                    <!-- Real-time Animation Container -->
+                    <div class="plume-animation-container">
+                        <div class="plume-map-container">
+                            <div class="plume-map" id="plume-map">
+                            <!-- Amazon Basin Base Map -->
+                            <div class="basemap-overlay">
+                                <div class="amazon-basin-outline">
+                                    <div class="basin-label">AMAZON BASIN</div>
+                                </div>
+                                <div class="deforestation-hotspots">
+                                    <div class="hotspot hotspot-1" data-intensity="high" title="Fire Source 1"></div>
+                                    <div class="hotspot hotspot-2" data-intensity="medium" title="Fire Source 2"></div>
+                                    <div class="hotspot hotspot-3" data-intensity="high" title="Fire Source 3"></div>
+                                </div>
+                            </div>
+                                
+                                <!-- Animated Smoke Plumes -->
+                                <div class="plume-animation" id="plume-animation">
+                                    <div class="plume-trail trail-1" data-day="1"></div>
+                                    <div class="plume-trail trail-2" data-day="2"></div>
+                                    <div class="plume-trail trail-3" data-day="3"></div>
+                                    <div class="plume-trail trail-4" data-day="4"></div>
+                                    <div class="plume-trail trail-5" data-day="5"></div>
+                                </div>
+                                
+                            <!-- Wind Direction Indicators -->
+                            <div class="wind-indicators">
+                                <div class="wind-arrow wind-1"></div>
+                                <div class="wind-arrow wind-2"></div>
+                                <div class="wind-arrow wind-3"></div>
+                                <div class="wind-arrow wind-4"></div>
+                                <div class="wind-arrow wind-5"></div>
+                                <div class="wind-arrow wind-6"></div>
+                                <div class="wind-arrow wind-7"></div>
+                            </div>
+                                
+                                <!-- Affected Areas -->
+                                <div class="affected-areas">
+                                    <div class="affected-zone zone-1" data-population="150000">
+                                        <span class="zone-label">Manaus</span>
+                                        <span class="impact-level high">High Impact</span>
+                                    </div>
+                                    <div class="affected-zone zone-2" data-population="200000">
+                                        <span class="zone-label">Belém</span>
+                                        <span class="impact-level medium">Medium Impact</span>
+                                    </div>
+                                    <div class="affected-zone zone-3" data-population="100000">
+                                        <span class="zone-label">Porto Velho</span>
+                                        <span class="impact-level high">High Impact</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    <!-- Animation Controls -->
+                    <div class="animation-controls">
+                        <div class="time-controls">
+                            <button id="play-animation" class="control-btn play-btn">PLAY ANIMATION</button>
+                            <button id="pause-animation" class="control-btn pause-btn">PAUSE</button>
+                            <button id="reset-animation" class="control-btn reset-btn">RESET</button>
+                        </div>
+                        <div class="animation-speed">
+                            <label for="speed-slider">ANIMATION SPEED:</label>
+                            <input type="range" id="speed-slider" min="0.5" max="3" step="0.5" value="1">
+                        </div>
+                    </div>
+                        
+                        <!-- Data Metrics -->
+                        <div class="plume-metrics">
+                            <div class="metric-item">
+                                <div class="metric-value" id="aerosol-concentration">0.8</div>
+                                <div class="metric-label">Aerosol Optical Depth</div>
+                            </div>
+                            <div class="metric-item">
+                                <div class="metric-value" id="plume-distance">0</div>
+                                <div class="metric-label">Plume Distance (km)</div>
+                            </div>
+                            <div class="metric-item">
+                                <div class="metric-value" id="affected-population">0</div>
+                                <div class="metric-label">People Affected</div>
+                            </div>
+                            <div class="metric-item">
+                                <div class="metric-value" id="air-quality-index">Good</div>
+                                <div class="metric-label">Air Quality</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                <!-- Legend -->
+                <div class="plume-legend">
+                    <div class="legend-section">
+                        <h4 class="legend-title">AEROSOL CONCENTRATION</h4>
+                        <div class="legend-item">
+                            <div class="legend-color high-intensity"></div>
+                            <span>High Concentration (Dense Red Smoke)</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color medium-intensity"></div>
+                            <span>Medium Concentration (Orange-Red Smoke)</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color low-intensity"></div>
+                            <span>Low Concentration (Light Orange Smoke)</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color very-low-intensity"></div>
+                            <span>Very Low Concentration (Blue Smoke)</span>
+                        </div>
+                    </div>
+                    
+                    <div class="legend-section">
+                        <h4 class="legend-title">MAP ELEMENTS</h4>
+                        <div class="legend-item">
+                            <div class="legend-color wind-direction"></div>
+                            <span>Wind Direction & Speed</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color basin-outline"></div>
+                            <span>Amazon Basin Boundary</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color fire-source-high"></div>
+                            <span>High Intensity Fire Sources</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color fire-source-medium"></div>
+                            <span>Medium Intensity Fire Sources</span>
+                        </div>
+                    </div>
+                </div>
+                </div>
+
+                <!-- MISR Explanation Section -->
+                <div id="misr-explanation" class="misr-explanation hidden">
+                    <h3 class="explanation-title">About MISR Aerosol Tracking</h3>
+                    <div class="explanation-content">
+                        <p><strong>What is MISR?</strong> The Multi-angle Imaging SpectroRadiometer (MISR) captures images from nine different angles, providing detailed information about atmospheric aerosols, including smoke, dust, and pollution particles.</p>
+                        <p><strong>How to interpret the data:</strong></p>
+                        <ul>
+                            <li><span class="color high-intensity">Red/Orange areas:</span> High aerosol concentrations from fires and deforestation</li>
+                            <li><span class="color medium-intensity">Yellow areas:</span> Medium aerosol concentrations affecting regional air quality</li>
+                            <li><span class="color low-intensity">Blue areas:</span> Low aerosol concentrations, relatively clear air</li>
+                            <li><span class="color wind-direction">White arrows:</span> Wind direction and speed affecting aerosol transport</li>
+                        </ul>
+                        <p><strong>Why it matters:</strong> MISR data helps scientists track how smoke from deforestation fires spreads across the Amazon Basin, affecting air quality for millions of people in surrounding cities and communities.</p>
+                        <p><strong>Real-time Impact:</strong> The animation shows how aerosol plumes from deforestation fires in the Amazon Basin spread over 3-5 days, affecting air quality in major cities like Manaus, Belém, and Porto Velho, with over 500,000 people experiencing degraded air quality.</p>
+                        <p><strong>Scientific Findings:</strong></p>
+                        <ul>
+                            <li>Aerosol plumes can travel 200+ kilometers from their source</li>
+                            <li>Smoke from deforestation fires significantly impacts urban air quality</li>
+                            <li>These plumes contain harmful particles that affect human health</li>
+                            <li>Wind patterns determine the direction and extent of air quality impacts</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
             <!-- MODIS Visualization Content -->
             <div id="modis-visualization" class="hidden">
                 <!-- MODIS Satellite Imagery Section -->
