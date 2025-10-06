@@ -5,6 +5,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>Terra Trackers: The Verdict</title>
+    
+    <!-- Mobile Detection and Redirect -->
+    <script>
+        function isMobileDevice() {
+            return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || 
+                   (window.innerWidth <= 768 && window.innerHeight <= 1024);
+        }
+        
+        // Redirect mobile users to mobile version
+        if (isMobileDevice()) {
+            window.location.href = 'mobile-index.html';
+        }
+    </script>
     <!-- Load the pixelated accent font -->
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     <!-- Load new modern/technical fonts for better matching (Orbitron for titles, Roboto Mono for body) -->
@@ -28,6 +41,7 @@
                 <a href="#" onclick="showSection('hero');" title="Return to Home">🏠 Home</a>
                 <a href="#" onclick="showSection('dashboard');" title="Start Investigation">🔍 Investigation</a>
                 <a href="#" onclick="showSection('team');" title="Meet the Team">👥 Team</a>
+                <a href="mobile-index.html" title="Mobile Version">📱 Mobile</a>
             </nav>
             <!-- Volume Control -->
             <div class="volume-control">
