@@ -116,77 +116,77 @@ let gameProgressElement;
 
 // Game Decision Data
 const gameScenarios = {
-            intro: {
-                message: "Welcome, Earth Detective! I'm Commander Terra. We've detected unusual activity in the Amazon Basin. Ready to investigate?",
+    intro: {
+        message: "Welcome, Detective! I'm Commander Terra. We've detected unusual activity in the Amazon Basin. Ready to investigate?",
         choices: [
             { text: "Yes, let's investigate!", correct: true, nextState: 'clue_selection' },
-            { text: "I need more information first", correct: false, feedback: "I understand your caution, but time is critical in environmental investigations. The evidence we need is time-sensitive and could disappear. Let's start with what we have and build from there." }
+            { text: "I need more information first", correct: false, feedback: "Time is critical in environmental investigations. Let's start with what we have and build from there." }
         ],
         showProgress: false
     },
     clue_selection: {
-        message: "Great! Our Terra instruments detected three anomalies. Look at the data panel above - which instrument should we examine first to understand the deforestation pattern?",
+        message: "Great! Our Terra instruments detected three anomalies. Which instrument should we examine first?",
         choices: [
             { text: "MODIS - Long-term vegetation data", correct: true, nextState: 'modis_analysis' },
-            { text: "ASTER - High-resolution imagery", correct: false, feedback: "ASTER is excellent for detailed analysis! However, in environmental investigations, we typically start with the broader perspective. MODIS gives us the long-term vegetation trends that help us understand the overall pattern before diving into specifics." },
-            { text: "MISR - Aerosol tracking", correct: false, feedback: "MISR is crucial for understanding atmospheric impacts! But first, we need to establish what's happening to the vegetation itself. Let's start with MODIS to see the vegetation changes, then we can examine how those changes affect the atmosphere." }
+            { text: "ASTER - High-resolution imagery", correct: false, feedback: "ASTER is great for details! But we need the big picture first. MODIS shows long-term trends that help us understand the overall pattern." },
+            { text: "MISR - Aerosol tracking", correct: false, feedback: "MISR is important for atmospheric effects! But first, let's see what's happening to the vegetation itself with MODIS." }
         ],
         showProgress: true
     },
     modis_analysis: {
-        message: "Perfect! Let me show you the MODIS data. Click on the MODIS clue above to examine the interactive visualization with animations and detailed analysis. What does this data indicate about forest health?",
+        message: "Perfect! Click on the MODIS clue above to examine the data. What does this show about forest health?",
         choices: [
-            { text: "The forest is recovering", correct: false, feedback: "I can see why you might think that! However, if you look closely at the NDVI values, they're actually decreasing over time. In NDVI data, higher values indicate healthier, denser vegetation. The declining trend suggests the opposite of recovery - it shows vegetation loss." },
+            { text: "The forest is recovering", correct: false, feedback: "Look closely at the NDVI values - they're decreasing over time. Higher values mean healthier vegetation, so the declining trend shows vegetation loss." },
             { text: "The forest is losing vegetation", correct: true, nextState: 'aster_choice' },
-            { text: "The data is inconclusive", correct: false, feedback: "I understand the data can seem complex! But the NDVI trend is actually quite clear - it's a standardized measure where decreasing values consistently indicate vegetation loss. The pattern shows a steady decline, which is a clear signal of environmental change." }
+            { text: "The data is inconclusive", correct: false, feedback: "The NDVI trend is actually quite clear - decreasing values consistently indicate vegetation loss. The pattern shows a steady decline." }
         ],
         showProgress: true
     },
     aster_choice: {
-        message: "Exactly! Now click on the ASTER clue above to examine the high-resolution imagery. Use the image slider to compare 2020 vs 2023 and see the specific damage patterns.",
+        message: "Exactly! Now click on the ASTER clue above to examine the detailed imagery. Use the slider to compare 2020 vs 2023.",
         choices: [
             { text: "Yes, let's see the detailed imagery", correct: true, nextState: 'aster_analysis' },
-            { text: "Let's check MISR for smoke patterns", correct: false, feedback: "MISR is definitely important for understanding atmospheric effects! But in environmental forensics, we need to establish the 'ground truth' first. ASTER will show us exactly what happened to the forest surface, which helps us understand what might be causing the atmospheric changes we'd see in MISR data." }
+            { text: "Let's check MISR for smoke patterns", correct: false, feedback: "MISR is important for atmospheric effects! But first, let's establish what happened to the forest surface with ASTER." }
         ],
         showProgress: true
     },
     aster_analysis: {
-        message: "Now examine the ASTER imagery above - click on the ASTER clue to see the interactive before/after comparison with the image slider. Look at the geometric clearing patterns and systematic deforestation. What damage pattern do you observe?",
+        message: "Now examine the ASTER imagery above - click on the ASTER clue to see the before/after comparison. Look at the clearing patterns. What do you observe?",
         choices: [
-            { text: "Natural forest fires", correct: false, feedback: "That's a good observation about fire patterns! However, if you examine the imagery more closely, you'll notice the clearing patterns are very geometric and systematic - this suggests human activity rather than natural fire spread, which typically follows more organic, irregular boundaries." },
+            { text: "Natural forest fires", correct: false, feedback: "Good observation! But look closely - the clearing patterns are very geometric and systematic. This suggests human activity rather than natural fire spread, which follows more organic boundaries." },
             { text: "Systematic deforestation", correct: true, nextState: 'misr_choice' },
-            { text: "Seasonal changes", correct: false, feedback: "Seasonal changes are definitely important to consider! But the ASTER imagery shows permanent, structural changes to the landscape rather than temporary seasonal variations. The patterns indicate long-term, systematic alteration of the forest structure." }
+            { text: "Seasonal changes", correct: false, feedback: "Seasonal changes are important! But the ASTER imagery shows permanent, structural changes to the landscape rather than temporary seasonal variations." }
         ],
         showProgress: true
     },
     misr_choice: {
-        message: "Correct! Now click on the MISR clue above to examine the aerosol data. Look at the smoke plume patterns to see how this deforestation affects air quality.",
+        message: "Correct! Now click on the MISR clue above to examine the aerosol data. Look at the smoke plume patterns.",
         choices: [
             { text: "Yes, check the smoke and aerosol patterns", correct: true, nextState: 'misr_analysis' },
-            { text: "We have enough evidence", correct: false, feedback: "I appreciate your confidence in the evidence we've gathered! However, environmental investigations require a complete picture. MISR data will show us how this deforestation affects air quality and atmospheric conditions - this is crucial for understanding the full environmental impact on communities." }
+            { text: "We have enough evidence", correct: false, feedback: "Environmental investigations require a complete picture. MISR data shows how deforestation affects air quality - crucial for understanding the full impact on communities." }
         ],
         showProgress: true
     },
     misr_analysis: {
-        message: "Now examine the MISR data above - click on the MISR clue to see the interactive aerosol visualization. Look at the smoke plume patterns and their extent to understand the environmental impact. What does this tell us about the consequences?",
+        message: "Now examine the MISR data above - click on the MISR clue to see the aerosol visualization. Look at the smoke plume patterns. What does this tell us about the consequences?",
         choices: [
-            { text: "No significant impact", correct: false, feedback: "I can understand why the scale might not be immediately obvious! But the MISR data actually shows massive aerosol plumes that extend far beyond the immediate deforestation area. These plumes represent significant air quality degradation that affects thousands of people in surrounding communities." },
+            { text: "No significant impact", correct: false, feedback: "The MISR data shows massive aerosol plumes extending far beyond the deforestation area. These represent significant air quality degradation affecting thousands of people in surrounding communities." },
             { text: "Major air quality impact on communities", correct: true, nextState: 'verdict_choice' },
-            { text: "Only local effects", correct: false, feedback: "That's a reasonable assumption about local impacts! However, aerosol plumes from deforestation can actually travel hundreds of kilometers downwind, affecting air quality in many communities far from the original source. The MISR data shows these widespread atmospheric effects." }
+            { text: "Only local effects", correct: false, feedback: "Aerosol plumes from deforestation can travel hundreds of kilometers downwind, affecting air quality in many communities far from the original source." }
         ],
         showProgress: true
     },
     verdict_choice: {
-        message: "Excellent work! You've examined all the data - MODIS vegetation trends, ASTER imagery, and MISR aerosol patterns. Based on this evidence, what's your verdict on the cause?",
+        message: "Excellent work! You've examined all the data - MODIS vegetation trends, ASTER imagery, and MISR aerosol patterns. Based on this evidence, what's your verdict?",
         choices: [
-            { text: "Natural climate change", correct: false, feedback: "Climate change is definitely a factor in environmental changes! However, the evidence we've gathered shows systematic, geometric patterns of deforestation that are characteristic of human activity rather than natural climate-driven changes. The systematic nature of the clearing suggests deliberate human intervention." },
+            { text: "Natural climate change", correct: false, feedback: "Climate change is a factor! But the evidence shows systematic, geometric patterns characteristic of human activity rather than natural climate-driven changes." },
             { text: "Human-caused deforestation and fires", correct: true, nextState: 'mission_complete' },
-            { text: "Unknown causes", correct: false, feedback: "I understand the complexity can make it seem unclear! But the evidence we've collected actually tells a clear story: the systematic patterns in ASTER imagery, combined with the NDVI decline in MODIS data and the aerosol plumes in MISR data, all point to human-caused deforestation with significant environmental consequences." }
+            { text: "Unknown causes", correct: false, feedback: "The evidence tells a clear story: systematic patterns in ASTER imagery, NDVI decline in MODIS data, and aerosol plumes in MISR data all point to human-caused deforestation." }
         ],
         showProgress: true
     },
     mission_complete: {
-        message: "🎉 Outstanding work, Detective! You've successfully identified human-caused deforestation in the Amazon Basin. Your investigation revealed systematic destruction of forest ecosystems and its impact on air quality for over 500,000 people. Let me explain what this verdict means and why it's so critical for our planet.",
+        message: "🎉 Outstanding work, Detective! You've successfully identified human-caused deforestation in the Amazon Basin. Your investigation revealed systematic destruction of forest ecosystems affecting over 500,000 people. Let me explain what this means.",
         dataDisplay: "verdict",
         choices: [
             { text: "Learn About Solutions", correct: true, nextState: 'solutions' },
@@ -204,7 +204,7 @@ const gameScenarios = {
         showProgress: false
     },
     mission_summary: {
-        message: "Excellent detective work! You've successfully completed your environmental investigation. However, the findings reveal a critical environmental crisis that demands immediate attention.",
+        message: "Excellent detective work! You've completed your environmental investigation. The findings reveal a critical environmental crisis that demands immediate attention.",
         dataDisplay: "summary",
         choices: [
             { text: "Start New Investigation", correct: true, nextState: 'intro' },
@@ -436,7 +436,7 @@ function startInvestigation() {
     document.body.style.backgroundImage = "url('fire-background.png')";
     
     showSection('dashboard');
-    alertMessage("CASE FILE OPENED. Awaiting initial data reports from MODIS.");
+    alertMessage("Case file opened. Loading MODIS data...");
 }
 
 function showSection(sectionId) {
@@ -710,7 +710,7 @@ async function loadMODISVisualization() {
             }
             
             // Show success message
-            alertMessage(`MODIS Data Loaded: ${ndviData.length} data points from ${MODIS_CONFIG.location.name}`);
+            alertMessage(`MODIS data loaded: ${ndviData.length} data points`);
         } else {
             throw new Error('No NDVI data received');
         }
@@ -723,7 +723,7 @@ async function loadMODISVisualization() {
         }
         
         // Show error message
-        alertMessage('MODIS API not accessible (CORS restriction). Using demo data...');
+        alertMessage('Using demo data...');
         
         // Fallback to demo data
         createDemoVisualization();
@@ -832,7 +832,7 @@ function loadASTERVisualization() {
             explanationContainer.classList.remove('hidden');
         }
         
-        alertMessage('ASTER True Color Imagery Loaded');
+        alertMessage('ASTER imagery loaded');
     }, 1500);
 }
 
@@ -978,7 +978,7 @@ function loadClue(clueKey, clickedButton) {
     }
 
     // Custom alert feedback
-    alertMessage(`Loading ${clueKey.toUpperCase()} Data...`);
+    alertMessage(`Loading ${clueKey.toUpperCase()} data...`);
     
     // Load MODIS visualization if this is the MODIS clue
     if (clueKey === 'modis') {
@@ -997,7 +997,7 @@ function playNDVIAnimation() {
         return;
     }
     
-    alertMessage('Playing MODIS Time-lapse Animation...');
+    alertMessage('Playing MODIS animation...');
     
     const years = [2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025];
     let currentIndex = 0;
@@ -1018,13 +1018,13 @@ function playNDVIAnimation() {
         } else {
             // Animation complete
             clearInterval(animationInterval);
-            alertMessage('Animation Complete - Deforestation Pattern Revealed');
+            alertMessage('Animation complete - deforestation pattern revealed');
         }
     }, 1000);
 }
 
 function resetMODISView() {
-    alertMessage('Resetting MODIS view to 2018...');
+    alertMessage('Resetting MODIS view...');
     updateMODISImagery(2018);
     
     // Reset MODIS time slider
