@@ -25,9 +25,9 @@
             <h1 class="project-title">Terra Trackers</h1>
             <p class="nasa-subtitle">NASA Space Apps</p>
             <nav>
-                <a href="#" onclick="showSection('hero');">Home</a>
-                <a href="#" onclick="showSection('dashboard');">Case File</a>
-                <a href="#" onclick="showSection('team');">Team</a>
+                <a href="#" onclick="showSection('hero');" title="Return to Home">🏠 Home</a>
+                <a href="#" onclick="showSection('dashboard');" title="Start Investigation">🔍 Investigation</a>
+                <a href="#" onclick="showSection('team');" title="Meet the Team">👥 Team</a>
             </nav>
             <!-- Volume Control -->
             <div class="volume-control">
@@ -51,30 +51,30 @@
             <div class="fade-overlay"></div>
         </div>
 
-        <button class="explore-button" onclick="startInvestigation()">START INVESTIGATION</button>
+        <button class="explore-button" onclick="startInvestigation()" title="Begin your environmental investigation">🚀 START INVESTIGATION</button>
     </main>
 
     <!-- 2. Case Dashboard (Interactive Content) - Initially Hidden -->
     <div id="case-dashboard" class="container hidden">
-        <h2 class="dashboard-header">CASE FILE: THE MISSING VEGETATION | LOCATION: AMAZON BASIN</h2>
+        <h2 class="dashboard-header">🔍 CASE FILE: THE MISSING VEGETATION | 📍 LOCATION: AMAZON BASIN</h2>
 
         <!-- Clue Sidebar (Navigation) -->
         <div class="data-panel clue-sidebar">
-            <div class="panel-header">CLUE TRACKERS (TERRA INSTRUMENTS)</div>
+            <div class="panel-header">🛰️ CLUE TRACKERS (TERRA INSTRUMENTS)</div>
             
-            <button class="clue-button active" id="clue-modis" onclick="loadClue('modis', this)">
-                <span class="clue-main-text">M.O. (MODIS): The Reporter</span>
-                <div class="clue-description">Long-term NDVI Decline</div>
+            <button class="clue-button active" id="clue-modis" onclick="loadClue('modis', this)" title="View vegetation health data over time">
+                <span class="clue-main-text">📊 MODIS: Vegetation Health</span>
+                <div class="clue-description">Track forest health over time</div>
             </button>
             
-            <button class="clue-button" id="clue-aster" onclick="loadClue('aster', this)">
-                <span class="clue-main-text">A.S.T. (ASTER): The Specialist</span>
-                <div class="clue-description">High-Res Before/After Scar</div>
+            <button class="clue-button" id="clue-aster" onclick="loadClue('aster', this)" title="Compare before and after satellite images">
+                <span class="clue-main-text">🛰️ ASTER: Before/After Images</span>
+                <div class="clue-description">See deforestation changes</div>
             </button>
             
-            <button class="clue-button" id="clue-misr" onclick="loadClue('misr', this)">
-                <span class="clue-main-text">M.I.S.R. (MISR): The 3D Artist</span>
-                <div class="clue-description">Aerosol/Smoke Plume Tracking</div>
+            <button class="clue-button" id="clue-misr" onclick="loadClue('misr', this)" title="View smoke and air pollution data">
+                <span class="clue-main-text">💨 MISR: Air Quality Impact</span>
+                <div class="clue-description">Track smoke and pollution</div>
             </button>
             
         </div>
@@ -85,7 +85,10 @@
             
             <!-- Data Content Placeholder for other clues -->
             <div id="data-content-placeholder" class="data-placeholder">
-                <p>Select a clue to view data</p>
+                <div class="help-text">
+                    <p>👆 <strong>Click on a clue button to the left</strong> to explore different types of satellite data</p>
+                    <p>💡 <strong>Start with MODIS</strong> to see the big picture, then explore ASTER and MISR for details</p>
+                </div>
             </div>
             
             <!-- ASTER Visualization Content -->
@@ -118,7 +121,7 @@
 
                     <!-- Space under the buttons is maintained by margin-bottom: 30px -->
                     <div class="data-control control-buttons-group">
-                        <button class="explore-button reset-button" onclick="resetASTERView();">RESET</button>
+                        <button class="explore-button shiny-button" onclick="resetASTERView();" title="Reset the image comparison slider">🔄 Reset View</button>
                     </div>
 
                 </div>
@@ -127,9 +130,7 @@
                 <div id="aster-explanation" class="aster-explanation hidden">
                     <h3 class="explanation-title">About ASTER True Color Imagery</h3>
                     <div class="explanation-content">
-                        <p><strong>What is ASTER?</strong> The Advanced Spaceborne Thermal Emission and Reflection Radiometer
-                            (ASTER) captures high-resolution images in visible and infrared wavelengths, providing detailed
-                            views of Earth's surface.</p>
+                        <p><strong>What is ASTER?</strong> The Advanced Spaceborne Thermal Emission and Reflection Radiometer (ASTER) captures high-resolution images in visible and infrared wavelengths, providing detailed views of Earth's surface.</p>
                         <p><strong>How to interpret the imagery:</strong></p>
                         <ul>
                             <li><span class="color healthy">Red (infrared) areas:</span> Forests</li>
@@ -137,8 +138,7 @@
                             <li><span class="color deforested">Gray/white areas:</span> Represent bare soil, urban areas, or deforested land.</li>
                         </ul>
                         <p><strong>Why it matters:</strong> ASTER imagery helps scientists monitor land use changes, assess environmental impacts, and track deforestation over time.</p>
-                        <p><strong>TimeFrame:</strong> ASTER satellite images compare forest conditions between 2001 and 2006 in Mato Grosso, Brazil. <strong>Visuals:</strong> Clearings tripled in size over 
-                            five years, driven by mechanized agriculture, especially soy farming.</p>
+                        <p><strong>TimeFrame:</strong> ASTER satellite images compare forest conditions between 2001 and 2006 in Mato Grosso, Brazil. <strong>Visuals:</strong> Clearings tripled in size over five years, driven by mechanized agriculture, especially soy farming.</p>
                         <p><strong>Scientific Findings:</strong></p>
                         <ul>
                             <li>Croplands cleared were <strong>twice</strong> as large as pasture areas.</li>
@@ -183,8 +183,8 @@
 
             <!-- Space under the buttons is maintained by margin-bottom: 30px -->
                 <div class="data-control control-buttons-group">
-                    <button class="explore-button" onclick="playNDVIAnimation();">PLAY ANIMATION</button>
-                    <button class="explore-button reset-button" onclick="resetMODISView();">RESET</button>
+                    <button class="explore-button shiny-button" onclick="playNDVIAnimation();" title="Watch the deforestation animation over time">▶️ Play Animation</button>
+                    <button class="explore-button reset-button" onclick="resetMODISView();" title="Reset to the beginning of the timeline">🔄 Reset View</button>
                 </div>
 
                 </div>
@@ -196,18 +196,14 @@
                 <div id="ndvi-explanation" class="ndvi-explanation hidden">
                     <h3 class="explanation-title">About NDVI (Normalized Difference Vegetation Index)</h3>
                     <div class="explanation-content">
-                        <p><strong>What is NDVI?</strong> NDVI measures the health and density of vegetation by
-                            analyzing the difference between near-infrared and red light reflected by plants.</p>
+                        <p><strong>What is NDVI?</strong> NDVI measures the health and density of vegetation by analyzing the difference between near-infrared and red light reflected by plants.</p>
                         <p><strong>How to read the values:</strong></p>
                         <ul>
-                            <li><span class="ndvi-value high">0.5 - 1.0:</span> Dense, healthy vegetation (forests,
-                                crops)</li>
-                            <li><span class="ndvi-value medium">0.2 - 0.5:</span> Sparse vegetation (grasslands,
-                                degraded areas)</li>
+                            <li><span class="ndvi-value high">0.5 - 1.0:</span> Dense, healthy vegetation (forests, crops)</li>
+                            <li><span class="ndvi-value medium">0.2 - 0.5:</span> Sparse vegetation (grasslands, degraded areas)</li>
                             <li><span class="ndvi-value low">0.0 - 0.2:</span> Bare soil, water, or urban areas</li>
                         </ul>
-                        <p><strong>Why it matters:</strong> NDVI helps scientists track deforestation, monitor crop
-                            health, and assess environmental changes over time.</p>
+                        <p><strong>Why it matters:</strong> NDVI helps scientists track deforestation, monitor crop health, and assess environmental changes over time.</p>
                     </div>
                 </div>
             </div>
@@ -304,8 +300,8 @@
 
         <!-- Navigation Buttons -->
         <div class="team-navigation">
-            <button class="explore-button" onclick="showSection('hero')">← BACK TO HOME</button>
-            <button class="explore-button" onclick="showSection('dashboard')">CONTINUE INVESTIGATION</button>
+            <button class="explore-button" onclick="showSection('hero')" title="Return to the main page">🏠 Back to Home</button>
+            <button class="explore-button" onclick="showSection('dashboard')" title="Continue your investigation">🔍 Continue Investigation</button>
         </div>
     </div>
 
@@ -318,7 +314,7 @@
             
             <div class="astronaut-avatar-container">
                 <img id="astronaut-avatar" src="astronaut pixel art.png" alt="Astronaut Guide" class="astronaut-avatar">
-                        <div class="astronaut-name">Commander Terra</div>
+                <div class="astronaut-name">Commander Terra</div>
             </div>
             <div class="astronaut-dialogue">
                 <div id="astronaut-message" class="dialogue-text"></div>
@@ -675,11 +671,7 @@
         <div class="progress-text">Investigation Progress: <span id="progress-percentage">0%</span></div>
     </div>
 
-    <!-- Floating Astronaut Button (when collapsed) -->
-    <button id="floating-astronaut-btn" class="floating-astronaut-btn hidden" onclick="expandAstronautModal()">
-        <img src="astronaut.jpg" alt="Commander Terra" class="floating-avatar">
-        <span class="floating-text">Commander Terra</span>
-    </button>
+    <!-- Floating button removed - using minimized modal instead -->
 
     <!-- Link to external JavaScript file -->
     <script src="script.js"></script>

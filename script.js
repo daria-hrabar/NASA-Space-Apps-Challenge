@@ -117,68 +117,68 @@ const gameScenarios = {
                 message: "Welcome, Earth Detective! I'm Commander Terra. We've detected unusual activity in the Amazon Basin. Ready to investigate?",
         choices: [
             { text: "Yes, let's investigate!", correct: true, nextState: 'clue_selection' },
-            { text: "I need more information first", correct: false, feedback: "I understand your caution, but time is critical in environmental investigations. The evidence we need is time-sensitive and could disappear. Let's start with what we have and build from there." }
+            { text: "I need more information first", correct: false, feedback: "Time is critical in environmental investigations. Let's start with what we have and build from there." }
         ],
         showProgress: false
     },
     clue_selection: {
-        message: "Great! Our Terra instruments detected three anomalies. Look at the data panel above - which instrument should we examine first to understand the deforestation pattern?",
+        message: "Great! Our Terra instruments detected three anomalies. Which instrument should we examine first to understand the deforestation pattern?",
         choices: [
             { text: "MODIS - Long-term vegetation data", correct: true, nextState: 'modis_analysis' },
-            { text: "ASTER - High-resolution imagery", correct: false, feedback: "ASTER is excellent for detailed analysis! However, in environmental investigations, we typically start with the broader perspective. MODIS gives us the long-term vegetation trends that help us understand the overall pattern before diving into specifics." },
-            { text: "MISR - Aerosol tracking", correct: false, feedback: "MISR is crucial for understanding atmospheric impacts! But first, we need to establish what's happening to the vegetation itself. Let's start with MODIS to see the vegetation changes, then we can examine how those changes affect the atmosphere." }
+            { text: "ASTER - High-resolution imagery", correct: false, feedback: "ASTER is great for details! But we need the big picture first. MODIS shows long-term trends that help us understand the overall pattern." },
+            { text: "MISR - Aerosol tracking", correct: false, feedback: "MISR is important for atmospheric effects! But first, let's see what's happening to the vegetation itself with MODIS." }
         ],
         showProgress: true
     },
     modis_analysis: {
-        message: "Perfect! Let me show you the MODIS data. Click on the MODIS clue above to examine the interactive visualization with animations and detailed analysis. What does this data indicate about forest health?",
+        message: "Perfect! Click on the MODIS clue to examine the data. What does this show about forest health?",
         choices: [
-            { text: "The forest is recovering", correct: false, feedback: "I can see why you might think that! However, if you look closely at the NDVI values, they're actually decreasing over time. In NDVI data, higher values indicate healthier, denser vegetation. The declining trend suggests the opposite of recovery - it shows vegetation loss." },
+            { text: "The forest is recovering", correct: false, feedback: "The NDVI values are actually decreasing over time. Higher values indicate healthier vegetation, so the declining trend shows vegetation loss." },
             { text: "The forest is losing vegetation", correct: true, nextState: 'aster_choice' },
-            { text: "The data is inconclusive", correct: false, feedback: "I understand the data can seem complex! But the NDVI trend is actually quite clear - it's a standardized measure where decreasing values consistently indicate vegetation loss. The pattern shows a steady decline, which is a clear signal of environmental change." }
+            { text: "The data is inconclusive", correct: false, feedback: "The NDVI trend is actually quite clear - decreasing values consistently indicate vegetation loss. The pattern shows a steady decline." }
         ],
         showProgress: true
     },
     aster_choice: {
-        message: "Exactly! Now click on the ASTER clue above to examine the high-resolution imagery. Use the image slider to compare 2020 vs 2023 and see the specific damage patterns.",
+        message: "Exactly! Now click on the ASTER clue to examine the detailed imagery. Use the slider to compare 2020 vs 2023.",
         choices: [
             { text: "Yes, let's see the detailed imagery", correct: true, nextState: 'aster_analysis' },
-            { text: "Let's check MISR for smoke patterns", correct: false, feedback: "MISR is definitely important for understanding atmospheric effects! But in environmental forensics, we need to establish the 'ground truth' first. ASTER will show us exactly what happened to the forest surface, which helps us understand what might be causing the atmospheric changes we'd see in MISR data." }
+            { text: "Let's check MISR for smoke patterns", correct: false, feedback: "MISR is important for atmospheric effects! But first, we need to establish the 'ground truth' with ASTER to see what happened to the forest surface." }
         ],
         showProgress: true
     },
     aster_analysis: {
-        message: "Now examine the ASTER imagery above - click on the ASTER clue to see the interactive before/after comparison with the image slider. Look at the geometric clearing patterns and systematic deforestation. What damage pattern do you observe?",
+        message: "Now examine the ASTER imagery - click on the ASTER clue to see the before/after comparison. Look at the clearing patterns. What do you observe?",
         choices: [
-            { text: "Natural forest fires", correct: false, feedback: "That's a good observation about fire patterns! However, if you examine the imagery more closely, you'll notice the clearing patterns are very geometric and systematic - this suggests human activity rather than natural fire spread, which typically follows more organic, irregular boundaries." },
+            { text: "Natural forest fires", correct: false, feedback: "The clearing patterns are very geometric and systematic - this suggests human activity rather than natural fire spread, which typically follows more organic, irregular boundaries." },
             { text: "Systematic deforestation", correct: true, nextState: 'misr_choice' },
-            { text: "Seasonal changes", correct: false, feedback: "Seasonal changes are definitely important to consider! But the ASTER imagery shows permanent, structural changes to the landscape rather than temporary seasonal variations. The patterns indicate long-term, systematic alteration of the forest structure." }
+            { text: "Seasonal changes", correct: false, feedback: "The ASTER imagery shows permanent, structural changes to the landscape rather than temporary seasonal variations. The patterns indicate long-term, systematic alteration of the forest structure." }
         ],
         showProgress: true
     },
     misr_choice: {
-        message: "Correct! Now click on the MISR clue above to examine the aerosol data. Look at the smoke plume patterns to see how this deforestation affects air quality.",
+        message: "Correct! Now click on the MISR clue to examine the aerosol data. Look at the smoke plume patterns.",
         choices: [
             { text: "Yes, check the smoke and aerosol patterns", correct: true, nextState: 'misr_analysis' },
-            { text: "We have enough evidence", correct: false, feedback: "I appreciate your confidence in the evidence we've gathered! However, environmental investigations require a complete picture. MISR data will show us how this deforestation affects air quality and atmospheric conditions - this is crucial for understanding the full environmental impact on communities." }
+            { text: "We have enough evidence", correct: false, feedback: "Environmental investigations require a complete picture. MISR data will show us how this deforestation affects air quality and atmospheric conditions - this is crucial for understanding the full environmental impact on communities." }
         ],
         showProgress: true
     },
     misr_analysis: {
-        message: "Now examine the MISR data above - click on the MISR clue to see the interactive aerosol visualization. Look at the smoke plume patterns and their extent to understand the environmental impact. What does this tell us about the consequences?",
+        message: "Now examine the MISR data - click on the MISR clue to see the aerosol visualization. Look at the smoke plume patterns. What does this tell us about the consequences?",
         choices: [
-            { text: "No significant impact", correct: false, feedback: "I can understand why the scale might not be immediately obvious! But the MISR data actually shows massive aerosol plumes that extend far beyond the immediate deforestation area. These plumes represent significant air quality degradation that affects thousands of people in surrounding communities." },
+            { text: "No significant impact", correct: false, feedback: "The MISR data shows massive aerosol plumes that extend far beyond the immediate deforestation area. These plumes represent significant air quality degradation that affects thousands of people in surrounding communities." },
             { text: "Major air quality impact on communities", correct: true, nextState: 'verdict_choice' },
-            { text: "Only local effects", correct: false, feedback: "That's a reasonable assumption about local impacts! However, aerosol plumes from deforestation can actually travel hundreds of kilometers downwind, affecting air quality in many communities far from the original source. The MISR data shows these widespread atmospheric effects." }
+            { text: "Only local effects", correct: false, feedback: "Aerosol plumes from deforestation can travel hundreds of kilometers downwind, affecting air quality in many communities far from the original source. The MISR data shows these widespread atmospheric effects." }
         ],
         showProgress: true
     },
     verdict_choice: {
         message: "Excellent work! You've examined all the data - MODIS vegetation trends, ASTER imagery, and MISR aerosol patterns. Based on this evidence, what's your verdict on the cause?",
         choices: [
-            { text: "Natural climate change", correct: false, feedback: "Climate change is definitely a factor in environmental changes! However, the evidence we've gathered shows systematic, geometric patterns of deforestation that are characteristic of human activity rather than natural climate-driven changes. The systematic nature of the clearing suggests deliberate human intervention." },
+            { text: "Natural climate change", correct: false, feedback: "The evidence shows systematic, geometric patterns of deforestation that are characteristic of human activity rather than natural climate-driven changes. The systematic nature of the clearing suggests deliberate human intervention." },
             { text: "Human-caused deforestation and fires", correct: true, nextState: 'mission_complete' },
-            { text: "Unknown causes", correct: false, feedback: "I understand the complexity can make it seem unclear! But the evidence we've collected actually tells a clear story: the systematic patterns in ASTER imagery, combined with the NDVI decline in MODIS data and the aerosol plumes in MISR data, all point to human-caused deforestation with significant environmental consequences." }
+            { text: "Unknown causes", correct: false, feedback: "The evidence tells a clear story: the systematic patterns in ASTER imagery, combined with the NDVI decline in MODIS data and the aerosol plumes in MISR data, all point to human-caused deforestation with significant environmental consequences." }
         ],
         showProgress: true
     },
@@ -192,11 +192,11 @@ const gameScenarios = {
         showProgress: true
     },
     solutions: {
-        message: "The good news is that we can take action! There are proven solutions to combat deforestation and protect our planet's future.",
+        message: "The good news is that we can take action! There are proven solutions to combat deforestation and protect our planet's future. Click below to learn about specific actions we can take.",
         dataDisplay: "solutions",
         choices: [
-            { text: "View Mission Summary", correct: true, nextState: 'mission_summary' },
-            { text: "Start New Investigation", correct: true, nextState: 'intro' }
+            { text: "Learn About Specific Solutions", correct: true, nextState: 'mission_summary' },
+            { text: "View Mission Summary", correct: true, nextState: 'mission_summary' }
         ],
         showProgress: false
     },
@@ -204,8 +204,8 @@ const gameScenarios = {
         message: "Excellent detective work! You've successfully completed your environmental investigation. However, the findings reveal a critical environmental crisis that demands immediate attention.",
         dataDisplay: "summary",
         choices: [
-            { text: "Start New Investigation", correct: true, nextState: 'intro' },
-            { text: "View Team Credits", correct: true, nextState: 'team_credits' }
+            { text: "View Team Credits", correct: true, nextState: 'team_credits' },
+            { text: "Learn More About NASA", correct: true, nextState: 'nasa_info' }
         ],
         showProgress: false
     },
@@ -213,8 +213,8 @@ const gameScenarios = {
         message: "This investigation was made possible by our amazing team of Earth scientists and developers. Thank you for helping protect our planet!",
         dataDisplay: "team",
         choices: [
-            { text: "Start New Investigation", correct: true, nextState: 'intro' },
-            { text: "Learn More About NASA", correct: true, nextState: 'nasa_info' }
+            { text: "Learn More About NASA", correct: true, nextState: 'nasa_info' },
+            { text: "Visit NASA Earth Data", correct: true, nextState: 'external_nasa' }
         ],
         showProgress: false
     },
@@ -222,8 +222,8 @@ const gameScenarios = {
         message: "NASA's Earth Science Division uses satellite data to monitor our planet's health. Your investigation skills mirror those of real NASA scientists!",
         dataDisplay: "nasa",
         choices: [
-            { text: "Start New Investigation", correct: true, nextState: 'intro' },
-            { text: "Visit NASA Earth Data", correct: true, nextState: 'external_nasa' }
+            { text: "Visit NASA Earth Data", correct: true, nextState: 'external_nasa' },
+            { text: "View Team Credits", correct: true, nextState: 'team_credits' }
         ],
         showProgress: false
     },
@@ -231,7 +231,7 @@ const gameScenarios = {
         message: "Ready to explore real NASA Earth data? This will open NASA's official Earth data portal where you can access the same tools used by scientists worldwide!",
         choices: [
             { text: "Visit NASA Earth Data Portal", correct: true, nextState: 'mission_complete' },
-            { text: "Start New Investigation", correct: true, nextState: 'intro' }
+            { text: "Back to Team Credits", correct: true, nextState: 'team_credits' }
         ],
         showProgress: false
     }
@@ -481,7 +481,7 @@ function startInvestigation() {
     document.body.style.backgroundImage = "url('fire-background.png')";
     
     showSection('dashboard');
-    alertMessage("CASE FILE OPENED. Awaiting initial data reports from MODIS.");
+    alertMessage("🔍 Case file opened. Loading satellite data...");
 }
 
 function showSection(sectionId) {
@@ -514,15 +514,19 @@ function showSection(sectionId) {
         }
     } else if (sectionId === 'dashboard') {
         dashboardSection.classList.remove('hidden');
-        // Stop forest sound when going to Case File
+        // Change background to investigation environment
+        document.body.style.backgroundImage = "url('fire-background.png')";
+        // Start investigation sound
+        if (investigationSound) {
+            investigationSound.play().catch(error => {
+                console.log('Audio autoplay prevented:', error);
+            });
+        }
+        // Stop forest ambient sound
         if (forestAmbientSound) {
             forestAmbientSound.pause();
             forestAmbientSound.currentTime = 0;
             console.log('Forest sound stopped in dashboard section');
-        }
-        // Start investigation sound if not already playing
-        if (!investigationSound || investigationSound.paused) {
-            startInvestigationSound();
         }
         // Ensure the MODIS clue is loaded and active when entering the dashboard
         loadClue('modis', document.getElementById('clue-modis')); 
@@ -770,7 +774,7 @@ async function loadMODISVisualization() {
             }
             
             // Show success message
-            alertMessage(`MODIS Data Loaded: ${ndviData.length} data points from ${MODIS_CONFIG.location.name}`);
+            alertMessage(`📊 MODIS data loaded: ${ndviData.length} data points`);
         } else {
             throw new Error('No NDVI data received');
         }
@@ -783,7 +787,7 @@ async function loadMODISVisualization() {
         }
         
         // Show informative message about using demo data
-        alertMessage('Using NASA Earth demo data for demonstration purposes. Real-time satellite imagery available through NASA APIs.');
+        alertMessage('📡 Using demo data - real satellite data available through NASA APIs');
         
         // Fallback to demo data
         createDemoVisualization();
@@ -894,7 +898,7 @@ function loadASTERVisualization() {
             explanationContainer.classList.remove('hidden');
         }
         
-        alertMessage('ASTER True Color Imagery Loaded');
+        alertMessage('🛰️ ASTER imagery loaded');
     }, 1500);
 }
 
@@ -981,8 +985,11 @@ function loadClue(clueKey, clickedButton) {
         return;
     }
     
-    // 1. Update the active button state
-    clueButtons.forEach(btn => btn.classList.remove('active'));
+    // 1. Update the active button state and remove recommendation indicators
+    clueButtons.forEach(btn => {
+        btn.classList.remove('active', 'recommended');
+    });
+    
     if (clickedButton) {
         clickedButton.classList.add('active');
     } else {
@@ -990,6 +997,9 @@ function loadClue(clueKey, clickedButton) {
         const modisButton = document.getElementById(`clue-${clueKey}`);
         if (modisButton) modisButton.classList.add('active');
     }
+    
+    // 2. Add recommendation indicators for next steps
+    updateClueRecommendations(clueKey);
 
     // 2. Load the content from clueData
     const data = clueData[clueKey];
@@ -1040,7 +1050,7 @@ function loadClue(clueKey, clickedButton) {
     }
 
     // Custom alert feedback
-    alertMessage(`Loading ${clueKey.toUpperCase()} Data...`);
+    alertMessage(`📡 Loading ${clueKey.toUpperCase()} data...`);
     
 }
 
@@ -1095,7 +1105,7 @@ function playNDVIAnimation() {
         return;
     }
     
-    alertMessage('Playing MODIS Time-lapse Animation...');
+    alertMessage('▶️ Playing MODIS animation...');
     
     const years = [2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025];
     let currentIndex = 0;
@@ -1116,13 +1126,13 @@ function playNDVIAnimation() {
         } else {
             // Animation complete
             clearInterval(animationInterval);
-            alertMessage('Animation Complete - Deforestation Pattern Revealed');
+            alertMessage('✅ Animation complete - deforestation pattern revealed');
         }
     }, 1000);
 }
 
 function resetMODISView() {
-    alertMessage('Resetting MODIS view to 2018...');
+    alertMessage('🔄 Resetting MODIS view...');
     updateMODISImagery(2018);
     
     // Reset MODIS time slider
@@ -1243,21 +1253,9 @@ function showAstronautModal(scenario) {
             astronautModal.style.background = 'rgba(0, 0, 0, 0.95)';
             astronautModal.style.backdropFilter = 'none';
         } else {
-            // Desktop positioning for data examination scenarios
-            const dataExaminationStates = ['modis_analysis', 'aster_analysis', 'misr_analysis'];
-            if (dataExaminationStates.includes(currentGameState)) {
-                // Position popup to not block data
-                astronautModal.style.position = 'fixed';
-                astronautModal.style.top = '20px';
-                astronautModal.style.right = '20px';
-                astronautModal.style.bottom = 'auto';
-                astronautModal.style.left = 'auto';
-                astronautModal.style.width = '400px';
-                astronautModal.style.maxWidth = '400px';
-                astronautModal.style.background = 'rgba(0, 0, 0, 0.1)';
-                astronautModal.style.backdropFilter = 'none';
-            } else {
-                // Reset to default positioning
+            // Desktop positioning - keep all dialogues on top right except intro
+            if (currentGameState === 'intro') {
+                // Intro stays centered
                 astronautModal.style.position = '';
                 astronautModal.style.top = '';
                 astronautModal.style.right = '';
@@ -1267,6 +1265,17 @@ function showAstronautModal(scenario) {
                 astronautModal.style.maxWidth = '';
                 astronautModal.style.background = '';
                 astronautModal.style.backdropFilter = '';
+            } else {
+                // All other dialogues go to top right
+                astronautModal.style.position = 'fixed';
+                astronautModal.style.top = '20px';
+                astronautModal.style.right = '20px';
+                astronautModal.style.bottom = 'auto';
+                astronautModal.style.left = 'auto';
+                astronautModal.style.width = '400px';
+                astronautModal.style.maxWidth = '400px';
+                astronautModal.style.background = 'rgba(0, 0, 0, 0.9)';
+                astronautModal.style.backdropFilter = 'blur(8px)';
             }
         }
         
@@ -1336,13 +1345,11 @@ function toggleAstronautModal() {
     if (!astronautModal) return;
     
     const collapseBtn = document.getElementById('collapse-btn');
-    const floatingBtn = document.getElementById('floating-astronaut-btn');
     
     if (astronautModal.classList.contains('collapsed')) {
         // Expand
         astronautModal.classList.remove('collapsed');
         if (collapseBtn) collapseBtn.textContent = '−';
-        if (floatingBtn) floatingBtn.classList.add('hidden');
         
         // Reset mobile positioning
         if (isMobile) {
@@ -1361,7 +1368,6 @@ function toggleAstronautModal() {
         // Collapse
         astronautModal.classList.add('collapsed');
         if (collapseBtn) collapseBtn.textContent = '+';
-        if (floatingBtn) floatingBtn.classList.remove('hidden');
         
         // On mobile, hide the modal completely when collapsed
         if (isMobile) {
@@ -1372,16 +1378,7 @@ function toggleAstronautModal() {
     }
 }
 
-function expandAstronautModal() {
-    if (!astronautModal) return;
-    
-    const collapseBtn = document.getElementById('collapse-btn');
-    const floatingBtn = document.getElementById('floating-astronaut-btn');
-    
-    astronautModal.classList.remove('collapsed');
-    if (collapseBtn) collapseBtn.textContent = '−';
-    if (floatingBtn) floatingBtn.classList.add('hidden');
-}
+// expandAstronautModal function removed - no longer needed
 
 // Data display helper functions
 function hideAllDataVisualizations() {
@@ -1487,9 +1484,12 @@ function handleChoice(choice, index) {
     });
     
     if (choice.correct) {
-        // Correct choice - advance game
+        // Correct choice - advance game with rewarding animation
         gameDecisions.push(choice);
         gameProgress += 12.5; // Each correct decision adds ~12.5% progress
+        
+        // Add rewarding visual feedback
+        showCorrectAnswerAnimation();
         
         setTimeout(() => {
             if (choice.nextState) {
@@ -1501,7 +1501,7 @@ function handleChoice(choice, index) {
             } else {
                 hideAstronautModal();
             }
-        }, 1000);
+        }, 1500); // Slightly longer delay to show animation
     } else {
         // Incorrect choice - show feedback
         setTimeout(() => {
@@ -1543,6 +1543,38 @@ function updateGameProgress() {
     
     if (progressPercentage) {
         progressPercentage.textContent = `${Math.min(gameProgress, 100)}%`;
+    }
+}
+
+// Rewarding animation for correct answers
+function showCorrectAnswerAnimation() {
+    // Show success message
+    alertMessage('🎉 Excellent detective work!');
+    
+    // Add subtle visual feedback to the astronaut modal
+    const astronautModal = document.getElementById('astronaut-modal');
+    if (astronautModal) {
+        astronautModal.classList.add('celebration');
+        setTimeout(() => {
+            astronautModal.classList.remove('celebration');
+        }, 1000);
+    }
+}
+
+
+// Update clue recommendations based on current state
+function updateClueRecommendations(currentClue) {
+    // Define the recommended order
+    const clueOrder = ['modis', 'aster', 'misr'];
+    const currentIndex = clueOrder.indexOf(currentClue);
+    
+    // Only recommend the next clue in sequence, one at a time
+    if (currentIndex < clueOrder.length - 1) {
+        const nextClue = clueOrder[currentIndex + 1];
+        const nextButton = document.getElementById(`clue-${nextClue}`);
+        if (nextButton) {
+            nextButton.classList.add('recommended');
+        }
     }
 }
 
