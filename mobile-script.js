@@ -318,31 +318,70 @@ class MobileTerraTracker {
                     <div class="clue-content">
                         <div class="aster-comparison">
                             <h3>ASTER True Color Imagery - Amazon Basin</h3>
+                            
+                            <!-- Before/After Satellite Images -->
                             <div class="satellite-images">
                                 <div class="image-container">
-                                    <h4>2020 - Before Deforestation</h4>
-                                    <img src="matogrosso_ast_2001213_lrg.jpg" alt="ASTER 2020" class="satellite-image">
-                                    <p class="image-caption">Dense forest coverage</p>
+                                    <h4>2001 - Before Deforestation</h4>
+                                    <div class="image-with-overlay">
+                                        <img src="matogrosso_ast_2001213_lrg.jpg" alt="ASTER 2001" class="satellite-image">
+                                        <div class="forest-overlay healthy-forest">
+                                            <div class="overlay-label">Healthy Forest</div>
+                                        </div>
+                                    </div>
+                                    <p class="image-caption">Dense forest coverage - 95% forest cover</p>
                                 </div>
                                 <div class="image-container">
-                                    <h4>2023 - After Deforestation</h4>
-                                    <img src="matogrosso_ast_2006227_lrg.jpg" alt="ASTER 2023" class="satellite-image">
-                                    <p class="image-caption">Systematic clearing patterns</p>
+                                    <h4>2006 - After Deforestation</h4>
+                                    <div class="image-with-overlay">
+                                        <img src="matogrosso_ast_2006227_lrg.jpg" alt="ASTER 2006" class="satellite-image">
+                                        <div class="forest-overlay deforested-area">
+                                            <div class="overlay-label">Deforested Area</div>
+                                        </div>
+                                    </div>
+                                    <p class="image-caption">Systematic clearing patterns - 60% forest cover</p>
                                 </div>
                             </div>
+                            
+                            <!-- Color-coded Visualization -->
+                            <div class="aster-visualization">
+                                <h4>Land Cover Analysis</h4>
+                                <div class="forest-visualization">
+                                    <div class="forest-area">
+                                        <div class="forest-pattern healthy"></div>
+                                        <div class="deforestation-patches"></div>
+                                    </div>
+                                    <div class="visualization-info">
+                                        <div class="forest-coverage">Forest Cover: 60%</div>
+                                        <div class="deforestation-rate">Deforestation: 35% increase</div>
+                                        <div class="description">Clearings tripled in size over 5 years</div>
+                                    </div>
+                                </div>
+                            </div>
+                            
                             <div class="imagery-legend">
                                 <div class="legend-item">
                                     <div class="legend-color healthy"></div>
-                                    <span>Healthy Forest</span>
+                                    <span>Healthy Forest (Red/Infrared areas)</span>
                                 </div>
                                 <div class="legend-item">
                                     <div class="legend-color degraded"></div>
-                                    <span>Degraded Forest</span>
+                                    <span>Degraded Forest (Blue/Gray areas)</span>
                                 </div>
                                 <div class="legend-item">
                                     <div class="legend-color deforested"></div>
-                                    <span>Deforested Area</span>
+                                    <span>Deforested Area (Gray/White areas)</span>
                                 </div>
+                            </div>
+                            
+                            <!-- Scientific Findings -->
+                            <div class="scientific-findings">
+                                <h4>Scientific Findings</h4>
+                                <ul>
+                                    <li>Croplands cleared were <strong>twice</strong> as large as pasture areas</li>
+                                    <li>Bare land raises temperatures more than croplands or pasture</li>
+                                    <li>These changes contribute to habitat loss and climate impacts</li>
+                                </ul>
                             </div>
                         </div>
                     </div>
