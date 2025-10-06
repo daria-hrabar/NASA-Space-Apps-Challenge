@@ -308,6 +308,7 @@
             <button class="btn" onclick="showModal('Excellent work! You have completed the investigation. What is your verdict?', [
                 {text: 'Human-caused deforestation', action: () => showModal(\'🎉 Correct! You successfully identified human-caused deforestation in the Amazon Basin. This investigation revealed systematic destruction of forest ecosystems affecting over 500,000 people.\', [
                     {text: \'Learn What This Means & How to Take Action\', action: () => showSolutions()},
+                    {text: \'Learn More About NASA\'s Earth Science\', action: () => showNasaInfo()},
                     {text: \'Meet Team Behind Web Development\', action: () => showSection(\'team\')}
                 ])},
                 {text: 'Natural causes', action: () => showAlert(\'Incorrect. The evidence shows systematic, geometric patterns characteristic of human activity.\')},
@@ -444,6 +445,7 @@
             updateProgress();
             showModal('🎉 Outstanding work, Detective! You\'ve successfully identified human-caused deforestation in the Amazon Basin. Your investigation revealed systematic destruction of forest ecosystems and its impact on air quality for over 500,000 people.', [
                 {text: 'Learn What This Means & How to Take Action', action: () => showSolutions()},
+                {text: 'Learn More About NASA\'s Earth Science', action: () => showNasaInfo()},
                 {text: 'Meet Team Behind Web Development', action: () => {closeModal(); showSection('team');}}
             ]);
         }
