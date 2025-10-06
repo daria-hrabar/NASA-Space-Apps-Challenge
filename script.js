@@ -228,41 +228,25 @@ const gameScenarios = {
         showProgress: true
     },
     modis_analysis: {
-        message: "Perfect! Click on the MODIS clue to examine the data. What does this show about forest health?",
+        message: "Perfect! Now examine the MODIS data. What does this show about forest health?",
         choices: [
             { text: "The forest is recovering", correct: false, feedback: "The NDVI values are actually decreasing over time. Higher values indicate healthier vegetation, so the declining trend shows vegetation loss." },
-            { text: "The forest is losing vegetation", correct: true, nextState: 'aster_choice' },
+            { text: "The forest is losing vegetation", correct: true, nextState: 'aster_analysis' },
             { text: "The data is inconclusive", correct: false, feedback: "The NDVI trend is actually quite clear - decreasing values consistently indicate vegetation loss. The pattern shows a steady decline." }
         ],
         showProgress: true
     },
-    aster_choice: {
-        message: "Exactly! Now click on the ASTER clue to examine the detailed imagery. Use the slider to compare 2020 vs 2023.",
-        choices: [
-            { text: "Yes, let's see the detailed imagery", correct: true, nextState: 'aster_analysis' },
-            { text: "Let's check MISR for smoke patterns", correct: false, feedback: "MISR is important for atmospheric effects! But first, we need to establish the 'ground truth' with ASTER to see what happened to the forest surface." }
-        ],
-        showProgress: true
-    },
     aster_analysis: {
-        message: "Now examine the ASTER imagery - click on the ASTER clue to see the before/after comparison. Look at the clearing patterns. What do you observe?",
+        message: "Now examine the ASTER imagery to see the before/after comparison. Look at the clearing patterns. What do you observe?",
         choices: [
             { text: "Natural forest fires", correct: false, feedback: "The clearing patterns are very geometric and systematic - this suggests human activity rather than natural fire spread, which typically follows more organic, irregular boundaries." },
-            { text: "Systematic deforestation", correct: true, nextState: 'misr_choice' },
+            { text: "Systematic deforestation", correct: true, nextState: 'misr_analysis' },
             { text: "Seasonal changes", correct: false, feedback: "The ASTER imagery shows permanent, structural changes to the landscape rather than temporary seasonal variations. The patterns indicate long-term, systematic alteration of the forest structure." }
         ],
         showProgress: true
     },
-    misr_choice: {
-        message: "Correct! Now click on the MISR clue to examine the aerosol data. Look at the smoke plume patterns.",
-        choices: [
-            { text: "Yes, check the smoke and aerosol patterns", correct: true, nextState: 'misr_analysis' },
-            { text: "We have enough evidence", correct: false, feedback: "Environmental investigations require a complete picture. MISR data will show us how this deforestation affects air quality and atmospheric conditions - this is crucial for understanding the full environmental impact on communities." }
-        ],
-        showProgress: true
-    },
     misr_analysis: {
-        message: "Now examine the MISR data - click on the MISR clue to see the aerosol visualization. Look at the smoke plume patterns. What does this tell us about the consequences?",
+        message: "Now examine the MISR data to see the aerosol visualization. Look at the smoke plume patterns. What does this tell us about the consequences?",
         choices: [
             { text: "No significant impact", correct: false, feedback: "The MISR data shows massive aerosol plumes that extend far beyond the immediate deforestation area. These plumes represent significant air quality degradation that affects thousands of people in surrounding communities." },
             { text: "Major air quality impact on communities", correct: true, nextState: 'verdict_choice' },
@@ -280,29 +264,29 @@ const gameScenarios = {
         showProgress: true
     },
     mission_complete: {
-        message: "🎉 Outstanding work, Detective! You've successfully identified human-caused deforestation in the Amazon Basin. Your investigation revealed systematic destruction of forest ecosystems and its impact on air quality for over 500,000 people. Let me explain what this verdict means and why it's so critical for our planet.",
+        message: "🎉 Outstanding work, Detective! You've successfully identified human-caused deforestation in the Amazon Basin. Your investigation revealed systematic destruction of forest ecosystems and its impact on air quality for over 500,000 people. This is a critical environmental crisis that demands immediate attention.",
         dataDisplay: "verdict",
         choices: [
-            { text: "Learn About Solutions", correct: true, nextState: 'solutions' },
-            { text: "View Mission Summary", correct: true, nextState: 'mission_summary' }
+            { text: "Learn What This Means & How to Take Action", correct: true, nextState: 'solutions' },
+            { text: "Meet the Team Behind This Investigation", correct: true, nextState: 'team_credits' }
         ],
         showProgress: true
     },
     solutions: {
-        message: "The good news is that we can take action! There are proven solutions to combat deforestation and protect our planet's future. Click below to learn about specific actions we can take.",
+        message: "🌍 What This Means: Your investigation revealed systematic deforestation affecting over 500,000 people. This isn't just about trees - it's accelerating climate change, destroying biodiversity, and threatening human health.\n\n🚀 How to Take Action: Support sustainable agriculture and reforestation projects, advocate for stronger environmental policies, reduce your carbon footprint, educate others about deforestation impacts, and support organizations fighting deforestation. Every action counts in protecting our planet!",
         dataDisplay: "solutions",
         choices: [
-            { text: "Learn About Specific Solutions", correct: true, nextState: 'mission_summary' },
-            { text: "View Mission Summary", correct: true, nextState: 'mission_summary' }
+            { text: "View Mission Summary", correct: true, nextState: 'mission_summary' },
+            { text: "Meet the Team Behind This Investigation", correct: true, nextState: 'team_credits' }
         ],
         showProgress: false
     },
     mission_summary: {
-        message: "Excellent detective work! You've successfully completed your environmental investigation. However, the findings reveal a critical environmental crisis that demands immediate attention.",
+        message: "🎯 Mission Summary: You successfully identified human-caused deforestation in the Amazon Basin using NASA satellite data. Your investigation revealed a 15% NDVI decline from MODIS data, clear before/after deforestation patterns in ASTER imagery, and aerosol plumes affecting 500,000+ people from MISR data. This demonstrates the power of satellite data in environmental monitoring and the urgent need for action.",
         dataDisplay: "summary",
         choices: [
-            { text: "View Team Credits", correct: true, nextState: 'team_credits' },
-            { text: "Learn More About NASA", correct: true, nextState: 'nasa_info' }
+            { text: "Meet the Team Behind This Investigation", correct: true, nextState: 'team_credits' },
+            { text: "Learn More About NASA's Earth Science", correct: true, nextState: 'nasa_info' }
         ],
         showProgress: false
     },
@@ -316,11 +300,11 @@ const gameScenarios = {
         showProgress: false
     },
     nasa_info: {
-        message: "NASA's Earth Science Division uses satellite data to monitor our planet's health. Your investigation skills mirror those of real NASA scientists!",
+        message: "🌍 NASA's Earth Science Division uses satellite data to monitor our planet's health. Your investigation skills mirror those of real NASA scientists!\n\n🛰️ Where to Find NASA Data: Access the NASA Earth Data Portal (earthdata.nasa.gov), MODIS data (modis.gsfc.nasa.gov), ASTER data (asterweb.jpl.nasa.gov), MISR data (misr.jpl.nasa.gov), and real-time Earth observations (worldview.earthdata.nasa.gov). These tools are used by scientists worldwide to monitor deforestation, climate change, and environmental health!",
         dataDisplay: "nasa",
         choices: [
-            { text: "Visit NASA Earth Data", correct: true, nextState: 'external_nasa' },
-            { text: "View Team Credits", correct: true, nextState: 'team_credits' }
+            { text: "Back to Main Menu", correct: true, nextState: 'intro' },
+            { text: "Meet the Team", correct: true, nextState: 'team_credits' }
         ],
         showProgress: false
     },
@@ -1744,6 +1728,45 @@ function showAstronautModal(scenario) {
     if (viewDataBtn) viewDataBtn.classList.add('hidden');
     if (backToDialogueBtn) backToDialogueBtn.classList.add('hidden');
     
+        // Mission complete, solutions, mission summary, and nasa info get fullscreen treatment
+        if (currentGameState === 'mission_complete' || currentGameState === 'solutions' || currentGameState === 'mission_summary' || currentGameState === 'nasa_info') {
+            if (currentGameState === 'mission_complete') {
+                astronautModal.classList.add('mission-complete');
+                astronautModal.classList.remove('solutions-fullscreen');
+                astronautModal.classList.remove('mission-summary-fullscreen');
+                astronautModal.classList.remove('nasa-info-fullscreen');
+            } else if (currentGameState === 'solutions') {
+                astronautModal.classList.add('solutions-fullscreen');
+                astronautModal.classList.remove('mission-complete');
+                astronautModal.classList.remove('mission-summary-fullscreen');
+                astronautModal.classList.remove('nasa-info-fullscreen');
+            } else if (currentGameState === 'mission_summary') {
+                astronautModal.classList.add('mission-summary-fullscreen');
+                astronautModal.classList.remove('mission-complete');
+                astronautModal.classList.remove('solutions-fullscreen');
+                astronautModal.classList.remove('nasa-info-fullscreen');
+            } else if (currentGameState === 'nasa_info') {
+                astronautModal.classList.add('nasa-info-fullscreen');
+                astronautModal.classList.remove('mission-complete');
+                astronautModal.classList.remove('solutions-fullscreen');
+                astronautModal.classList.remove('mission-summary-fullscreen');
+            }
+            astronautModal.classList.remove('fullscreen-intro');
+            astronautModal.classList.remove('hidden');
+            astronautModal.classList.remove('collapsed');
+            
+            // Hide floating button when in fullscreen mode
+            const floatingBtn = document.getElementById('floating-astronaut-btn');
+            if (floatingBtn) floatingBtn.style.display = 'none';
+            
+            console.log('Fullscreen modal should be visible');
+        } else {
+            astronautModal.classList.remove('mission-complete');
+            astronautModal.classList.remove('solutions-fullscreen');
+            astronautModal.classList.remove('mission-summary-fullscreen');
+            astronautModal.classList.remove('nasa-info-fullscreen');
+        }
+        
         // Mobile-specific positioning
         if (isMobile) {
             // On mobile, always use full-screen modal
@@ -1758,7 +1781,7 @@ function showAstronautModal(scenario) {
             astronautModal.style.background = 'rgba(0, 0, 0, 0.95)';
             astronautModal.style.backdropFilter = 'none';
         } else {
-            // Desktop positioning - keep all dialogues on top right except intro
+            // Desktop positioning - keep all dialogues on top right except intro and mission_complete
             if (currentGameState === 'intro') {
                 // Intro stays centered
                 astronautModal.style.position = '';
@@ -1770,6 +1793,18 @@ function showAstronautModal(scenario) {
                 astronautModal.style.maxWidth = '';
                 astronautModal.style.background = '';
                 astronautModal.style.backdropFilter = '';
+            } else if (currentGameState === 'mission_complete' || currentGameState === 'solutions' || currentGameState === 'mission_summary' || currentGameState === 'nasa_info') {
+                // Mission complete, solutions, mission summary, and nasa info get fullscreen
+                astronautModal.style.position = 'fixed';
+                astronautModal.style.top = '0';
+                astronautModal.style.left = '0';
+                astronautModal.style.right = '0';
+                astronautModal.style.bottom = '0';
+                astronautModal.style.width = '100%';
+                astronautModal.style.height = '100%';
+                astronautModal.style.maxWidth = 'none';
+                astronautModal.style.background = '#000000';
+                astronautModal.style.backdropFilter = 'none';
             } else {
                 // All other dialogues go to top right
                 astronautModal.style.position = 'fixed';
@@ -1850,11 +1885,33 @@ function toggleAstronautModal() {
     if (!astronautModal) return;
     
     const collapseBtn = document.getElementById('collapse-btn');
+    const floatingBtn = document.getElementById('floating-astronaut-btn');
     
-    if (astronautModal.classList.contains('collapsed')) {
-        // Expand
+    if (astronautModal.classList.contains('hidden')) {
+        // Show modal
+        astronautModal.classList.remove('hidden');
         astronautModal.classList.remove('collapsed');
         if (collapseBtn) collapseBtn.textContent = '−';
+        if (floatingBtn) floatingBtn.style.display = 'none'; // Hide floating button when modal is open
+        
+        // Reset mobile positioning
+        if (isMobile) {
+            astronautModal.style.position = 'fixed';
+            astronautModal.style.top = '0';
+            astronautModal.style.left = '0';
+            astronautModal.style.right = '0';
+            astronautModal.style.bottom = '0';
+            astronautModal.style.width = '100%';
+            astronautModal.style.height = '100%';
+            astronautModal.style.borderRadius = '0';
+            astronautModal.style.background = 'rgba(0, 0, 0, 0.95)';
+            astronautModal.style.display = 'flex';
+        }
+    } else if (astronautModal.classList.contains('collapsed')) {
+        // Expand from collapsed
+        astronautModal.classList.remove('collapsed');
+        if (collapseBtn) collapseBtn.textContent = '−';
+        if (floatingBtn) floatingBtn.style.display = 'none'; // Hide floating button when modal is open
         
         // Reset mobile positioning
         if (isMobile) {
@@ -1870,16 +1927,9 @@ function toggleAstronautModal() {
             astronautModal.style.display = 'flex';
         }
     } else {
-        // Collapse
-        astronautModal.classList.add('collapsed');
-        if (collapseBtn) collapseBtn.textContent = '+';
-        
-        // On mobile, hide the modal completely when collapsed
-        if (isMobile) {
-            astronautModal.style.display = 'none';
-            astronautModal.style.backdropFilter = '';
-            astronautModal.style.background = '';
-        }
+        // Close modal and show floating button
+        astronautModal.classList.add('hidden');
+        if (floatingBtn) floatingBtn.style.display = 'flex'; // Show floating button when modal is closed
     }
 }
 
