@@ -286,7 +286,7 @@ const gameScenarios = {
         dataDisplay: "summary",
         choices: [
             { text: "Learn More About NASA's Earth Science", correct: true, nextState: 'nasa_info' },
-            { text: "Learn More About NASA's Earth Science", correct: true, nextState: 'nasa_info' }
+            { text: "Back to Home", correct: true, nextState: 'home' }
         ],
         showProgress: false
     },
