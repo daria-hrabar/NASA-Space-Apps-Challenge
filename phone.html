@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terra Trackers - Phone</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #000;
+            color: #fff;
+            padding: 10px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            padding: 20px 0;
+            border-bottom: 2px solid #39ff14;
+            margin-bottom: 20px;
+        }
+
+        .header h1 {
+            color: #39ff14;
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .section {
+            display: none;
+            padding: 20px 0;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        .btn {
+            background: #39ff14;
+            border: none;
+            color: #000;
+            padding: 15px 20px;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            margin: 10px 0;
+            width: 100%;
+            display: block;
+        }
+
+        .btn:hover {
+            background: #2dd42d;
+        }
+
+        .btn-secondary {
+            background: transparent;
+            border: 2px solid #39ff14;
+            color: #39ff14;
+        }
+
+        .btn-secondary:hover {
+            background: #39ff14;
+            color: #000;
+        }
+
+        .clue-btn {
+            background: #111;
+            border: 2px solid #39ff14;
+            color: #39ff14;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 10px 0;
+            cursor: pointer;
+            text-align: left;
+        }
+
+        .clue-btn:hover {
+            background: #39ff14;
+            color: #000;
+        }
+
+        .clue-btn.active {
+            background: #39ff14;
+            color: #000;
+        }
+
+        .data-display {
+            background: #111;
+            border: 2px solid #39ff14;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            min-height: 200px;
+        }
+
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 1000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: #111;
+            border: 2px solid #39ff14;
+            border-radius: 15px;
+            padding: 20px;
+            max-width: 350px;
+            width: 100%;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #39ff14;
+        }
+
+        .modal-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 2px solid #39ff14;
+            margin-right: 10px;
+        }
+
+        .modal-title {
+            color: #39ff14;
+            font-weight: bold;
+            flex: 1;
+        }
+
+        .close-btn {
+            background: #ff0000;
+            border: none;
+            color: #fff;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .modal-message {
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+
+        .choice-btn {
+            background: transparent;
+            border: 2px solid #39ff14;
+            color: #39ff14;
+            padding: 10px 15px;
+            border-radius: 8px;
+            margin: 5px 0;
+            cursor: pointer;
+            width: 100%;
+            text-align: left;
+        }
+
+        .choice-btn:hover {
+            background: #39ff14;
+            color: #000;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 10px;
+            background: #333;
+            border-radius: 5px;
+            overflow: hidden;
+            margin: 10px 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: #39ff14;
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+
+        .alert {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            right: 20px;
+            background: #39ff14;
+            color: #000;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            font-weight: bold;
+            z-index: 1001;
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+
+        .alert.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .nav {
+            display: flex;
+            justify-content: space-around;
+            margin: 20px 0;
+        }
+
+        .nav-btn {
+            background: transparent;
+            border: 2px solid #39ff14;
+            color: #39ff14;
+            padding: 10px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            flex: 1;
+            margin: 0 5px;
+        }
+
+        .nav-btn.active {
+            background: #39ff14;
+            color: #000;
+        }
+
+        .nav-btn:hover {
+            background: #39ff14;
+            color: #000;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>🌍 TERRA TRACKERS</h1>
+            <p>Mobile Investigation</p>
+        </div>
+
+        <!-- Navigation -->
+        <div class="nav">
+            <button class="nav-btn active" onclick="showSection('home')">🏠 HOME</button>
+            <button class="nav-btn" onclick="showSection('investigation')">🔍 INVESTIGATION</button>
+            <button class="nav-btn" onclick="showSection('team')">👥 TEAM</button>
+        </div>
+
+        <!-- Home Section -->
+        <div id="home" class="section active">
+            <div style="text-align: center;">
+                <img src="astronaut pixel art.png" alt="Commander Terra" style="width: 100px; height: 100px; border-radius: 50%; border: 3px solid #39ff14; margin: 20px 0;">
+                <h2>Welcome, Earth Detective!</h2>
+                <p>I'm Commander Terra. We've detected unusual activity in the Amazon Basin. Ready to investigate?</p>
+                <button class="btn" onclick="startInvestigation()">🚀 START INVESTIGATION</button>
+            </div>
+        </div>
+
+        <!-- Investigation Section -->
+        <div id="investigation" class="section">
+            <h2>🌍 AMAZON DEFORESTATION CASE</h2>
+            
+            <div class="progress-bar">
+                <div class="progress-fill" id="progress"></div>
+            </div>
+            <p>Progress: <span id="progress-text">0%</span></p>
+
+            <h3>Clues to Examine:</h3>
+            <button class="clue-btn" onclick="loadClue('modis')">
+                📊 MODIS - Vegetation Data
+            </button>
+            <button class="clue-btn" onclick="loadClue('aster')">
+                🛰️ ASTER - Imagery
+            </button>
+            <button class="clue-btn" onclick="loadClue('misr')">
+                💨 MISR - Aerosol Data
+            </button>
+
+            <div class="data-display" id="data-display">
+                <h3 id="data-title">Select a clue to examine</h3>
+                <div id="data-content">
+                    <p>👆 Tap a clue button above to examine satellite data</p>
+                </div>
+            </div>
+
+            <button class="btn" onclick="showModal('Excellent work! You have completed the investigation. What is your verdict?', [
+                {text: 'Human-caused deforestation', action: () => showModal(\'🎉 Correct! You successfully identified human-caused deforestation in the Amazon Basin. This investigation revealed systematic destruction of forest ecosystems affecting over 500,000 people.\', [
+                    {text: \'Learn What This Means & How to Take Action\', action: () => showSolutions()},
+                    {text: \'Meet the Team\', action: () => showSection(\'team\')}
+                ])},
+                {text: 'Natural causes', action: () => showAlert(\'Incorrect. The evidence shows systematic, geometric patterns characteristic of human activity.\')},
+                {text: 'Unknown causes', action: () => showAlert(\'The evidence tells a clear story: systematic patterns in ASTER imagery, NDVI decline in MODIS data, and aerosol plumes in MISR data all point to human-caused deforestation.\')}
+            ])">🔍 MAKE VERDICT</button>
+        </div>
+
+        <!-- Team Section -->
+        <div id="team" class="section">
+            <h2>👥 MEET THE TEAM</h2>
+            <p>This investigation was made possible by our amazing team of Earth scientists and developers.</p>
+            <p>Thank you for helping protect our planet!</p>
+            <button class="btn" onclick="showNasaInfo()">🌍 Learn About NASA</button>
+            <button class="btn btn-secondary" onclick="showSection('home')">🏠 Back to Home</button>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal" id="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <img src="astronaut pixel art.png" alt="Commander Terra" class="modal-avatar">
+                <span class="modal-title">Commander Terra</span>
+                <button class="close-btn" onclick="closeModal()">✕</button>
+            </div>
+            <div class="modal-message" id="modal-message"></div>
+            <div id="modal-choices"></div>
+        </div>
+    </div>
+
+    <!-- Alert -->
+    <div class="alert" id="alert">
+        <span id="alert-text"></span>
+    </div>
+
+    <script>
+        let currentSection = 'home';
+        let gameProgress = 0;
+
+        function showSection(section) {
+            // Hide all sections
+            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+            document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+            
+            // Show selected section
+            document.getElementById(section).classList.add('active');
+            document.querySelector(`[onclick="showSection('${section}')"]`).classList.add('active');
+            
+            currentSection = section;
+        }
+
+        function startInvestigation() {
+            showSection('investigation');
+            showModal('Welcome, Earth Detective! I\'m Commander Terra. We\'ve detected unusual activity in the Amazon Basin. Ready to investigate?', [
+                {text: 'Yes, let\'s investigate!', action: () => {
+                    gameProgress = 12.5;
+                    updateProgress();
+                    showModal('Great! Our Terra instruments detected three anomalies. Which instrument should we examine first?', [
+                        {text: 'MODIS - Long-term vegetation data', action: () => startMODIS()},
+                        {text: 'ASTER - High-resolution imagery', action: () => showAlert('ASTER is great for details! But we need the big picture first. MODIS shows long-term trends.')},
+                        {text: 'MISR - Aerosol tracking', action: () => showAlert('MISR is important for atmospheric effects! But first, let\'s see what\'s happening to the vegetation itself with MODIS.')}
+                    ]);
+                }},
+                {text: 'I need more information first', action: () => showAlert('Time is critical in environmental investigations. Let\'s start with what we have and build from there.')}
+            ]);
+        }
+
+        function startMODIS() {
+            gameProgress = 25;
+            updateProgress();
+            loadClue('modis');
+            showModal('Perfect! Now examine the MODIS data. What does this show about forest health?', [
+                {text: 'The forest is recovering', action: () => showAlert('The NDVI values are actually decreasing over time. Higher values indicate healthier vegetation, so the declining trend shows vegetation loss.')},
+                {text: 'The forest is losing vegetation', action: () => startASTER()},
+                {text: 'The data is inconclusive', action: () => showAlert('The NDVI trend is actually quite clear - decreasing values consistently indicate vegetation loss. The pattern shows a steady decline.')}
+            ]);
+        }
+
+        function startASTER() {
+            gameProgress = 50;
+            updateProgress();
+            loadClue('aster');
+            showModal('Now examine the ASTER imagery to see the before/after comparison. What do you observe?', [
+                {text: 'Natural forest fires', action: () => showAlert('The clearing patterns are very geometric and systematic - this suggests human activity rather than natural fire spread.')},
+                {text: 'Systematic deforestation', action: () => startMISR()},
+                {text: 'Seasonal changes', action: () => showAlert('The ASTER imagery shows permanent, structural changes to the landscape rather than temporary seasonal variations.')}
+            ]);
+        }
+
+        function startMISR() {
+            gameProgress = 75;
+            updateProgress();
+            loadClue('misr');
+            showModal('Now examine the MISR data to see the aerosol visualization. What does this tell us about the consequences?', [
+                {text: 'No significant impact', action: () => showAlert('The MISR data shows massive aerosol plumes that extend far beyond the immediate deforestation area. These plumes represent significant air quality degradation.')},
+                {text: 'Major air quality impact on communities', action: () => showVerdict()},
+                {text: 'Only local effects', action: () => showAlert('Aerosol plumes from deforestation can travel hundreds of kilometers downwind, affecting air quality in many communities far from the original source.')}
+            ]);
+        }
+
+        function showVerdict() {
+            gameProgress = 87.5;
+            updateProgress();
+            showModal('Excellent work! You\'ve examined all the data. Based on this evidence, what\'s your verdict on the cause?', [
+                {text: 'Natural climate change', action: () => showAlert('The evidence shows systematic, geometric patterns of deforestation that are characteristic of human activity rather than natural climate-driven changes.')},
+                {text: 'Human-caused deforestation and fires', action: () => showMissionComplete()},
+                {text: 'Unknown causes', action: () => showAlert('The evidence tells a clear story: the systematic patterns in ASTER imagery, combined with the NDVI decline in MODIS data and the aerosol plumes in MISR data, all point to human-caused deforestation.')}
+            ]);
+        }
+
+        function showMissionComplete() {
+            gameProgress = 100;
+            updateProgress();
+            showModal('🎉 Outstanding work, Detective! You\'ve successfully identified human-caused deforestation in the Amazon Basin. Your investigation revealed systematic destruction of forest ecosystems and its impact on air quality for over 500,000 people.', [
+                {text: 'Learn What This Means & How to Take Action', action: () => showSolutions()},
+                {text: 'Meet the Team Behind This Investigation', action: () => {closeModal(); showSection('team');}}
+            ]);
+        }
+
+        function showSolutions() {
+            showModal('🌍 What This Means: Your investigation revealed systematic deforestation affecting over 500,000 people. This isn\'t just about trees - it\'s accelerating climate change, destroying biodiversity, and threatening human health.\n\n🚀 How to Take Action: Support sustainable agriculture and reforestation projects, advocate for stronger environmental policies, reduce your carbon footprint, educate others about deforestation impacts, and support organizations fighting deforestation. Every action counts in protecting our planet!', [
+                {text: 'View Mission Summary', action: () => showMissionSummary()},
+                {text: 'Meet the Team Behind This Investigation', action: () => {closeModal(); showSection('team');}}
+            ]);
+        }
+
+        function showMissionSummary() {
+            showModal('🎯 Mission Summary: You successfully identified human-caused deforestation in the Amazon Basin using NASA satellite data. Your investigation revealed a 15% NDVI decline from MODIS data, clear before/after deforestation patterns in ASTER imagery, and aerosol plumes affecting 500,000+ people from MISR data. This demonstrates the power of satellite data in environmental monitoring.', [
+                {text: 'Meet the Team Behind This Investigation', action: () => {closeModal(); showSection('team');}},
+                {text: 'Learn More About NASA\'s Earth Science', action: () => showNasaInfo()}
+            ]);
+        }
+
+        function showNasaInfo() {
+            showModal('🌍 NASA\'s Earth Science Division uses satellite data to monitor our planet\'s health. Your investigation skills mirror those of real NASA scientists!\n\n🛰️ Where to Find NASA Data: Access the NASA Earth Data Portal (earthdata.nasa.gov), MODIS data (modis.gsfc.nasa.gov), ASTER data (asterweb.jpl.nasa.gov), MISR data (misr.jpl.nasa.gov), and real-time Earth observations (worldview.earthdata.nasa.gov). These tools are used by scientists worldwide!', [
+                {text: 'Back to Main Menu', action: () => {closeModal(); showSection('home');}},
+                {text: 'Meet the Team', action: () => {closeModal(); showSection('team');}}
+            ]);
+        }
+
+        function loadClue(clueType) {
+            // Update clue buttons
+            document.querySelectorAll('.clue-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            // Update data display
+            const title = document.getElementById('data-title');
+            const content = document.getElementById('data-content');
+            
+            switch (clueType) {
+                case 'modis':
+                    title.textContent = 'CLUE 1: M.O. (MODIS) - LONG-TERM NDVI DECLINE';
+                    content.innerHTML = `
+                        <h4>NDVI Time Series - Amazon Basin</h4>
+                        <div style="display: flex; gap: 10px; margin: 20px 0;">
+                            <div style="background: #00ff00; height: 75px; width: 30px; border-radius: 5px; display: flex; align-items: end; padding: 5px; color: #000; font-size: 12px;">2018</div>
+                            <div style="background: #22ff22; height: 72px; width: 30px; border-radius: 5px; display: flex; align-items: end; padding: 5px; color: #000; font-size: 12px;">2019</div>
+                            <div style="background: #44ff44; height: 68px; width: 30px; border-radius: 5px; display: flex; align-items: end; padding: 5px; color: #000; font-size: 12px;">2020</div>
+                            <div style="background: #66ff66; height: 61px; width: 30px; border-radius: 5px; display: flex; align-items: end; padding: 5px; color: #000; font-size: 12px;">2021</div>
+                            <div style="background: #ffff00; height: 45px; width: 30px; border-radius: 5px; display: flex; align-items: end; padding: 5px; color: #000; font-size: 12px;">2022</div>
+                            <div style="background: #ffaa00; height: 38px; width: 30px; border-radius: 5px; display: flex; align-items: end; padding: 5px; color: #000; font-size: 12px;">2023</div>
+                        </div>
+                        <p><strong>Declining NDVI values indicate vegetation loss</strong></p>
+                    `;
+                    break;
+                case 'aster':
+                    title.textContent = 'CLUE 2: A.S.T. (ASTER) - HIGH-RES BEFORE/AFTER SCAR';
+                    content.innerHTML = `
+                        <h4>ASTER True Color Imagery (2020 vs 2023)</h4>
+                        <div style="display: flex; gap: 10px; margin: 20px 0;">
+                            <div style="background: #00ff00; height: 100px; width: 50%; border-radius: 5px; display: flex; align-items: center; justify-content: center; color: #000; font-weight: bold;">2020<br>Dense Forest</div>
+                            <div style="background: #ff6600; height: 100px; width: 50%; border-radius: 5px; display: flex; align-items: center; justify-content: center; color: #fff; font-weight: bold;">2023<br>Deforestation</div>
+                        </div>
+                        <p><strong>Systematic clearing patterns visible</strong></p>
+                    `;
+                    break;
+                case 'misr':
+                    title.textContent = 'CLUE 3: M.I.S.R. (MISR) - AEROSOL/SMOKE PLUME TRACKING';
+                    content.innerHTML = `
+                        <h4>MISR Smoke Plume 3-Day Movement</h4>
+                        <div style="background: #333; height: 100px; border-radius: 5px; display: flex; align-items: center; justify-content: center; margin: 20px 0; position: relative;">
+                            <div style="position: absolute; top: 20px; left: 20px; width: 20px; height: 20px; background: #ff0000; border-radius: 50%; animation: pulse 2s infinite;"></div>
+                            <div style="position: absolute; top: 40px; left: 40px; width: 15px; height: 15px; background: #ff6600; border-radius: 50%; animation: pulse 2s infinite 0.5s;"></div>
+                            <div style="position: absolute; top: 60px; left: 60px; width: 10px; height: 10px; background: #ffaa00; border-radius: 50%; animation: pulse 2s infinite 1s;"></div>
+                            <p style="color: #39ff14; font-weight: bold;">Aerosol Plumes</p>
+                        </div>
+                        <p><strong>Aerosol plumes affecting 500,000+ people</strong></p>
+                    `;
+                    break;
+            }
+            
+            showAlert(`📡 Loading ${clueType.toUpperCase()} data...`);
+        }
+
+        function showModal(message, choices = []) {
+            const modal = document.getElementById('modal');
+            const messageEl = document.getElementById('modal-message');
+            const choicesEl = document.getElementById('modal-choices');
+            
+            messageEl.textContent = message;
+            choicesEl.innerHTML = '';
+            
+            choices.forEach(choice => {
+                const btn = document.createElement('button');
+                btn.className = 'choice-btn';
+                btn.textContent = choice.text;
+                btn.onclick = () => {
+                    closeModal();
+                    if (choice.action) choice.action();
+                };
+                choicesEl.appendChild(btn);
+            });
+            
+            modal.classList.add('active');
+        }
+
+        function closeModal() {
+            document.getElementById('modal').classList.remove('active');
+        }
+
+        function showAlert(message) {
+            const alert = document.getElementById('alert');
+            const alertText = document.getElementById('alert-text');
+            
+            alertText.textContent = message;
+            alert.classList.add('show');
+            
+            setTimeout(() => {
+                alert.classList.remove('show');
+            }, 3000);
+        }
+
+        function updateProgress() {
+            document.getElementById('progress').style.width = gameProgress + '%';
+            document.getElementById('progress-text').textContent = Math.round(gameProgress) + '%';
+        }
+
+        // Add pulse animation for MISR
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes pulse {
+                0%, 100% { opacity: 1; transform: scale(1); }
+                50% { opacity: 0.5; transform: scale(1.2); }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
