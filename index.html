@@ -105,60 +105,6 @@
                 </div>
             </div>
             
-            <!-- MODIS Data Display -->
-            <div id="modis-data-display" class="data-visualization hidden">
-                <h4>MODIS NDVI Data (2018-2025)</h4>
-                <div class="chart-container">
-                    <div class="chart-wrapper">
-                        <div class="chart-bars">
-                            <div class="chart-bar healthy" style="height: 87px;" data-year="2018" data-ndvi="0.75" title="Year: 2018, NDVI: 0.750">
-                                <span class="bar-label">2018</span>
-                            </div>
-                            <div class="chart-bar healthy" style="height: 86px;" data-year="2019" data-ndvi="0.72" title="Year: 2019, NDVI: 0.720">
-                                <span class="bar-label">2019</span>
-                            </div>
-                            <div class="chart-bar healthy" style="height: 84px;" data-year="2020" data-ndvi="0.68" title="Year: 2020, NDVI: 0.680">
-                                <span class="bar-label">2020</span>
-                            </div>
-                            <div class="chart-bar moderate" style="height: 80px;" data-year="2021" data-ndvi="0.61" title="Year: 2021, NDVI: 0.610">
-                                <span class="bar-label">2021</span>
-                            </div>
-                            <div class="chart-bar moderate" style="height: 72px;" data-year="2022" data-ndvi="0.45" title="Year: 2022, NDVI: 0.450">
-                                <span class="bar-label">2022</span>
-                            </div>
-                            <div class="chart-bar moderate" style="height: 69px;" data-year="2023" data-ndvi="0.38" title="Year: 2023, NDVI: 0.380">
-                                <span class="bar-label">2023</span>
-                            </div>
-                            <div class="chart-bar poor" style="height: 66px;" data-year="2024" data-ndvi="0.32" title="Year: 2024, NDVI: 0.320">
-                                <span class="bar-label">2024</span>
-                            </div>
-                            <div class="chart-bar poor" style="height: 64px;" data-year="2025" data-ndvi="0.28" title="Year: 2025, NDVI: 0.280">
-                                <span class="bar-label">2025</span>
-                            </div>
-                        </div>
-                        <svg class="trend-line" viewBox="0 0 100 100" preserveAspectRatio="none">
-                            <polyline points="5,13 20,14 35,16 50,20 65,28 80,31 95,34 100,36" 
-                                      fill="none" 
-                                      stroke="#ff4444" 
-                                      stroke-width="2" 
-                                      stroke-linecap="round" 
-                                      stroke-linejoin="round">
-                                <animate attributeName="stroke-dasharray" 
-                                         values="0,1000;1000,0" 
-                                         dur="2s" 
-                                         repeatCount="indefinite"/>
-                            </polyline>
-                        </svg>
-                    </div>
-                    <div class="chart-legend">
-                        <span class="legend-healthy">● Healthy Vegetation (NDVI > 0.5)</span>
-                        <span class="legend-moderate">● Moderate Vegetation (NDVI 0.3-0.5)</span>
-                        <span class="legend-poor">● Poor Vegetation (NDVI < 0.3)</span>
-                    </div>
-                    <p class="chart-note">63% decline in vegetation health over 7 years (0.75 → 0.28)</p>
-                </div>
-            </div>
-            
             <!-- ASTER Visualization Content -->
             <div id="aster-visualization" class="hidden">
                 <div class="loading-spinner">Loading ASTER True Color Imagery...</div>
