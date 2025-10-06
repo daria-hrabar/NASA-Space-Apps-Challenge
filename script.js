@@ -268,7 +268,7 @@ const gameScenarios = {
         dataDisplay: "verdict",
         choices: [
             { text: "Learn What This Means & How to Take Action", correct: true, nextState: 'solutions' },
-            { text: "Meet the Team Behind This Investigation", correct: true, nextState: 'team_credits' }
+            { text: "Learn More About NASA's Earth Science", correct: true, nextState: 'nasa_info' }
         ],
         showProgress: true
     },
@@ -277,7 +277,7 @@ const gameScenarios = {
         dataDisplay: "solutions",
         choices: [
             { text: "View Mission Summary", correct: true, nextState: 'mission_summary' },
-            { text: "Meet the Team Behind This Investigation", correct: true, nextState: 'team_credits' }
+            { text: "Learn More About NASA's Earth Science", correct: true, nextState: 'nasa_info' }
         ],
         showProgress: false
     },
@@ -285,7 +285,7 @@ const gameScenarios = {
         message: "🎯 Mission Summary: You successfully identified human-caused deforestation in the Amazon Basin using NASA satellite data. Your investigation revealed a 15% NDVI decline from MODIS data, clear before/after deforestation patterns in ASTER imagery, and aerosol plumes affecting 500,000+ people from MISR data. This demonstrates the power of satellite data in environmental monitoring and the urgent need for action.",
         dataDisplay: "summary",
         choices: [
-            { text: "Meet the Team Behind This Investigation", correct: true, nextState: 'team_credits' },
+            { text: "Learn More About NASA's Earth Science", correct: true, nextState: 'nasa_info' },
             { text: "Learn More About NASA's Earth Science", correct: true, nextState: 'nasa_info' }
         ],
         showProgress: false
@@ -303,8 +303,7 @@ const gameScenarios = {
         message: "🌍 NASA's Earth Science Division uses satellite data to monitor our planet's health. Your investigation skills mirror those of real NASA scientists!\n\n🛰️ Where to Find NASA Data: Access the NASA Earth Data Portal (earthdata.nasa.gov), MODIS data (modis.gsfc.nasa.gov), ASTER data (asterweb.jpl.nasa.gov), MISR data (misr.jpl.nasa.gov), and real-time Earth observations (worldview.earthdata.nasa.gov). These tools are used by scientists worldwide to monitor deforestation, climate change, and environmental health!",
         dataDisplay: "nasa",
         choices: [
-            { text: "Back to Main Menu", correct: true, nextState: 'intro' },
-            { text: "Meet the Team", correct: true, nextState: 'team_credits' }
+            { text: "Back to Main Menu", correct: true, nextState: 'intro' }
         ],
         showProgress: false
     },

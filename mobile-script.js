@@ -212,7 +212,7 @@ class MobileTerraTracker {
             message: "🎉 Outstanding work, Detective! You've successfully identified human-caused deforestation in the Amazon Basin. Your investigation revealed systematic destruction of forest ecosystems and its impact on air quality for over 500,000 people. This is a critical environmental crisis that demands immediate attention.",
             choices: [
                 { text: "Learn What This Means & How to Take Action", action: () => this.showSolutions() },
-                { text: "Meet the Team Behind This Investigation", action: () => this.showTeamCredits() }
+                { text: "Learn More About NASA's Earth Science", action: () => this.showNasaInfo() }
             ]
         });
     }
@@ -222,7 +222,7 @@ class MobileTerraTracker {
             message: "🌍 What This Means: Your investigation revealed systematic deforestation affecting over 500,000 people. This isn't just about trees - it's accelerating climate change, destroying biodiversity, and threatening human health.\n\n🚀 How to Take Action: Support sustainable agriculture and reforestation projects, advocate for stronger environmental policies, reduce your carbon footprint, educate others about deforestation impacts, and support organizations fighting deforestation. Every action counts in protecting our planet!",
             choices: [
                 { text: "View Mission Summary", action: () => this.showMissionSummary() },
-                { text: "Meet the Team Behind This Investigation", action: () => this.showTeamCredits() }
+                { text: "Learn More About NASA's Earth Science", action: () => this.showNasaInfo() }
             ]
         });
     }
@@ -231,7 +231,7 @@ class MobileTerraTracker {
         this.showModal({
             message: "🎯 Mission Summary: You successfully identified human-caused deforestation in the Amazon Basin using NASA satellite data. Your investigation revealed a 15% NDVI decline from MODIS data, clear before/after deforestation patterns in ASTER imagery, and aerosol plumes affecting 500,000+ people from MISR data. This demonstrates the power of satellite data in environmental monitoring and the urgent need for action.",
             choices: [
-                { text: "Meet the Team Behind This Investigation", action: () => this.showTeamCredits() },
+                { text: "Learn More About NASA's Earth Science", action: () => this.showNasaInfo() },
                 { text: "Learn More About NASA's Earth Science", action: () => this.showNasaInfo() }
             ]
         });
@@ -251,8 +251,7 @@ class MobileTerraTracker {
         this.showModal({
             message: "🌍 NASA's Earth Science Division uses satellite data to monitor our planet's health. Your investigation skills mirror those of real NASA scientists!\n\n🛰️ Where to Find NASA Data: Access the NASA Earth Data Portal (earthdata.nasa.gov), MODIS data (modis.gsfc.nasa.gov), ASTER data (asterweb.jpl.nasa.gov), MISR data (misr.jpl.nasa.gov), and real-time Earth observations (worldview.earthdata.nasa.gov). These tools are used by scientists worldwide to monitor deforestation, climate change, and environmental health!",
             choices: [
-                { text: "Back to Main Menu", action: () => this.showSection('home') },
-                { text: "Meet the Team", action: () => this.showTeamCredits() }
+                { text: "Back to Main Menu", action: () => this.showSection('home') }
             ]
         });
     }
