@@ -309,7 +309,7 @@
                 {text: 'Human-caused deforestation', action: () => showModal(\'🎉 Outstanding work, Detective! You\'ve successfully identified human-caused deforestation in the Amazon Basin. Your investigation revealed systematic destruction of forest ecosystems and its impact on air quality for over 500,000 people. This is a critical environmental crisis that demands immediate attention.\', [
                     {text: \'Learn What This Means & How to Take Action\', action: () => showSolutions()},
                     {text: \'Learn More About NASA\'s Earth Science\', action: () => showNasaInfo()},
-                    {text: \'Meet Team Behind Web Development\', action: () => showSection(\'team\')}
+                    {text: \'Visit NASA Earth Data\', action: () => window.open(\'https://earthdata.nasa.gov/\', \'_blank\')}
                 ])},
                 {text: 'Natural causes', action: () => showAlert(\'Incorrect. The evidence shows systematic, geometric patterns characteristic of human activity.\')},
                 {text: 'Unknown causes', action: () => showAlert(\'The evidence tells a clear story: systematic patterns in ASTER imagery, NDVI decline in MODIS data, and aerosol plumes in MISR data all point to human-caused deforestation.\')}
@@ -446,20 +446,20 @@
             showModal('🎉 Outstanding work, Detective! You\'ve successfully identified human-caused deforestation in the Amazon Basin. Your investigation revealed systematic destruction of forest ecosystems and its impact on air quality for over 500,000 people. This is a critical environmental crisis that demands immediate attention.', [
                 {text: 'Learn What This Means & How to Take Action', action: () => showSolutions()},
                 {text: 'Learn More About NASA\'s Earth Science', action: () => showNasaInfo()},
-                {text: 'Meet Team Behind Web Development', action: () => {closeModal(); showSection('team');}}
+                {text: 'Visit NASA Earth Data', action: () => {window.open('https://earthdata.nasa.gov/', '_blank');}}
             ]);
         }
 
         function showSolutions() {
             showModal('🌍 What This Means: Your investigation revealed systematic deforestation affecting over 500,000 people. This isn\'t just about trees - it\'s accelerating climate change, destroying biodiversity, and threatening human health.\n\n🚀 How to Take Action: Support sustainable agriculture and reforestation projects, advocate for stronger environmental policies, reduce your carbon footprint, educate others about deforestation impacts, and support organizations fighting deforestation. Every action counts in protecting our planet!', [
                 {text: 'View Mission Summary', action: () => showMissionSummary()},
-                {text: 'Meet Team Behind Web Development', action: () => {closeModal(); showSection('team');}}
+                {text: 'Visit NASA Earth Data', action: () => {window.open('https://earthdata.nasa.gov/', '_blank');}}
             ]);
         }
 
         function showMissionSummary() {
             showModal('🎯 Mission Summary: You successfully identified human-caused deforestation in the Amazon Basin using NASA satellite data. Your investigation revealed a 15% NDVI decline from MODIS data, clear before/after deforestation patterns in ASTER imagery, and aerosol plumes affecting 500,000+ people from MISR data. This demonstrates the power of satellite data in environmental monitoring.', [
-                {text: 'Meet Team Behind Web Development', action: () => {closeModal(); showSection('team');}},
+                {text: 'Visit NASA Earth Data', action: () => {window.open('https://earthdata.nasa.gov/', '_blank');}},
                 {text: 'Learn More About NASA\'s Earth Science', action: () => showNasaInfo()}
             ]);
         }
@@ -467,7 +467,7 @@
         function showNasaInfo() {
             showModal('🌍 NASA\'s Earth Science Division uses satellite data to monitor our planet\'s health. Your investigation skills mirror those of real NASA scientists!\n\n🛰️ Where to Find NASA Data: Access the NASA Earth Data Portal (earthdata.nasa.gov), MODIS data (modis.gsfc.nasa.gov), ASTER data (asterweb.jpl.nasa.gov), MISR data (misr.jpl.nasa.gov), and real-time Earth observations (worldview.earthdata.nasa.gov). These tools are used by scientists worldwide!', [
                 {text: 'Back to Main Menu', action: () => {closeModal(); showSection('home');}},
-                {text: 'Meet Team Behind Web Development', action: () => {closeModal(); showSection('team');}}
+                {text: 'Visit NASA Earth Data', action: () => {window.open('https://earthdata.nasa.gov/', '_blank');}}
             ]);
         }
 
