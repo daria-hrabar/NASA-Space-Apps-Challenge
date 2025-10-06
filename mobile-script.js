@@ -293,14 +293,21 @@ class MobileTerraTracker {
                         <div class="ndvi-chart">
                             <h3>NDVI Time Series - Amazon Basin</h3>
                             <div class="chart-bars">
-                                <div class="chart-bar healthy" style="height: 75px;">2018</div>
-                                <div class="chart-bar healthy" style="height: 72px;">2019</div>
-                                <div class="chart-bar moderate" style="height: 68px;">2020</div>
-                                <div class="chart-bar moderate" style="height: 61px;">2021</div>
-                                <div class="chart-bar poor" style="height: 45px;">2022</div>
-                                <div class="chart-bar poor" style="height: 38px;">2023</div>
+                                <div class="chart-bar healthy" style="height: 87px;" data-ndvi="0.75" title="Year: 2018, NDVI: 0.750">2018</div>
+                                <div class="chart-bar healthy" style="height: 86px;" data-ndvi="0.72" title="Year: 2019, NDVI: 0.720">2019</div>
+                                <div class="chart-bar healthy" style="height: 84px;" data-ndvi="0.68" title="Year: 2020, NDVI: 0.680">2020</div>
+                                <div class="chart-bar moderate" style="height: 80px;" data-ndvi="0.61" title="Year: 2021, NDVI: 0.610">2021</div>
+                                <div class="chart-bar moderate" style="height: 72px;" data-ndvi="0.45" title="Year: 2022, NDVI: 0.450">2022</div>
+                                <div class="chart-bar moderate" style="height: 69px;" data-ndvi="0.38" title="Year: 2023, NDVI: 0.380">2023</div>
+                                <div class="chart-bar poor" style="height: 66px;" data-ndvi="0.32" title="Year: 2024, NDVI: 0.320">2024</div>
+                                <div class="chart-bar poor" style="height: 64px;" data-ndvi="0.28" title="Year: 2025, NDVI: 0.280">2025</div>
                             </div>
-                            <p class="chart-note">Declining NDVI values indicate vegetation loss</p>
+                            <div class="chart-legend">
+                                <span class="legend-healthy">● Healthy Vegetation (NDVI > 0.5)</span>
+                                <span class="legend-moderate">● Moderate Vegetation (NDVI 0.3-0.5)</span>
+                                <span class="legend-poor">● Poor Vegetation (NDVI < 0.3)</span>
+                            </div>
+                            <p class="chart-note">63% decline in vegetation health over 7 years (0.75 → 0.28)</p>
                         </div>
                     </div>
                 `;

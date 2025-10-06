@@ -379,6 +379,39 @@ body {
     margin-top: 10px;
 }
 
+.chart-legend {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin-top: 15px;
+    padding: 10px;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+}
+
+.legend-healthy,
+.legend-moderate,
+.legend-poor {
+    font-size: 0.8rem;
+    color: var(--text-color);
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.legend-healthy {
+    color: var(--success-color);
+}
+
+.legend-moderate {
+    color: var(--warning-color);
+}
+
+.legend-poor {
+    color: var(--error-color);
+}
+
 .aster-comparison {
     text-align: center;
 }
