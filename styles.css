@@ -2221,7 +2221,7 @@ nav a:hover {
 
 /* ---------------- Team Page Styles ---------------- */
 #team-page {
-    padding-top: 120px; /* Account for fixed header */
+    padding-top: 205px; /* Account for fixed header */
 }
 
 /* Mission completion sections - desktop padding */
@@ -2251,13 +2251,17 @@ nav a:hover {
     background: var(--panel-bg);
     border: 2px solid var(--border-color);
     border-radius: 12px;
-    padding: 15px;
+    padding: 20px;
     display: flex;
-    gap: 15px;
-    align-items: flex-start;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
     transition: all 0.3s ease;
     box-shadow: 0 0 15px rgba(57, 255, 20, 0.3);
     backdrop-filter: blur(5px);
+    gap: 15px;
+    justify-content: space-between;
+    min-height: 400px;
 }
 
 .team-member:hover {
@@ -2266,13 +2270,155 @@ nav a:hover {
     border-color: var(--secondary-color);
 }
 
+.member-photo-frame {
+    border-radius: 50%;
+    border: none;
+    padding: 0;
+    margin: 0 auto 20px;
+    position: relative;
+    box-shadow: 0 0 20px rgba(45, 212, 45, 0.6);
+    transition: all 0.3s ease;
+    overflow: hidden;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.member-photo-frame:hover {
+    box-shadow: 0 0 30px rgba(45, 212, 45, 0.8);
+    transform: scale(1.05);
+}
+
+.member-photo {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: full;
+    object-position: center;
+    transition: all 0.3s ease;
+    display: block;
+}
+
+.member-photo-frame::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    border-radius: 50%;
+    background: linear-gradient(45deg, var(--secondary-color), #4CAF50, var(--secondary-color));
+    background-size: 200% 200%;
+    animation: photoFrameGlow 3s ease-in-out infinite;
+    z-index: -1;
+}
+
+@keyframes photoFrameGlow {
+    0%, 100% {
+        background-position: 0% 50%;
+        opacity: 0.8;
+    }
+    50% {
+        background-position: 100% 50%;
+        opacity: 1;
+    }
+}
+
+/* Member Role Tags */
+.member-role {
+    background: transparent;
+    color: var(--secondary-color);
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-family: var(--pixel-font);
+    font-size: 0.5rem;
+    font-weight: bold;
+    text-align: center;
+    margin: 8px 0 15px 0;
+    text-transform: none;
+    letter-spacing: 0.5px;
+    box-shadow: 0 0 8px rgba(45, 212, 45, 0.3);
+    transition: all 0.3s ease;
+    display: inline-block;
+}
+
+.member-role:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 15px rgba(45, 212, 45, 0.6);
+}
+
+/* LinkedIn Buttons */
+.linkedin-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: linear-gradient(45deg, var(--secondary-color), #4CAF50);
+    color: #000000;
+    padding: 10px 16px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-family: var(--pixel-font);
+    font-size: 0.7rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-top: auto;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 10px rgba(45, 212, 45, 0.4);
+    border: 1px solid rgba(45, 212, 45, 0.6);
+    align-self: center;
+}
+
+.linkedin-button:hover {
+    background: linear-gradient(45deg, #4CAF50, var(--secondary-color));
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(45, 212, 45, 0.6);
+    color: #000000;
+    text-decoration: none;
+}
+
+.linkedin-icon {
+    font-size: 0.8rem;
+    filter: drop-shadow(0 0 3px rgba(255, 255, 255, 0.5));
+}
+
+/* Mobile responsive for role tags and LinkedIn buttons */
+@media (max-width: 768px) {
+    .member-role {
+        font-size: 0.55rem;
+        padding: 5px 10px;
+        margin: 6px 0 12px 0;
+    }
+    
+    .linkedin-button {
+        font-size: 0.65rem;
+        padding: 8px 14px;
+        margin-top: 12px;
+    }
+    
+    .linkedin-icon {
+        font-size: 0.7rem;
+    }
+}
+
 .member-avatar {
     flex-shrink: 0;
 }
 
+.member-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    flex-grow: 1;
+    justify-content: space-between;
+    width: 100%;
+}
+
 .member-photo {
-    width: 60px;
-    height: 60px;
+    width: 120px;
+    height: 120px;
     border-radius: 50%;
     border: 2px solid var(--secondary-color);
     object-fit: cover;
@@ -2416,11 +2562,26 @@ nav a:hover {
         flex-direction: column;
         text-align: center;
         gap: 15px;
+        padding: 15px;
+        min-height: 350px;
+    }
+    
+    .member-photo-frame {
+        width: 80px;
+        height: 80px;
+        margin-bottom: 15px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: none;
     }
     
     .member-photo {
-        width: 60px;
-        height: 60px;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+        border-radius: 50%;
     }
     
     .credits-grid {
