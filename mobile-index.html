@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Terra Trackers - Mobile</title>
+    <link rel="stylesheet" href="mobile-styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Mobile Header -->
+    <header class="mobile-header">
+        <div class="header-content">
+            <h1 class="app-title">TERRA TRACKERS</h1>
+            <div class="header-controls">
+                <button id="volume-btn" class="control-btn">🔊</button>
+                <button id="menu-btn" class="control-btn">☰</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Navigation -->
+    <nav class="mobile-nav" id="mobile-nav">
+        <div class="nav-content">
+            <button class="nav-btn active" data-section="home">🏠 HOME</button>
+            <button class="nav-btn" data-section="investigation">🔍 INVESTIGATION</button>
+            <button class="nav-btn" data-section="team">👥 TEAM</button>
+        </div>
+    </nav>
+
+    <!-- Home Section -->
+    <section id="home-section" class="mobile-section active">
+        <div class="hero-content">
+            <div class="hero-image">
+                <img src="astronaut pixel art.png" alt="Commander Terra" class="astronaut-img">
+            </div>
+            <div class="hero-text">
+                <h2>Welcome, Earth Detective!</h2>
+                <p>I'm Commander Terra. We've detected unusual activity in the Amazon Basin. Ready to investigate?</p>
+            </div>
+            <button class="start-btn" id="start-investigation">🚀 START INVESTIGATION</button>
+        </div>
+    </section>
+
+    <!-- Investigation Section -->
+    <section id="investigation-section" class="mobile-section">
+        <div class="investigation-header">
+            <h2>🌍 AMAZON DEFORESTATION CASE</h2>
+            <div class="progress-container">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progress-fill"></div>
+                </div>
+                <span class="progress-text" id="progress-text">0%</span>
+            </div>
+        </div>
+
+        <!-- Clue Buttons -->
+        <div class="clue-container">
+            <button class="clue-btn" id="modis-clue" data-clue="modis">
+                <span class="clue-icon">📊</span>
+                <span class="clue-text">MODIS<br>Vegetation Data</span>
+            </button>
+            <button class="clue-btn" id="aster-clue" data-clue="aster">
+                <span class="clue-icon">🛰️</span>
+                <span class="clue-text">ASTER<br>Imagery</span>
+            </button>
+            <button class="clue-btn" id="misr-clue" data-clue="misr">
+                <span class="clue-icon">💨</span>
+                <span class="clue-text">MISR<br>Aerosol Data</span>
+            </button>
+        </div>
+
+        <!-- Data Display Area -->
+        <div class="data-display" id="data-display">
+            <div class="data-header" id="data-header">Select a clue to examine</div>
+            <div class="data-content" id="data-content">
+                <div class="placeholder-text">
+                    <p>👆 Tap a clue button above to examine satellite data</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section id="team-section" class="mobile-section">
+        <div class="team-content">
+            <h2>👥 MEET THE TEAM</h2>
+            <div class="team-info">
+                <p>This investigation was made possible by our amazing team of Earth scientists and developers.</p>
+                <p>Thank you for helping protect our planet!</p>
+            </div>
+            <div class="team-actions">
+                <button class="action-btn" id="nasa-info-btn">🌍 Learn About NASA</button>
+                <button class="action-btn" id="back-home-btn">🏠 Back to Home</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mobile Modal for Dialogue -->
+    <div class="mobile-modal" id="mobile-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <img src="astronaut pixel art.png" alt="Commander Terra" class="modal-avatar">
+                <span class="modal-title">Commander Terra</span>
+                <button class="close-btn" id="close-modal">✕</button>
+            </div>
+            <div class="modal-body">
+                <div class="modal-message" id="modal-message"></div>
+                <div class="modal-choices" id="modal-choices"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile Alert -->
+    <div class="mobile-alert" id="mobile-alert">
+        <span id="alert-text"></span>
+    </div>
+
+    <!-- Volume Control -->
+    <div class="volume-control" id="volume-control">
+        <input type="range" id="volume-slider" min="0" max="1" step="0.1" value="0.3">
+        <span class="volume-label">Volume</span>
+    </div>
+
+    <script src="mobile-script.js"></script>
+</body>
+</html>
