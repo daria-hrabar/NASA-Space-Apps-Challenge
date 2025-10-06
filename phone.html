@@ -443,6 +443,7 @@
         function showMissionComplete() {
             gameProgress = 100;
             updateProgress();
+            // Force browser refresh
             showModal('🎉 Outstanding work, Detective! You\'ve successfully identified human-caused deforestation in the Amazon Basin. Your investigation revealed systematic destruction of forest ecosystems and its impact on air quality for over 500,000 people. This is a critical environmental crisis that demands immediate attention.', [
                 {text: 'Learn What This Means & How to Take Action', action: () => showSolutions()},
                 {text: 'Learn More About NASA\'s Earth Science', action: () => showNasaInfo()},
