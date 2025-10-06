@@ -348,7 +348,7 @@
     </div>
 
     <!-- Modal -->
-    <div class="modal" id="modal">
+    <div class="modal" id="modal" style="display: none;">
         <div class="modal-content">
             <div class="modal-header">
                 <img src="astronaut pixel art.png" alt="Commander Terra" class="modal-avatar">
@@ -545,11 +545,14 @@
                 choicesEl.appendChild(btn);
             });
             
+            modal.style.display = 'flex';
             modal.classList.add('active');
         }
 
         function closeModal() {
-            document.getElementById('modal').classList.remove('active');
+            const modal = document.getElementById('modal');
+            modal.style.display = 'none';
+            modal.classList.remove('active');
         }
 
         function showAlert(message) {
@@ -578,6 +581,15 @@
             }
         `;
         document.head.appendChild(style);
+
+        // Ensure modal is hidden on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            const modal = document.getElementById('modal');
+            if (modal) {
+                modal.style.display = 'none';
+                modal.classList.remove('active');
+            }
+        });
     </script>
 </body>
 </html>
