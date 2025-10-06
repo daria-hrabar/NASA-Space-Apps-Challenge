@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Terra Trackers - Mobile Test</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #000;
+            color: #fff;
+            padding: 20px;
+        }
+
+        .test-container {
+            max-width: 400px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .test-btn {
+            background: #39ff14;
+            border: none;
+            color: #000;
+            padding: 15px 30px;
+            border-radius: 25px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            margin: 10px;
+            display: block;
+            width: 100%;
+        }
+
+        .test-btn:hover {
+            background: #2dd42d;
+        }
+
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 1000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: #111;
+            border: 2px solid #39ff14;
+            border-radius: 15px;
+            padding: 20px;
+            max-width: 350px;
+            width: 100%;
+        }
+
+        .modal-message {
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+
+        .choice-btn {
+            background: transparent;
+            border: 2px solid #39ff14;
+            color: #39ff14;
+            padding: 10px 20px;
+            border-radius: 10px;
+            margin: 5px;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        .choice-btn:hover {
+            background: #39ff14;
+            color: #000;
+        }
+
+        .close-btn {
+            background: #ff0000;
+            border: none;
+            color: #fff;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            float: right;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>🌍 TERRA TRACKERS - MOBILE TEST</h1>
+        <p>Testing mobile functionality...</p>
+        
+        <button class="test-btn" onclick="testModal()">Test Modal</button>
+        <button class="test-btn" onclick="testAlert()">Test Alert</button>
+        <button class="test-btn" onclick="testNavigation()">Test Navigation</button>
+    </div>
+
+    <!-- Test Modal -->
+    <div class="modal" id="test-modal">
+        <div class="modal-content">
+            <button class="close-btn" onclick="closeModal()">✕</button>
+            <div class="modal-message" id="modal-message">Test message</div>
+            <div id="modal-choices"></div>
+        </div>
+    </div>
+
+    <script>
+        function testModal() {
+            const modal = document.getElementById('test-modal');
+            const message = document.getElementById('modal-message');
+            const choices = document.getElementById('modal-choices');
+            
+            message.textContent = "Welcome, Earth Detective! I'm Commander Terra. We've detected unusual activity in the Amazon Basin. Ready to investigate?";
+            
+            choices.innerHTML = `
+                <button class="choice-btn" onclick="closeModal(); alert('Yes clicked!')">Yes, let's investigate!</button>
+                <button class="choice-btn" onclick="closeModal(); alert('No clicked!')">I need more information first</button>
+            `;
+            
+            modal.classList.add('active');
+        }
+
+        function testAlert() {
+            alert('This is a test alert!');
+        }
+
+        function testNavigation() {
+            alert('Navigation test - this would switch sections');
+        }
+
+        function closeModal() {
+            document.getElementById('test-modal').classList.remove('active');
+        }
+
+        // Test if basic functionality works
+        console.log('Mobile test page loaded successfully');
+    </script>
+</body>
+</html>
