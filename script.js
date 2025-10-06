@@ -609,7 +609,9 @@ function showSection(sectionId) {
             console.log('Forest sound stopped in dashboard section');
         }
         // Ensure the MODIS clue is loaded and active when entering the dashboard
-        loadClue('modis', document.getElementById('clue-modis')); 
+        setTimeout(() => {
+            loadClue('modis', document.getElementById('clue-modis'));
+        }, 100); 
     } else if (sectionId === 'team') {
         teamSection.classList.remove('hidden');
         // Keep current background and sound settings for team page
@@ -756,9 +758,14 @@ function createNDVIChart(ndviData) {
 }
 
 function createMODISImagery() {
+    console.log('Creating MODIS imagery...');
     const imageryContainer = document.getElementById('modis-imagery');
-    if (!imageryContainer) return;
+    if (!imageryContainer) {
+        console.error('MODIS imagery container not found!');
+        return;
+    }
     
+    console.log('MODIS imagery container found, removing hidden class...');
     imageryContainer.classList.remove('hidden');
     
     // Initialize with 2018 data
@@ -822,10 +829,18 @@ function createNDVIExplanation() {
 }
 
 async function loadMODISVisualization() {
+    console.log('Loading MODIS visualization...');
     const loadingSpinner = document.querySelector('.loading-spinner');
     const imageryContainer = document.getElementById('modis-imagery');
     const chartContainer = document.getElementById('ndvi-chart');
     const explanationContainer = document.getElementById('ndvi-explanation');
+    
+    console.log('MODIS elements found:', {
+        loadingSpinner: !!loadingSpinner,
+        imageryContainer: !!imageryContainer,
+        chartContainer: !!chartContainer,
+        explanationContainer: !!explanationContainer
+    });
     
     if (loadingSpinner) {
         loadingSpinner.style.display = 'block';
@@ -872,17 +887,71 @@ async function loadMODISVisualization() {
         // Fallback to demo data
         createDemoVisualization();
     }
+    
+    // Ensure MODIS imagery is always shown
+    setTimeout(() => {
+        const imageryContainer = document.getElementById('modis-imagery');
+        const modisVisualization = document.getElementById('modis-visualization');
+        
+        console.log('Force showing MODIS content...');
+        
+        // Force show the main MODIS visualization
+        if (modisVisualization) {
+            modisVisualization.classList.remove('hidden');
+            modisVisualization.style.display = 'block';
+            modisVisualization.style.visibility = 'visible';
+            modisVisualization.style.opacity = '1';
+        }
+        
+        // Force show the imagery container
+        if (imageryContainer) {
+            imageryContainer.classList.remove('hidden');
+            imageryContainer.style.display = 'block';
+            imageryContainer.style.visibility = 'visible';
+            imageryContainer.style.opacity = '1';
+            createMODISImagery();
+        }
+        
+        // Force show the NDVI chart
+        const chartContainer = document.getElementById('ndvi-chart');
+        if (chartContainer) {
+            chartContainer.classList.remove('hidden');
+            chartContainer.style.display = 'block';
+        }
+        
+        // Force show the explanation
+        const explanationContainer = document.getElementById('ndvi-explanation');
+        if (explanationContainer) {
+            explanationContainer.classList.remove('hidden');
+            explanationContainer.style.display = 'block';
+        }
+    }, 1000);
 }
 
 function createDemoVisualization() {
+    console.log('Creating demo visualization...');
     const imageryContainer = document.getElementById('modis-imagery');
     const chartContainer = document.getElementById('ndvi-chart');
     const explanationContainer = document.getElementById('ndvi-explanation');
+    const modisVisualization = document.getElementById('modis-visualization');
+    
+    // Force show the main MODIS visualization container
+    if (modisVisualization) {
+        modisVisualization.classList.remove('hidden');
+        modisVisualization.style.display = 'block';
+        modisVisualization.style.visibility = 'visible';
+        modisVisualization.style.opacity = '1';
+        console.log('MODIS visualization container shown');
+    }
     
     // Create MODIS imagery visualization
     if (imageryContainer) {
-        createMODISImagery();
         imageryContainer.classList.remove('hidden');
+        imageryContainer.style.display = 'block';
+        imageryContainer.style.visibility = 'visible';
+        imageryContainer.style.opacity = '1';
+        createMODISImagery();
+        console.log('MODIS imagery container shown');
     }
     
     // Demo data showing NDVI decline
@@ -1487,8 +1556,11 @@ function loadClue(clueKey, clickedButton) {
         hideAllVisualizations();
         const modisVisualization = document.getElementById('modis-visualization');
         if (modisVisualization) {
+            console.log('Showing MODIS visualization...');
             modisVisualization.classList.remove('hidden');
             modisVisualization.style.display = 'block';
+            modisVisualization.style.visibility = 'visible';
+            modisVisualization.style.opacity = '1';
         }
         loadMODISVisualization();
     } else if (clueKey === 'aster') {
@@ -1584,6 +1656,55 @@ function animatePlume() {
 }
 
 animatePlume();
+
+// ---------------- Debug Functions ----------------
+function forceShowMODIS() {
+    console.log('Force showing MODIS data...');
+    
+    // Show the main MODIS visualization
+    const modisVisualization = document.getElementById('modis-visualization');
+    if (modisVisualization) {
+        modisVisualization.classList.remove('hidden');
+        modisVisualization.style.display = 'block';
+        modisVisualization.style.visibility = 'visible';
+        modisVisualization.style.opacity = '1';
+        console.log('MODIS visualization shown');
+    }
+    
+    // Show the imagery container
+    const imageryContainer = document.getElementById('modis-imagery');
+    if (imageryContainer) {
+        imageryContainer.classList.remove('hidden');
+        imageryContainer.style.display = 'block';
+        imageryContainer.style.visibility = 'visible';
+        imageryContainer.style.opacity = '1';
+        console.log('MODIS imagery shown');
+    }
+    
+    // Show the chart
+    const chartContainer = document.getElementById('ndvi-chart');
+    if (chartContainer) {
+        chartContainer.classList.remove('hidden');
+        chartContainer.style.display = 'block';
+        console.log('NDVI chart shown');
+    }
+    
+    // Show the explanation
+    const explanationContainer = document.getElementById('ndvi-explanation');
+    if (explanationContainer) {
+        explanationContainer.classList.remove('hidden');
+        explanationContainer.style.display = 'block';
+        console.log('NDVI explanation shown');
+    }
+    
+    // Create the imagery
+    createMODISImagery();
+    
+    // Create demo chart
+    createDemoVisualization();
+    
+    console.log('MODIS data should now be visible!');
+}
 
 // ---------------- NDVI Animation Functions ----------------
 function playNDVIAnimation() {
