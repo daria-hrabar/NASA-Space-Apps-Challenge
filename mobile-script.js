@@ -9,6 +9,7 @@ class MobileTerraTracker {
         this.volume = 0.3;
         this.forestSound = null;
         this.investigationSound = null;
+        this.modalTimeout = null;
         
         this.init();
     }
@@ -18,8 +19,16 @@ class MobileTerraTracker {
         this.initializeAudio();
         this.showSection('home');
         
-        // Ensure modal is hidden on startup
-        this.hideModal();
+        // Ensure modal is hidden on startup and prevent any frozen states
+        setTimeout(() => {
+            this.hideModal();
+            // Clear any existing modal content
+            const modal = document.getElementById('mobile-modal');
+            if (modal) {
+                modal.classList.remove('active');
+            }
+            document.body.style.overflow = '';
+        }, 100);
     }
 
     setupEventListeners() {
@@ -232,7 +241,7 @@ class MobileTerraTracker {
             message: "🎯 Mission Summary: You successfully identified human-caused deforestation in the Amazon Basin using NASA satellite data. Your investigation revealed a 15% NDVI decline from MODIS data, clear before/after deforestation patterns in ASTER imagery, and aerosol plumes affecting 500,000+ people from MISR data. This demonstrates the power of satellite data in environmental monitoring and the urgent need for action.",
             choices: [
                 { text: "Learn More About NASA's Earth Science", action: () => this.showNasaInfo() },
-                { text: "Learn More About NASA's Earth Science", action: () => this.showNasaInfo() }
+                { text: "Back to Home", action: () => this.showSection('home') }
             ]
         });
     }
@@ -333,11 +342,17 @@ class MobileTerraTracker {
             return;
         }
         
-        message.textContent = data.message;
+        // Clear any existing content and reset modal state
+        message.textContent = '';
         choices.innerHTML = '';
+        modal.classList.remove('active');
         
+        // Set message content
+        message.textContent = data.message;
+        
+        // Add choices with proper error handling
         if (data.choices && data.choices.length > 0) {
-            data.choices.forEach(choice => {
+            data.choices.forEach((choice, index) => {
                 const btn = document.createElement('button');
                 btn.className = 'choice-btn';
                 btn.textContent = choice.text;
@@ -346,21 +361,48 @@ class MobileTerraTracker {
                     e.stopPropagation();
                     this.hideModal();
                     setTimeout(() => {
-                        if (choice.action) choice.action();
+                        try {
+                            if (choice.action && typeof choice.action === 'function') {
+                                choice.action();
+                            }
+                        } catch (error) {
+                            console.error('Error executing choice action:', error);
+                            this.showAlert('Something went wrong. Please try again.');
+                        }
                     }, 300);
                 });
                 choices.appendChild(btn);
             });
         }
         
-        modal.classList.add('active');
-        document.body.style.overflow = 'hidden';
+        // Show modal with animation
+        setTimeout(() => {
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+            
+            // Safety timeout to prevent frozen modals
+            this.modalTimeout = setTimeout(() => {
+                console.log('Modal safety timeout triggered');
+                this.hideModal();
+            }, 30000); // 30 second timeout
+        }, 50);
     }
 
     hideModal() {
+        // Clear any existing timeout
+        if (this.modalTimeout) {
+            clearTimeout(this.modalTimeout);
+            this.modalTimeout = null;
+        }
+        
         const modal = document.getElementById('mobile-modal');
         if (modal) {
             modal.classList.remove('active');
+            // Clear modal content to prevent frozen states
+            const message = document.getElementById('modal-message');
+            const choices = document.getElementById('modal-choices');
+            if (message) message.textContent = '';
+            if (choices) choices.innerHTML = '';
         }
         document.body.style.overflow = '';
     }
