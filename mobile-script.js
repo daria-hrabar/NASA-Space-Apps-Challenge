@@ -43,6 +43,7 @@ class MobileTerraTracker {
         document.querySelectorAll('.clue-btn').forEach(btn => {
             btn.addEventListener('click', (e) => this.loadClue(e.target.dataset.clue));
         });
+        document.getElementById('resume-investigation').addEventListener('click', () => this.showCurrentModal());
 
         // Team actions
         document.getElementById('nasa-info-btn').addEventListener('click', () => this.showNasaInfo());
@@ -105,6 +106,7 @@ class MobileTerraTracker {
         this.currentGameState = 'intro';
         this.gameProgress = 0;
         this.updateProgress();
+        this.updateResumeButton();
         
         // Play investigation sound
         if (this.investigationSound) {
@@ -132,6 +134,7 @@ class MobileTerraTracker {
         this.currentGameState = 'clue_selection';
         this.gameProgress = 12.5;
         this.updateProgress();
+        this.updateResumeButton();
         
         this.showModal({
             message: "Great! Our Terra instruments detected three anomalies. Which instrument should we examine first to understand the deforestation pattern?",
@@ -147,6 +150,7 @@ class MobileTerraTracker {
         this.currentGameState = 'modis_analysis';
         this.gameProgress = 25;
         this.updateProgress();
+        this.updateResumeButton();
         
         // Auto-load MODIS clue
         this.loadClue('modis');
@@ -165,6 +169,7 @@ class MobileTerraTracker {
         this.currentGameState = 'aster_analysis';
         this.gameProgress = 50;
         this.updateProgress();
+        this.updateResumeButton();
         
         // Auto-load ASTER clue
         this.loadClue('aster');
@@ -183,6 +188,7 @@ class MobileTerraTracker {
         this.currentGameState = 'misr_analysis';
         this.gameProgress = 75;
         this.updateProgress();
+        this.updateResumeButton();
         
         // Auto-load MISR clue
         this.loadClue('misr');
@@ -201,6 +207,7 @@ class MobileTerraTracker {
         this.currentGameState = 'verdict';
         this.gameProgress = 87.5;
         this.updateProgress();
+        this.updateResumeButton();
         
         this.showModal({
             message: "Excellent work! You've examined all the data - MODIS vegetation trends, ASTER imagery, and MISR aerosol patterns. Based on this evidence, what's your verdict on the cause?",
@@ -216,6 +223,7 @@ class MobileTerraTracker {
         this.currentGameState = 'mission_complete';
         this.gameProgress = 100;
         this.updateProgress();
+        this.updateResumeButton();
         
         this.showModal({
             message: "🎉 Outstanding work, Detective! You've successfully identified human-caused deforestation in the Amazon Basin. Your investigation revealed systematic destruction of forest ecosystems and its impact on air quality for over 500,000 people. This is a critical environmental crisis that demands immediate attention.",
@@ -398,11 +406,13 @@ class MobileTerraTracker {
         const modal = document.getElementById('mobile-modal');
         if (modal) {
             modal.classList.remove('active');
-            // Clear modal content to prevent frozen states
-            const message = document.getElementById('modal-message');
-            const choices = document.getElementById('modal-choices');
-            if (message) message.textContent = '';
-            if (choices) choices.innerHTML = '';
+            // Don't clear content immediately - let it fade out first
+            setTimeout(() => {
+                const message = document.getElementById('modal-message');
+                const choices = document.getElementById('modal-choices');
+                if (message) message.textContent = '';
+                if (choices) choices.innerHTML = '';
+            }, 300);
         }
         document.body.style.overflow = '';
     }
@@ -461,6 +471,11 @@ class MobileTerraTracker {
         // Update navigation
         document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
         document.querySelector(`[data-section="${section}"]`).classList.add('active');
+        
+        // If switching to investigation and game is in progress, show current modal
+        if (section === 'investigation' && this.currentGameState !== 'intro') {
+            this.showCurrentModal();
+        }
     }
 
     toggleVolumeControl() {
@@ -483,6 +498,76 @@ class MobileTerraTracker {
             volumeBtn.textContent = '🔉';
         } else {
             volumeBtn.textContent = '🔊';
+        }
+    }
+
+    updateResumeButton() {
+        const resumeBtn = document.getElementById('resume-investigation');
+        if (resumeBtn) {
+            // Show resume button if game is in progress (not intro or complete)
+            const shouldShow = this.currentGameState !== 'intro' && this.currentGameState !== 'mission_complete';
+            resumeBtn.style.display = shouldShow ? 'block' : 'none';
+        }
+    }
+
+    showCurrentModal() {
+        // Show the appropriate modal based on current game state
+        switch (this.currentGameState) {
+            case 'clue_selection':
+                this.showClueSelection();
+                break;
+            case 'modis_analysis':
+                this.showModal({
+                    message: "Perfect! Now examine the MODIS data. What does this show about forest health?",
+                    choices: [
+                        { text: "The forest is recovering", action: () => this.showFeedback("The NDVI values are actually decreasing over time. Higher values indicate healthier vegetation, so the declining trend shows vegetation loss.") },
+                        { text: "The forest is losing vegetation", action: () => this.startASTERAnalysis() },
+                        { text: "The data is inconclusive", action: () => this.showFeedback("The NDVI trend is actually quite clear - decreasing values consistently indicate vegetation loss. The pattern shows a steady decline.") }
+                    ]
+                });
+                break;
+            case 'aster_analysis':
+                this.showModal({
+                    message: "Now examine the ASTER imagery to see the before/after comparison. Look at the clearing patterns. What do you observe?",
+                    choices: [
+                        { text: "Natural forest fires", action: () => this.showFeedback("The clearing patterns are very geometric and systematic - this suggests human activity rather than natural fire spread, which typically follows more organic, irregular boundaries.") },
+                        { text: "Systematic deforestation", action: () => this.startMISRAnalysis() },
+                        { text: "Seasonal changes", action: () => this.showFeedback("The ASTER imagery shows permanent, structural changes to the landscape rather than temporary seasonal variations. The patterns indicate long-term, systematic alteration of the forest structure.") }
+                    ]
+                });
+                break;
+            case 'misr_analysis':
+                this.showModal({
+                    message: "Now examine the MISR data to see the aerosol visualization. Look at the smoke plume patterns. What does this tell us about the consequences?",
+                    choices: [
+                        { text: "No significant impact", action: () => this.showFeedback("The MISR data shows massive aerosol plumes that extend far beyond the immediate deforestation area. These plumes represent significant air quality degradation that affects thousands of people in surrounding communities.") },
+                        { text: "Major air quality impact on communities", action: () => this.showVerdict() },
+                        { text: "Only local effects", action: () => this.showFeedback("Aerosol plumes from deforestation can travel hundreds of kilometers downwind, affecting air quality in many communities far from the original source. The MISR data shows these widespread atmospheric effects.") }
+                    ]
+                });
+                break;
+            case 'verdict':
+                this.showModal({
+                    message: "Excellent work! You've examined all the data - MODIS vegetation trends, ASTER imagery, and MISR aerosol patterns. Based on this evidence, what's your verdict on the cause?",
+                    choices: [
+                        { text: "Natural climate change", action: () => this.showFeedback("The evidence shows systematic, geometric patterns of deforestation that are characteristic of human activity rather than natural climate-driven changes. The systematic nature of the clearing suggests deliberate human intervention.") },
+                        { text: "Human-caused deforestation and fires", action: () => this.showMissionComplete() },
+                        { text: "Unknown causes", action: () => this.showFeedback("The evidence tells a clear story: the systematic patterns in ASTER imagery, combined with the NDVI decline in MODIS data and the aerosol plumes in MISR data, all point to human-caused deforestation with significant environmental consequences.") }
+                    ]
+                });
+                break;
+            case 'mission_complete':
+                this.showMissionComplete();
+                break;
+            default:
+                // If no specific state, show the intro modal
+                this.showModal({
+                    message: "Welcome, Earth Detective! I'm Commander Terra. We've detected unusual activity in the Amazon Basin. Ready to investigate?",
+                    choices: [
+                        { text: "Yes, let's investigate!", action: () => this.showClueSelection() },
+                        { text: "I need more information first", action: () => this.showFeedback("Time is critical in environmental investigations. Let's start with what we have and build from there.") }
+                    ]
+                });
         }
     }
 }
