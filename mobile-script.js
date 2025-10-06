@@ -58,6 +58,9 @@ class MobileTerraTracker {
         // Volume
         document.getElementById('volume-btn').addEventListener('click', () => this.toggleVolumeControl());
         document.getElementById('volume-slider').addEventListener('input', (e) => this.setVolume(e.target.value));
+
+        // Floating Astronaut
+        document.getElementById('floating-astronaut').addEventListener('click', () => this.showCurrentModal());
     }
 
     initializeAudio() {
@@ -388,6 +391,9 @@ class MobileTerraTracker {
             modal.classList.add('active');
             document.body.style.overflow = 'hidden';
             
+            // Hide floating astronaut when modal is open
+            this.hideFloatingAstronaut();
+            
             // Safety timeout to prevent frozen modals
             this.modalTimeout = setTimeout(() => {
                 console.log('Modal safety timeout triggered');
@@ -415,6 +421,13 @@ class MobileTerraTracker {
             }, 300);
         }
         document.body.style.overflow = '';
+        
+        // Show floating astronaut when modal is closed (if game is in progress)
+        if (this.currentGameState !== 'intro' && this.currentGameState !== 'mission_complete') {
+            setTimeout(() => {
+                this.showFloatingAstronaut();
+            }, 500);
+        }
     }
 
     showFeedback(message) {
@@ -507,6 +520,27 @@ class MobileTerraTracker {
             // Show resume button if game is in progress (not intro or complete)
             const shouldShow = this.currentGameState !== 'intro' && this.currentGameState !== 'mission_complete';
             resumeBtn.style.display = shouldShow ? 'block' : 'none';
+        }
+        
+        // Also update floating astronaut visibility
+        if (this.currentGameState !== 'intro' && this.currentGameState !== 'mission_complete') {
+            this.showFloatingAstronaut();
+        } else {
+            this.hideFloatingAstronaut();
+        }
+    }
+
+    showFloatingAstronaut() {
+        const astronaut = document.getElementById('floating-astronaut');
+        if (astronaut) {
+            astronaut.style.display = 'block';
+        }
+    }
+
+    hideFloatingAstronaut() {
+        const astronaut = document.getElementById('floating-astronaut');
+        if (astronaut) {
+            astronaut.style.display = 'none';
         }
     }
 

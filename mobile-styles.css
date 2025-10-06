@@ -600,6 +600,77 @@ body {
     gap: 15px;
 }
 
+/* Floating Astronaut */
+.floating-astronaut {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1500;
+    cursor: pointer;
+    animation: float 3s ease-in-out infinite;
+    transition: all 0.3s ease;
+}
+
+.floating-astronaut:hover {
+    transform: scale(1.1);
+}
+
+.floating-astronaut-img {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: 3px solid var(--secondary-color);
+    box-shadow: 0 0 20px rgba(57, 255, 20, 0.8);
+    transition: all 0.3s ease;
+}
+
+.floating-astronaut:hover .floating-astronaut-img {
+    box-shadow: 0 0 30px rgba(57, 255, 20, 1);
+}
+
+.astronaut-tooltip {
+    position: absolute;
+    bottom: 70px;
+    right: 0;
+    background: rgba(0, 0, 0, 0.9);
+    color: var(--secondary-color);
+    padding: 8px 12px;
+    border-radius: 8px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    white-space: nowrap;
+    border: 1px solid var(--secondary-color);
+    box-shadow: 0 0 15px rgba(57, 255, 20, 0.6);
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.3s ease;
+    pointer-events: none;
+}
+
+.floating-astronaut:hover .astronaut-tooltip {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Responsive positioning for smaller screens */
+@media (max-width: 480px) {
+    .floating-astronaut {
+        bottom: 15px;
+        right: 15px;
+    }
+    
+    .floating-astronaut-img {
+        width: 50px;
+        height: 50px;
+    }
+    
+    .astronaut-tooltip {
+        bottom: 60px;
+        font-size: 0.75rem;
+        padding: 6px 10px;
+    }
+}
+
 .action-btn {
     background: transparent;
     border: 2px solid var(--secondary-color);
