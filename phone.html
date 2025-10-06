@@ -308,7 +308,7 @@
             <button class="btn" onclick="showModal('Excellent work! You have completed the investigation. What is your verdict?', [
                 {text: 'Human-caused deforestation', action: () => showModal(\'🎉 Correct! You successfully identified human-caused deforestation in the Amazon Basin. This investigation revealed systematic destruction of forest ecosystems affecting over 500,000 people.\', [
                     {text: \'Learn What This Means & How to Take Action\', action: () => showSolutions()},
-                    {text: \'Meet the Team\', action: () => showSection(\'team\')}
+                    {text: \'Meet Team Behind Web Development\', action: () => showSection(\'team\')}
                 ])},
                 {text: 'Natural causes', action: () => showAlert(\'Incorrect. The evidence shows systematic, geometric patterns characteristic of human activity.\')},
                 {text: 'Unknown causes', action: () => showAlert(\'The evidence tells a clear story: systematic patterns in ASTER imagery, NDVI decline in MODIS data, and aerosol plumes in MISR data all point to human-caused deforestation.\')}
@@ -317,9 +317,30 @@
 
         <!-- Team Section -->
         <div id="team" class="section">
-            <h2>👥 MEET THE TEAM</h2>
-            <p>This investigation was made possible by our amazing team of Earth scientists and developers.</p>
-            <p>Thank you for helping protect our planet!</p>
+            <h2>👥 MEET THE WEB DEVELOPMENT TEAM</h2>
+            <p>This investigation was made possible by our amazing team of web developers and Earth science enthusiasts.</p>
+            
+            <div style="margin: 20px 0; padding: 15px; background: #111; border-radius: 10px; border: 2px solid #39ff14;">
+                <h3>🌍 Team Members</h3>
+                <div style="margin: 15px 0;">
+                    <h4>👨‍💻 Lead Developer</h4>
+                    <p>Specialized in mobile-first web development and user experience design. Created the interactive satellite data visualizations and game mechanics.</p>
+                </div>
+                <div style="margin: 15px 0;">
+                    <h4>🎨 UI/UX Designer</h4>
+                    <p>Focused on creating an engaging, educational interface that makes complex satellite data accessible to everyone.</p>
+                </div>
+                <div style="margin: 15px 0;">
+                    <h4>🛰️ Earth Science Consultant</h4>
+                    <p>Provided expertise on NASA satellite data, deforestation patterns, and environmental monitoring techniques.</p>
+                </div>
+                <div style="margin: 15px 0;">
+                    <h4>📱 Mobile Developer</h4>
+                    <p>Optimized the application for mobile devices, ensuring smooth performance on phones and tablets.</p>
+                </div>
+            </div>
+            
+            <p style="margin: 20px 0; font-style: italic;">Thank you for helping protect our planet through technology!</p>
             <button class="btn" onclick="showNasaInfo()">🌍 Learn About NASA</button>
             <button class="btn btn-secondary" onclick="showSection('home')">🏠 Back to Home</button>
         </div>
@@ -423,20 +444,20 @@
             updateProgress();
             showModal('🎉 Outstanding work, Detective! You\'ve successfully identified human-caused deforestation in the Amazon Basin. Your investigation revealed systematic destruction of forest ecosystems and its impact on air quality for over 500,000 people.', [
                 {text: 'Learn What This Means & How to Take Action', action: () => showSolutions()},
-                {text: 'Meet the Team Behind This Investigation', action: () => {closeModal(); showSection('team');}}
+                {text: 'Meet Team Behind Web Development', action: () => {closeModal(); showSection('team');}}
             ]);
         }
 
         function showSolutions() {
             showModal('🌍 What This Means: Your investigation revealed systematic deforestation affecting over 500,000 people. This isn\'t just about trees - it\'s accelerating climate change, destroying biodiversity, and threatening human health.\n\n🚀 How to Take Action: Support sustainable agriculture and reforestation projects, advocate for stronger environmental policies, reduce your carbon footprint, educate others about deforestation impacts, and support organizations fighting deforestation. Every action counts in protecting our planet!', [
                 {text: 'View Mission Summary', action: () => showMissionSummary()},
-                {text: 'Meet the Team Behind This Investigation', action: () => {closeModal(); showSection('team');}}
+                {text: 'Meet Team Behind Web Development', action: () => {closeModal(); showSection('team');}}
             ]);
         }
 
         function showMissionSummary() {
             showModal('🎯 Mission Summary: You successfully identified human-caused deforestation in the Amazon Basin using NASA satellite data. Your investigation revealed a 15% NDVI decline from MODIS data, clear before/after deforestation patterns in ASTER imagery, and aerosol plumes affecting 500,000+ people from MISR data. This demonstrates the power of satellite data in environmental monitoring.', [
-                {text: 'Meet the Team Behind This Investigation', action: () => {closeModal(); showSection('team');}},
+                {text: 'Meet Team Behind Web Development', action: () => {closeModal(); showSection('team');}},
                 {text: 'Learn More About NASA\'s Earth Science', action: () => showNasaInfo()}
             ]);
         }
@@ -444,7 +465,7 @@
         function showNasaInfo() {
             showModal('🌍 NASA\'s Earth Science Division uses satellite data to monitor our planet\'s health. Your investigation skills mirror those of real NASA scientists!\n\n🛰️ Where to Find NASA Data: Access the NASA Earth Data Portal (earthdata.nasa.gov), MODIS data (modis.gsfc.nasa.gov), ASTER data (asterweb.jpl.nasa.gov), MISR data (misr.jpl.nasa.gov), and real-time Earth observations (worldview.earthdata.nasa.gov). These tools are used by scientists worldwide!', [
                 {text: 'Back to Main Menu', action: () => {closeModal(); showSection('home');}},
-                {text: 'Meet the Team', action: () => {closeModal(); showSection('team');}}
+                {text: 'Meet Team Behind Web Development', action: () => {closeModal(); showSection('team');}}
             ]);
         }
 
